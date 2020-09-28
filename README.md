@@ -1,2 +1,17 @@
 # Hotel_metasearch_ui
 Front-end of hotel metasearch project of DevC Course
+
+# All you need to set up running this app with development
+
+Node required(v12.x recommended), Download At : https://nodejs.org/en/download/
+
+run install init Repo's package
+# npm install
+or
+# yarn install
+
+after that remain steps is
+
+# npm start
+or
+# yarn start
