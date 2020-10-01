@@ -5,7 +5,7 @@ const MainAccount = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text>Hello main account</Text>
+        <Text>Main content</Text>
       </View>
     </SafeAreaView>
   );
