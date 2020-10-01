@@ -15,3 +15,8 @@ after that remain steps is
 ### npm start
 or
 ### yarn start
+
+
+## FRONTEND DEVELOPER ATTENTION
+For developer who need to get attention add new lib with command 
+expo install [package-name ...] 
