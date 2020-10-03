@@ -45,13 +45,13 @@ export default function Login() {
     <SafeAreaView style={styles.container}>
       <Image
         source={require("../../assets/travel/image-travel-2.jpg")}
-        style={styles.backgroundVideo}
+        style={styles.backgroundImage}
       />
       <StatusBar style="light" />
       <View style={styles.headerContainer}>
         <TripIcon color="white" />
         <View style={styles.bigTitle}>
-          <Text style={styles.primary}>Cùng đi khắp thế gian, </Text>
+          <Text style={styles.primary}>Cùng đi khắp thế gian,</Text>
           <Text style={styles.primary}>Biết rằng không hề dễ dàng</Text>
           <Text style={styles.primary}>Rồi mọi chuyện sẽ ổn thôi</Text>
         </View>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
   },
-  backgroundVideo: {
+  backgroundImage: {
     flex: 1,
     position: "absolute",
     resizeMode: "cover",
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   bigTitle: {
-    paddingTop: "20%",
+    paddingTop: "8%",
   },
   primary: {
     color: "white",
