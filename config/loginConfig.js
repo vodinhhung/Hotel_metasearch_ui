@@ -1,10 +1,8 @@
+import * as AppAuth from 'expo-app-auth';
 export const googleLoginConfig = {
-  clientId: '942559879619-uf0u6md7rkugseoq4csgedsu82osndn0.apps.googleusercontent.com',
-  // iosClientId: `<YOUR_IOS_CLIENT_ID_FOR_EXPO>`,
-  // androidClientId: `<YOUR_ANDROID_CLIENT_ID_FOR_EXPO>`,
-  // iosStandaloneAppClientId: `<YOUR_IOS_CLIENT_ID>`,
-  // androidStandaloneAppClientId: `<YOUR_ANDROID_CLIENT_ID>`,
-};
-export const facebookLoginConfig = {
-  appId: "2649238258738835",
+  iosClientId: `942559879619-8ok9ub6r8fldfh8vahtndrm270gia59q.apps.googleusercontent.com`,
+  androidClientId: `942559879619-ptdpaujllfc8aqcns2p19l5s8rkge9cq.apps.googleusercontent.com`,
+  iosStandaloneAppClientId: `942559879619-8ok9ub6r8fldfh8vahtndrm270gia59q.apps.googleusercontent.com`,
+  androidStandaloneAppClientId: `942559879619-ptdpaujllfc8aqcns2p19l5s8rkge9cq.apps.googleusercontent.com`,
+  redirectUrl: `${AppAuth.OAuthRedirect}:/oauth2redirect/google` // this is the LINE
 };
