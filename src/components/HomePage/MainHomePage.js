@@ -8,6 +8,9 @@ const MainHomePage = () => {
       <View style={styles.headerContainer}>
         <Search />
       </View>
+      <View style={styles.bodyContainer}>
+        <Text>Main Body</Text>
+      </View>
     </View>
   );
 };
@@ -18,9 +21,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   headerContainer: {
-    flex: 1,
+    height: 80,
     flexDirection: "row",
   },
+  bodyContainer: {
+    flex: 1
+  }
 });
 
 export default MainHomePage;

@@ -1,0 +1,16 @@
+import React from "react";
+import { StyleSheet, View, Text, Image } from "react-native";
+import { getScaleSizeOfImage } from "../../../lib/utils/image-size-resolver";
+const images = {
+  tripILogo: require("../../../assets/icons/tripi-logo.png"),
+};
+const TripIcon = () => {
+  return <Image style={styles.imageStyle} source={images.tripILogo} />;
+};
+const styles = StyleSheet.create({
+    imageStyle: {
+      ...getScaleSizeOfImage(images.tripILogo,75)
+    },
+});
+
+export default TripIcon;
