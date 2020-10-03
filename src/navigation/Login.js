@@ -45,7 +45,7 @@ export default function Login() {
     <SafeAreaView style={styles.container}>
       <Image
         source={require("../../assets/travel/image-travel-2.jpg")}
-        style={styles.backgroundImage}
+        style={[styles.backgroundImage,{opacity: 0.7}]}
       />
       <StatusBar style="light" />
       <View style={styles.headerContainer}>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#e9ebee",
+    backgroundColor: "#000",
     flexDirection: "column",
   },
   bodyContainer: {
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   primary: {
     color: "white",
-    fontSize: 23,
-    fontWeight: "800",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
