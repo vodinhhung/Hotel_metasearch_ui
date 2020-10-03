@@ -1,24 +1,13 @@
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import {
-  StyleSheet,
-  View,
-  ImageBackground,
-  Dimensions,
-  Text,
-  Image,
-} from "react-native";
+import { StyleSheet, View, TextInput } from "react-native";
+import TripIcon from "../../Commom/TripIcon";
 
-const images = {
-  tripILogo: require("../../../../assets/icons/tripi-logo.png"),
-};
 const Search = ({ navigation, route }) => {
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Image style={styles.tinyLogo} source={images.tripILogo} />
-      </View>
+    <SafeAreaView style={styles.container}>
+      <TripIcon />
     </SafeAreaView>
   );
 };
