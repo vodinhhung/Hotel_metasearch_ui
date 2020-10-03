@@ -16,11 +16,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "facebookAutoInitEnabled": true,
+    "facebookScheme": "fb2649238258738835",
+    "facebookAppId": "2649238258738835",
+    "facebookDisplayName": "chat-plug-in"
   }
 }
