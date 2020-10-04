@@ -10,10 +10,9 @@ import {
   FlatList,
   TextInput,
 } from "react-native";
-
 import { Feather } from "@expo/vector-icons";
 import { color } from "react-native-reanimated";
-
+import { StatusBar } from "expo-status-bar";
 const MainHomePage = ({ navigation }) => {
   const image = {
     uri:
@@ -70,6 +69,7 @@ const MainHomePage = ({ navigation }) => {
 
   return (
     <View style={{ flexGrow: 1, height: "100%" }}>
+      <StatusBar style="light" />
       <View>
         <ImageBackground
           source={image}

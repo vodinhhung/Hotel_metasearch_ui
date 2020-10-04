@@ -45,7 +45,7 @@ export default function Login() {
     <SafeAreaView style={styles.container}>
       <Image
         source={require("../../assets/travel/image-travel-2.jpg")}
-        style={[styles.backgroundImage,{opacity: 0.7}]}
+        style={[styles.backgroundImage, { opacity: 0.7 }]}
       />
       <StatusBar style="light" />
       <View style={styles.headerContainer}>
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   bigTitle: {
+    paddingHorizontal: 20,
     paddingTop: "8%",
   },
   primary: {
