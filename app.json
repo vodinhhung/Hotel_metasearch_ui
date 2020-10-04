@@ -16,11 +16,35 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
+    "facebookAutoInitEnabled": true,
+    "facebookScheme": "fb2649238258738835",
+    "facebookAppId": "2649238258738835",
+    "facebookDisplayName": "chat-plug-in",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "android": {
+      "package": "host.exp.exponent",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyBmGbX-9pUz7vPjWG8UE5XUxVU24O3VeN4",
+          "certificateHash": "475C47C2AD9312C55F64C9C36AC6C77FF5FB14D8"
+        }
+      }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "host.exp.exponent",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "942559879619-8ok9ub6r8fldfh8vahtndrm270gia59q.apps.googleusercontent.com"
+        }
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets."
+      }
     }
   }
 }
