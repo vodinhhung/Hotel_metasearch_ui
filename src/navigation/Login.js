@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-import { Video } from "expo-av";
 import { useNavigation } from "@react-navigation/native";
 
 import { FontAwesome } from "@expo/vector-icons";

@@ -3,6 +3,8 @@ import React from "react";
 import HomePage from "./src/navigation/HomePage";
 import LoginFollow from "./src/navigation/Login";
 import Account from "./src/navigation/Account";
+import { Provider } from "react-redux";
+import { store } from "./src/redux/store/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -26,21 +28,22 @@ const screenOptionsRender = ({ route }) => ({
 
 function AppFollow() {
   return (
-    <Tab.Navigator
-      screenOptions={screenOptionsRender}
-      tabBarOptions={{
-        activeTintColor: "#358c63",
-        inactiveTintColor: "gray",
-      }}
-    >
-      <Tab.Screen name="Home" component={HomePage} />
-      {/* <Tab.Screen name="Like" component={Like} /> */}
-      <Tab.Screen name="Account" component={Account} />
-    </Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={screenOptionsRender}
+        tabBarOptions={{
+          activeTintColor: "#358c63",
+          inactiveTintColor: "gray",
+        }}
+      >
+        <Tab.Screen name="Home" component={HomePage} />
+        {/* <Tab.Screen name="Like" component={Like} /> */}
+        <Tab.Screen name="Account" component={Account} />
+      </Tab.Navigator>
   );
 }
 export default function App() {
   return (
+    <Provider store={store}>
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
@@ -49,5 +52,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
+    </Provider>
   );
 }
