@@ -3,7 +3,7 @@ const initialState = {
   counter: 0,
 };
 // Redux: Counter Reducer
-const counterReducer = (state = initialState, action) => {
+const hotelSearchingReducer = (state = initialState, action) => {
   switch (action.type) {
     case "INCREASE_COUNTER_ASYNC": {
       return {
@@ -23,4 +23,4 @@ const counterReducer = (state = initialState, action) => {
   }
 };
 // Exports
-export default counterReducer;
+export default hotelSearchingReducer;

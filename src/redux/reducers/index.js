@@ -1,10 +1,14 @@
 // Imports: Dependencies
 import { combineReducers } from "redux";
 // Imports: Reducers
-import counterReducer from "./counterReducer";
+import hotelDetailReducer from "./hotelDetailReducer";
+import hotelSearchingReducer from "./hotelSearchingReducer";
 // Redux: Root Reducer
 const rootReducer = combineReducers({
-  counter: counterReducer,
+  hotelDetail: hotelDetailReducer,
+  hotelSearching: hotelSearchingReducer,
+  
+  
 });
 // Exports
 export default rootReducer;
