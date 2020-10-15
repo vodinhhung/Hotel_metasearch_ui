@@ -17,7 +17,7 @@ import {
   facebookLogInResolver,
   googleLoginResolver,
 } from "../../lib/utils/login-middleware";
-import TripIcon from "../components/Commom/TripIcon";
+import TripIcon from "../components/Common/TripIcon";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login() {
