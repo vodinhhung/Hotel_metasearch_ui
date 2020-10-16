@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   titleFilter: {
+    paddingLeft: 10,
     textDecorationColor: "#ddd",
     textDecorationLine: "underline",
   },

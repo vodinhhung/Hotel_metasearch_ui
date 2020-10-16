@@ -1,9 +1,11 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-const TalkBubble = () => {
+import { StyleSheet, View, Text } from "react-native";
+const Rating = () => {
   return (
     <View style={styles.talkBubble}>
-      <View style={styles.talkBubbleSquare} />
+      <View style={styles.talkBubbleSquare}>
+        <Text style={{ color: "white", marginLeft:4, fontWeight: "500" }}>3.8</Text>
+      </View>
       <View style={styles.talkBubbleTriangle} />
     </View>
   );
@@ -21,7 +23,7 @@ const styles = StyleSheet.create({
   talkBubbleTriangle: {
     position: "absolute",
     left: -6,
-    top: 5,
+    top: 1,
     width: 0,
     height: 0,
     borderTopColor: "transparent",
@@ -32,4 +34,4 @@ const styles = StyleSheet.create({
     borderBottomColor: "transparent",
   },
 });
-export default TalkBubble;
+export default Rating;

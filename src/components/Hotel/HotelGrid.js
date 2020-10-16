@@ -5,7 +5,7 @@ import { StyleSheet, View, Image, TouchableHighlight } from "react-native";
 import { Text } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import HotelService from "./HotelService";
-import TalkBubble from "../Common/TalkBubble";
+import Rating from "../Common/TalkBubble";
 
 const HotelGrid = ({ navigation, route }) => {
   const [widthListImage, setWidthListImage] = useState(0);
@@ -40,7 +40,7 @@ const HotelGrid = ({ navigation, route }) => {
       >
         <View style={styles.cardBody}>
           <View style={styles.ratingStyle}>
-            <TalkBubble />
+            <Rating />
           </View>
           <Image
             style={{
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   ratingStyle: {
+    right:0,
     zIndex: 1,
     position: "absolute",
   },
