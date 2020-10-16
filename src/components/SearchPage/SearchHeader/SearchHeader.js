@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   titleFilter: {
     paddingLeft: 10,
-    textDecorationColor: "#ddd",
+    textDecorationColor: "#666",
     textDecorationLine: "underline",
   },
 });

@@ -4,11 +4,13 @@ import { Card, ListItem, Button, Icon } from "react-native-elements";
 import { StyleSheet, View, Image, TouchableHighlight } from "react-native";
 import { Text } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
 import HotelService from "./HotelService";
 import Rating from "../Common/TalkBubble";
 
-const HotelGrid = ({ navigation, route }) => {
+const HotelGrid = () => {
   const [widthListImage, setWidthListImage] = useState(0);
+  const navigation = useNavigation();
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [item, setItem] = useState({
     image: {
@@ -35,7 +37,7 @@ const HotelGrid = ({ navigation, route }) => {
         }}
         underlayColor="#ffffff00"
         onPress={() => {
-          // navigation.navigate("Detail", { image: item.image });
+          navigation.navigate("HotelDetailPage", { image: item.image });
         }}
       >
         <View style={styles.cardBody}>
