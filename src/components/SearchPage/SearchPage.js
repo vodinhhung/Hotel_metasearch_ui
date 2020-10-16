@@ -6,25 +6,25 @@ import SearchHeader from "./SearchHeader/SearchHeader";
 import SearchBody from "./SearchBody/SearchBody";
 const SearchPage = ({ navigation, route }) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.searchHeader}>
         <SearchHeader />
       </View>
       <View style={styles.searchBody}>
         <SearchBody />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    marginHorizontal: 4,
     flex: 1,
     flexDirection: "column",
   },
   searchHeader: {
-    height: 150,
-    flexDirection: "row",
+    height: 100,
   },
   searchBody: {
     flex: 1,

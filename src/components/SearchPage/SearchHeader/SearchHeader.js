@@ -1,50 +1,68 @@
 import React, { useState } from "react";
 
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Input, Text } from "react-native-elements";
+
 import { MaterialIcons } from "@expo/vector-icons";
 import TripIconSmall from "../../Common/TripIconSmall";
 
 const SearchHeader = ({ navigation, route }) => {
   return (
-    <View style={styles.container}>
-      <MaterialIcons
-        style={styles.backIcon}
-        name="arrow-back"
-        size={24}
-        color="gray"
-      />
-      <TextInput
-        style={[styles.input, { height: 40 }]}
-        onChangeText={(text) => onChangeText(text)}
-        // value={value}
-      />
-      <View style={styles.logoIcon}>
-        <TripIconSmall />
+    <View style={styles.headerWrapper}>
+      <View style={styles.container}>
+        <MaterialIcons
+          style={styles.backIcon}
+          name="arrow-back"
+          size={32}
+          color="gray"
+        />
+        <View style={[styles.input, { height: 40 }]}>
+          <Input
+            onChangeText={(text) => {}}
+            // value={value}
+          />
+        </View>
+        <View style={styles.logoIcon}>
+          <TripIconSmall />
+        </View>
+      </View>
+      <View style={[styles.container, styles.filterContainer]}>
+        <Text style={styles.titleFilter}>Some more filter</Text>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  headerWrapper: {
+    justifyContent: "flex-start",
+    flex: 1,
+    flexDirection: "column",
+    marginHorizontal: 4,
+  },
   container: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    // height: 20
   },
   backIcon: {
+    flexDirection: "row",
+    alignItems: "center",
     flex: 2,
-    paddingLeft: 10,
   },
   input: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#CCC",
-    borderColor: "yellow",
-    flex: 10,
+    flex: 15,
+    alignItems: "center",
   },
   logoIcon: {
     justifyContent: "center",
     flexDirection: "row",
     flex: 3,
+  },
+  titleFilter: {
+    textDecorationColor: "#ddd",
+    textDecorationLine: "underline",
   },
 });
 

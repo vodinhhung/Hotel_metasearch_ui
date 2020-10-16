@@ -8,8 +8,9 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
-  TextInput,
 } from "react-native";
+import { Input } from "react-native-elements";
+
 import { Feather } from "@expo/vector-icons";
 import { color } from "react-native-reanimated";
 import { StatusBar } from "expo-status-bar";
@@ -84,11 +85,11 @@ const MainHomePage = ({ navigation, route }) => {
             </Text>
           </View>
           <View>
-            <TextInput
+            <Input
               style={styles.searchBox}
               placeholder="Search Destination"
               placeholderTextColor="#666"
-            ></TextInput>
+            ></Input>
             <TouchableHighlight
               activeOpacity={0.6}
               underlayColor="#DDDDDD"
