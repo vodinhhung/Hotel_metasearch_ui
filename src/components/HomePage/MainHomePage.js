@@ -9,14 +9,15 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  TextInput,
 } from "react-native";
-import { Input } from "react-native-elements";
-
+import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { color } from "react-native-reanimated";
 import { StatusBar } from "expo-status-bar";
 import { TouchableHighlight } from "react-native-gesture-handler";
-const MainHomePage = ({ navigation, route }) => {
+const MainHomePage = () => {
+  const navigation = useNavigation();
   const image = {
     uri:
       "https://images.pexels.com/photos/258196/pexels-photo-258196.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
@@ -66,8 +67,8 @@ const MainHomePage = ({ navigation, route }) => {
     },
   ]);
 
-  const goToPost = () => {
-    navigation.navigate("Post");
+  const goToSearch = () => {
+    navigation.navigate("SearchPage");
   };
 
   return (
@@ -86,28 +87,26 @@ const MainHomePage = ({ navigation, route }) => {
             </Text>
           </View>
           <View>
-            <Input
+            <TextInput
               style={styles.searchBox}
               placeholder="Search Destination"
               placeholderTextColor="#666"
-            ></Input>
-            <TouchableHighlight
-              activeOpacity={0.6}
-              underlayColor="#DDDDDD"
-              onPress={() => alert("Pressed!")}
-            >
-              <Feather
-                name="search"
-                size={22}
-                color="#666"
-                style={{
-                  position: "absolute",
-                  top: 24,
-                  right: 60,
-                  opacity: 0.6,
-                }}
-              />
-            </TouchableHighlight>
+            ></TextInput>
+            <Feather
+              onPress={() => {
+                // console.log();
+                navigation.navigate("SearchPage");
+              }}
+              name="search"
+              size={22}
+              color="#666"
+              style={{
+                position: "absolute",
+                top: 24,
+                right: 60,
+                opacity: 0.6,
+              }}
+            />
           </View>
 
           <Image
@@ -129,7 +128,7 @@ const MainHomePage = ({ navigation, route }) => {
             renderItem={({ item }) => {
               return (
                 <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
-                  <TouchableOpacity onPress={goToPost}>
+                  <TouchableOpacity onPress={goToSearch}>
                     <Image
                       source={item.image}
                       style={{

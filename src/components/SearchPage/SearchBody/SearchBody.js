@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-
 import { StyleSheet, View, TextInput } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import HotelGrid from "../../Hotel/HotelGrid";
-import TripIcon from "../../Common/TripIcon";
-import TripIconSmall from "../../Common/TripIconSmall";
 import { ScrollView } from "react-native-gesture-handler";
 
-const SearchBody = ({ navigation, route }) => {
+const SearchBody = () => {
   return (
     <ScrollView>
       <View style={styles.container}>

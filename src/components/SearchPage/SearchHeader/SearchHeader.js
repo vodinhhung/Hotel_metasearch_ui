@@ -5,17 +5,24 @@ import { Input, Text } from "react-native-elements";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import TripIconSmall from "../../Common/TripIconSmall";
+import { useNavigation } from "@react-navigation/native";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
-const SearchHeader = ({ navigation, route }) => {
+const SearchHeader = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.headerWrapper}>
       <View style={styles.container}>
-        <MaterialIcons
-          style={styles.backIcon}
-          name="arrow-back"
-          size={32}
-          color="gray"
-        />
+        <View style={styles.backIcon}>
+          <TouchableHighlight
+            underlayColor="#DDDDDD"
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <MaterialIcons name="arrow-back" size={24} color="#666" />
+          </TouchableHighlight>
+        </View>
         <View style={[styles.input, { height: 40 }]}>
           <Input
             onChangeText={(text) => {}}
@@ -47,6 +54,7 @@ const styles = StyleSheet.create({
     // height: 20
   },
   backIcon: {
+    justifyContent:"center",
     flexDirection: "row",
     alignItems: "center",
     flex: 2,
@@ -62,7 +70,7 @@ const styles = StyleSheet.create({
   },
   titleFilter: {
     paddingLeft: 10,
-    textDecorationColor: "#ddd",
+    textDecorationColor: "#666",
     textDecorationLine: "underline",
   },
 });
