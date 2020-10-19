@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -13,7 +14,7 @@ import {
 import { Feather } from "@expo/vector-icons";
 import { color } from "react-native-reanimated";
 import { StatusBar } from "expo-status-bar";
-const MainHomePage = ({ navigation }) => {
+const MainHomePage = ({ navigation}) => {
   const image = {
     uri:
       "https://images.pexels.com/photos/258196/pexels-photo-258196.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
@@ -278,4 +279,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainHomePage;
+function mapStateToProps(state) {
+  return {};
+}
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MainHomePage);
