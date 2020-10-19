@@ -21,7 +21,6 @@ const HotelGrid = () => {
     key: "1",
   });
 
-  console.log(imageSize);
   return (
     <Card containerStyle={styles.cardStyle}>
       {/* <Card.Title>CARD WITH DIVIDER</Card.Title>

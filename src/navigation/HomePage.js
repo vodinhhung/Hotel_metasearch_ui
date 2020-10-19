@@ -12,7 +12,7 @@ const HomePage = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="SearchPage"
+      initialRouteName="MainHomePage"
     >
       <Stack.Screen name="MainHomePage" component={MainHomePage} />
       <Stack.Screen name="SearchPage" component={SearchPage} />

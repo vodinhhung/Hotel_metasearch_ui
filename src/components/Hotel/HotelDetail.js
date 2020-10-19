@@ -14,10 +14,12 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 
 import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
 
-const HotelDetail = ({ navigation, route }) => {
+const HotelDetail = ({route}) => {
+  const navigation = useNavigation();
   const [item, setItem] = useState({
     image: {
       uri:
@@ -51,7 +53,7 @@ const HotelDetail = ({ navigation, route }) => {
                   activeOpacity={0.6}
                   underlayColor="#ffffff00"
                   onPress={() => {
-                    navigation.navigate("SearchPage");
+                    navigation.goBack();
                   }}
                 >
                   <MaterialIcons name="arrow-back" size={24} color="#666" />

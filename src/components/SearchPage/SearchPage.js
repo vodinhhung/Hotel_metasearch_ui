@@ -4,9 +4,11 @@ import Search from "./Search";
 import { StyleSheet, View, TextInput } from "react-native";
 import SearchHeader from "./SearchHeader/SearchHeader";
 import SearchBody from "./SearchBody/SearchBody";
+import { StatusBar } from "expo-status-bar";
 const SearchPage = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar style="dark" />
       <View style={styles.searchHeader}>
         <SearchHeader />
       </View>
@@ -22,6 +24,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     flex: 1,
     flexDirection: "column",
+    backgroundColor: "white"
   },
   searchHeader: {
     height: 100,
