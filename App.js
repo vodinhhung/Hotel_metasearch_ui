@@ -28,30 +28,29 @@ const screenOptionsRender = ({ route }) => ({
 
 function AppFollow() {
   return (
-      <Tab.Navigator
-        screenOptions={screenOptionsRender}
-        tabBarOptions={{
-          activeTintColor: "#358c63",
-          inactiveTintColor: "gray",
-        }}
-      >
-        <Tab.Screen name="Home" component={HomePage} />
-        {/* <Tab.Screen name="Like" component={Like} /> */}
-        <Tab.Screen name="Account" component={Account} />
-      </Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={screenOptionsRender}
+      tabBarOptions={{
+        activeTintColor: "#358c63",
+        inactiveTintColor: "gray",
+      }}
+    >
+      <Tab.Screen name="Home" component={HomePage} />
+      <Tab.Screen name="Account" component={Account} />
+    </Tab.Navigator>
   );
 }
 export default function App() {
   return (
     <Provider store={store}>
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator headerMode="none">
-          <Stack.Screen name="App" component={AppFollow} />
-          <Stack.Screen name="Login" component={LoginFollow} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator headerMode="none">
+            <Stack.Screen name="App" component={AppFollow} />
+            <Stack.Screen name="Login" component={LoginFollow} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </Provider>
   );
 }

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import Constants from 'expo-constants';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Search from "./Search";
 import { StyleSheet, View, TextInput } from "react-native";
 import SearchHeader from "./SearchHeader/SearchHeader";
 import SearchBody from "./SearchBody/SearchBody";
 import { StatusBar } from "expo-status-bar";
-const SearchPage = ({ navigation, route }) => {
+const SearchPage = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar style="dark" />
       <View style={styles.searchHeader}>
         <SearchHeader />
@@ -15,7 +16,7 @@ const SearchPage = ({ navigation, route }) => {
       <View style={styles.searchBody}>
         <SearchBody />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -24,7 +25,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    paddingTop: Constants.statusBarHeight
   },
   searchHeader: {
     height: 100,
