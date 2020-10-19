@@ -9,12 +9,14 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
-  TextInput,
 } from "react-native";
+import { Input } from "react-native-elements";
+
 import { Feather } from "@expo/vector-icons";
 import { color } from "react-native-reanimated";
 import { StatusBar } from "expo-status-bar";
-const MainHomePage = ({ navigation}) => {
+import { TouchableHighlight } from "react-native-gesture-handler";
+const MainHomePage = ({ navigation, route }) => {
   const image = {
     uri:
       "https://images.pexels.com/photos/258196/pexels-photo-258196.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
@@ -84,17 +86,28 @@ const MainHomePage = ({ navigation}) => {
             </Text>
           </View>
           <View>
-            <TextInput
+            <Input
               style={styles.searchBox}
               placeholder="Search Destination"
               placeholderTextColor="#666"
-            ></TextInput>
-            <Feather
-              name="search"
-              size={22}
-              color="#666"
-              style={{ position: "absolute", top: 24, right: 60, opacity: 0.6 }}
-            />
+            ></Input>
+            <TouchableHighlight
+              activeOpacity={0.6}
+              underlayColor="#DDDDDD"
+              onPress={() => alert("Pressed!")}
+            >
+              <Feather
+                name="search"
+                size={22}
+                color="#666"
+                style={{
+                  position: "absolute",
+                  top: 24,
+                  right: 60,
+                  opacity: 0.6,
+                }}
+              />
+            </TouchableHighlight>
           </View>
 
           <Image

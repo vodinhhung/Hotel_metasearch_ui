@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { StyleSheet, View, TextInput } from "react-native";
-import TripIcon from "../../Commom/TripIcon";
-
-const Search = ({ navigation, route }) => {
+import { StyleSheet, View,Text, TextInput } from "react-native";
+const HotelDetail = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <TripIcon />
+      <Text>Hello</Text>
     </SafeAreaView>
   );
 };
@@ -19,4 +17,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Search;
+export default HotelDetail;
