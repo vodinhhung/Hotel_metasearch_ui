@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
+    alignItems: "center"
   },
   iconStyle: {
     paddingRight: 5,

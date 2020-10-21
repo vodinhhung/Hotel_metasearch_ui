@@ -15,10 +15,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
+import HotelService from "../Hotel/HotelService";
 
 import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
-
-const HotelDetail = ({route}) => {
+const HotelDetail = ({ route }) => {
   const navigation = useNavigation();
   const [item, setItem] = useState({
     image: {
@@ -32,90 +32,89 @@ const HotelDetail = ({route}) => {
   const [widthListImage, setWidthListImage] = useState(0);
   return (
     <View style={{ flex: 1 }}>
-      <View
-        style={styles.imagesWrapper}
-        onLayout={(event) => {
-          let { width } = event.nativeEvent.layout;
-          setWidthListImage(width);
-        }}
-      >
-        <ImageBackground
-          source={route.params.image}
-          style={{
-            width: widthListImage,
-            height: Dimensions.get("screen").height / 3,
-          }}
-        >
-          <SafeAreaView>
-            <View style={styles.container}>
-              <View style={styles.headerBar}>
-                <TouchableHighlight
-                  activeOpacity={0.6}
-                  underlayColor="#ffffff00"
-                  onPress={() => {
-                    navigation.goBack();
-                  }}
-                >
-                  <MaterialIcons name="arrow-back" size={24} color="#666" />
-                </TouchableHighlight>
-              </View>
-            </View>
-          </SafeAreaView>
-        </ImageBackground>
-      </View>
       <ScrollView style={styles.container}>
         <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            paddingVertical: 20,
+          style={styles.imagesWrapper}
+          onLayout={(event) => {
+            let { width } = event.nativeEvent.layout;
+            setWidthListImage(width);
           }}
         >
-          <View style={styles.titleLeft}>
-            <View>
-              <Text style={{ fontSize: 20, fontWeight: "700" }}>
-                Eiffel tower
-              </Text>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Fontisto
-                  style={[{ paddingRight: 10 }, styles.secondaryColor]}
-                  name="map-marker-alt"
-                  size={24}
+          <ImageBackground
+            source={route.params.image}
+            style={{
+              width: widthListImage,
+              height: Dimensions.get("screen").height / 3,
+            }}
+          >
+            <SafeAreaView>
+              <View style={styles.wrapper}>
+                <View style={styles.headerBar}>
+                  <TouchableHighlight
+                    activeOpacity={0.6}
+                    underlayColor="#ffffff00"
+                    onPress={() => {
+                      navigation.goBack();
+                    }}
+                  >
+                    <MaterialIcons name="arrow-back" size={24} color="#666" />
+                  </TouchableHighlight>
+                </View>
+              </View>
+            </SafeAreaView>
+          </ImageBackground>
+        </View>
+        <View style={styles.wrapper}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingVertical: 20,
+            }}
+          >
+            <View style={styles.titleLeft}>
+              <View>
+                <Text style={{ fontSize: 20, fontWeight: "700" }}>
+                  Eiffel tower
+                </Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Fontisto
+                    style={[{ paddingRight: 10 }, styles.secondaryColor]}
+                    name="map-marker-alt"
+                    size={24}
+                    color="#666"
+                  />
+                  <Text style={styles.secondaryColor}>Paris, Franch</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.titleRight}>
+              <View style={styles.footerRight}>
+                <AntDesign
+                  style={[{ paddingRight: 10 }, styles.IconColor]}
+                  name="heart"
+                  size={25}
                   color="#666"
                 />
-                <Text style={styles.secondaryColor}>Paris, Franch</Text>
               </View>
             </View>
           </View>
-          <View style={styles.titleRight}>
-            <View style={styles.footerRight}>
-              <AntDesign
-                style={[{ paddingRight: 10 }, styles.IconColor]}
-                name="heart"
-                size={25}
-                color="#666"
-              />
-              <MaterialCommunityIcons
-                style={[{ paddingRight: 10 }, styles.IconColor]}
-                name="bookmark"
-                size={30}
-                color="black"
-              />
+          <View style={{ paddingVertical: 20 }}>
+            <View>
+              <HotelService type="wifi" />
             </View>
+            <Text>
+              Lorem ipsum dolor sit amet, corsectetur adjpisicing elit. Porin
+              subpit
+            </Text>
           </View>
+          <View style={styles.hashTagWrapper}>
+            <Text style={styles.hashTag}>#photograhpy</Text>
+            <Text style={styles.hashTag}>#sea</Text>
+          </View>
+          <View style={styles.footer}></View>
         </View>
-        <View style={{ height: 100, paddingVertical: 20 }}>
-          <Text>
-            Lorem ipsum dolor sit amet, corsectetur adjpisicing elit. Porin
-            subpit
-          </Text>
-        </View>
-        <View style={styles.hashTagWrapper}>
-          <Text style={styles.hashTag}>#photograhpy</Text>
-          <Text style={styles.hashTag}>#sea</Text>
-        </View>
-        <View style={styles.footer}></View>
       </ScrollView>
     </View>
   );
@@ -155,6 +154,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   container: {
+    flex: 1,
+  },
+  wrapper: {
     paddingHorizontal: 20,
   },
   imagesWrapper: {
