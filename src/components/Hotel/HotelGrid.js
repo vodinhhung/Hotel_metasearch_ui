@@ -30,7 +30,6 @@ const HotelGrid = () => {
           let { x, y, width } = event.nativeEvent.layout;
           let newImageSize = imageSize;
           const height = 150;
-          console.log("height", height);
           newImageSize = { width, height };
           setImageSize(newImageSize);
         }}

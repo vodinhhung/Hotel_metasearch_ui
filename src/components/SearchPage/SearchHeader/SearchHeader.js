@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { StyleSheet, View } from "react-native";
 import { Input, Text } from "react-native-elements";
-
+import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import TripIconSmall from "../../Common/TripIconSmall";
 import { useNavigation } from "@react-navigation/native";
@@ -34,6 +34,7 @@ const SearchHeader = () => {
         </View>
       </View>
       <View style={[styles.container, styles.filterContainer]}>
+        <Feather name="filter" size={24} color="#666" />
         <Text style={styles.titleFilter}>Some more filter</Text>
       </View>
     </View>
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     // height: 20
   },
   backIcon: {
-    justifyContent:"center",
+    justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
     flex: 2,
@@ -73,6 +74,9 @@ const styles = StyleSheet.create({
     textDecorationColor: "#666",
     textDecorationLine: "underline",
   },
+  filterContainer: {
+    marginHorizontal: 20
+  }
 });
 
 export default SearchHeader;
