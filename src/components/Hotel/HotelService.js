@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-const HotelService = ({ type, color = "gray" }) => {
+const HotelService = ({ type, color = "#666" }) => {
   const renderIcon = () => {
     switch (type) {
       case "wifi":
@@ -42,7 +42,6 @@ const HotelService = ({ type, color = "gray" }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center"
   },
