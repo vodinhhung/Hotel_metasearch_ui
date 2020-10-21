@@ -7,7 +7,7 @@ import {
   Text,
   Platform,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import Constants from "expo-constants";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -17,6 +17,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 import HotelService from "../Hotel/HotelService";
 
@@ -132,7 +133,16 @@ const HotelDetail = ({ route }) => {
                 <HotelPlatform type="booking" />
                 <HotelPlatform type="traveloka" />
               </View>
-              <View style={{ flex: 1 }}>{/* google map in here */}</View>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                }}
+              >
+                {/* google map in here */}
+                <MapView provider="google" style={styles.mapStyle} />
+              </View>
             </View>
           </View>
           <View style={styles.hashTagWrapper}>
@@ -144,10 +154,10 @@ const HotelDetail = ({ route }) => {
               Khách sạn được gợi ý cho bạn
             </Text>
             <FlatList
-            showsHorizontalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
               horizontal={true}
               keyExtractor={(item, index) => index.toString()}
-              data={[{},{},{},{}]}
+              data={[{}, {}, {}, {}]}
               renderItem={({ item }) => {
                 return (
                   <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
@@ -256,6 +266,12 @@ const styles = StyleSheet.create({
   },
   descriptionStyle: {
     marginVertical: 20,
+  },
+  mapStyle: {
+    width: "70%",
+    height: "100%",
+    overflow: "hidden",
+    borderRadius: 8
   },
 });
 
