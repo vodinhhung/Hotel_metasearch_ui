@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-import { getScaleSizeOfImage } from "../../../lib/utils/image-size-resolver";
+import { getScaleSizeOfImage } from "../../lib/utils/image-size-resolver";
 const images = {
   tripILogo: require("../../../assets/icons/default_avatar.png"),
 };

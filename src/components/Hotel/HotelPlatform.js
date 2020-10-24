@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { getScaleSizeOfImage } from "../../../lib/utils/image-size-resolver";
+import { getScaleSizeOfImage } from "../../lib/utils/image-size-resolver";
 const images = {
   agoda: require("../../../assets/icons/agoda-logo.png"),
   booking: require("../../../assets/icons/booking.png"),

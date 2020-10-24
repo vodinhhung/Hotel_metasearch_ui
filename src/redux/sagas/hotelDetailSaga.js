@@ -32,7 +32,7 @@ function* decreaseCounter() {
   }
 }
 // Watcher: Decrease Counter
-export function* watchDecreaseCounter() {
+export function* watchHotelDetail() {
   // Take Last Action Only
   yield takeLatest("DECREASE_COUNTER", decreaseCounter);
 }
