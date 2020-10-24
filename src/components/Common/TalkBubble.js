@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-const Rating = () => {
+const Rating = ({rating}) => {
   return (
     <View style={styles.talkBubble}>
       <View style={styles.talkBubbleSquare}>
-        <Text style={{ color: "white", marginLeft:4, fontWeight: "500" }}>3.8</Text>
+        <Text style={{ color: "white", marginLeft:4, fontWeight: "500" }}>{rating.value}</Text>
       </View>
       <View style={styles.talkBubbleTriangle} />
     </View>

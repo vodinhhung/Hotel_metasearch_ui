@@ -16,7 +16,7 @@ import { AntDesign } from "@expo/vector-icons";
 import {
   facebookLogInResolver,
   googleLoginResolver,
-} from "../../lib/utils/login-middleware";
+} from "../lib/utils/login-middleware";
 import TripIcon from "../components/Common/TripIcon";
 import { SafeAreaView } from "react-native-safe-area-context";
 
