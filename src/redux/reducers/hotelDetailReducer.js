@@ -1,20 +1,36 @@
+import {
+  GET_HOTEL_DETAIL_FAILED,
+  GET_HOTEL_DETAIL_PENDING,
+  GET_HOTEL_DETAIL_SUCCESS,
+} from "../definitions/hotelDefine";
+
 // Initial State
 const initialState = {
-  counter: 0,
+  isPending: false,
+  hotelDetail: null,
 };
 // Redux: Counter Reducer
 const hotelDetailReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "INCREASE_COUNTER_ASYNC": {
+    case GET_HOTEL_DETAIL_SUCCESS: {
       return {
         ...state,
-        counter: state.counter + action.value,
+        isPending: false,
+        hotelDetail: action.data,
       };
     }
-    case "DECREASE_COUNTER": {
+    case GET_HOTEL_DETAIL_PENDING: {
       return {
         ...state,
-        counter: state.counter - action.value,
+        isPending: true,
+        hotelDetail: null,
+      };
+    }
+    case GET_HOTEL_DETAIL_FAILED: {
+      return {
+        ...state,
+        isPending: false,
+        hotelDetail: null,
       };
     }
     default: {

@@ -1,30 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 import HotelGrid from "../../Hotel/HotelGrid";
 import { ScrollView } from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { getSearchHotelAction } from "../../../redux/actions/hotelAction";
 
-const SearchBody = () => {
+const SearchBody = ({ getSearchHotel, searchHotels = { items: [] } }) => {
+  useEffect(() => {
+    getSearchHotel("test");
+  }, []);
+  console.log(searchHotels);
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={styles.cardWrapper}>
-          <HotelGrid />
-        </View>
-        <View style={styles.cardWrapper}>
-          <HotelGrid />
-        </View>
-        <View style={styles.cardWrapper}>
-          <HotelGrid />
-        </View>
-        <View style={styles.cardWrapper}>
-          <HotelGrid />
-        </View>
-        <View style={styles.cardWrapper}>
-          <HotelGrid />
-        </View>
-        <View style={styles.cardWrapper}>
-          <HotelGrid />
-        </View>
+        {searchHotels?.items.map((item, index) => {
+          return (
+            <View key={index} style={styles.cardWrapper}>
+              <HotelGrid hotel={item} />
+            </View>
+          );
+        })}
       </View>
     </ScrollView>
   );
@@ -54,5 +49,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-
-export default SearchBody;
+function mapStateToProps(state) {
+  // console.log(state);
+  return {
+    searchHotels: state.hotelSearching.searchHotels,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    getSearchHotel: (params) => dispatch(getSearchHotelAction(params)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBody);

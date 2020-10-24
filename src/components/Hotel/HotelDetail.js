@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -7,9 +7,11 @@ import {
   Text,
   Platform,
   FlatList,
+  ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
 import Constants from "expo-constants";
+import { connect } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
@@ -24,157 +26,172 @@ import HotelService from "../Hotel/HotelService";
 import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
 import HotelPlatform from "./HotelPlatform";
 import HotelGrid from "./HotelGrid";
-const HotelDetail = ({ route }) => {
+import { getHotelDetailAction } from "../../redux/actions/hotelAction";
+const HotelDetail = ({
+  route,
+  getHotelDetail,
+  hotelDetail = { assets: [{ url: "" }] },
+  isPending,
+}) => {
   const navigation = useNavigation();
-  const [item, setItem] = useState({
-    image: {
-      uri:
-        "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-    },
-    title: "Ha long",
-    key: "1",
-  });
+  useEffect(() => {
+    console.log(route);
+    getHotelDetail(route.params.hotelID);
+  }, []);
 
   const [widthListImage, setWidthListImage] = useState(0);
-  return (
-    <View style={{ flex: 1 }}>
-      <SafeAreaView style={styles.headerWrapper}>
-        <View style={styles.wrapper}>
-          <View style={styles.headerBar}>
-            <TouchableHighlight
-              activeOpacity={0.6}
-              underlayColor="#ffffff00"
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <MaterialIcons name="arrow-back" size={24} color="#666" />
-            </TouchableHighlight>
+  if (!hotelDetail || isPending)
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  else
+    return (
+      <View style={{ flex: 1 }}>
+        <SafeAreaView style={styles.headerWrapper}>
+          <View style={styles.wrapper}>
+            <View style={styles.headerBar}>
+              <TouchableHighlight
+                activeOpacity={0.6}
+                underlayColor="#ffffff00"
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <MaterialIcons name="arrow-back" size={24} color="#666" />
+              </TouchableHighlight>
+            </View>
           </View>
-        </View>
-      </SafeAreaView>
-      <ScrollView style={styles.container}>
-        <View
-          style={styles.imagesWrapper}
-          onLayout={(event) => {
-            let { width } = event.nativeEvent.layout;
-            setWidthListImage(width);
-          }}
-        >
-          <ImageBackground
-            source={route.params.image}
-            style={{
-              width: widthListImage,
-              height: Dimensions.get("screen").height / 3,
-            }}
-          ></ImageBackground>
-        </View>
-        <View style={styles.wrapper}>
+        </SafeAreaView>
+        <ScrollView style={styles.container}>
           <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              paddingVertical: 20,
+            style={styles.imagesWrapper}
+            onLayout={(event) => {
+              let { width } = event.nativeEvent.layout;
+              setWidthListImage(width);
             }}
           >
-            <View style={styles.titleLeft}>
-              <View>
-                <Text style={{ fontSize: 20, fontWeight: "700" }}>
-                  Eiffel tower
-                </Text>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Fontisto
-                    style={[{ paddingRight: 10 }, styles.secondaryColor]}
-                    name="map-marker-alt"
-                    size={24}
+            <ImageBackground
+              source={hotelDetail?.assets[0]}
+              style={{
+                width: widthListImage,
+                height: Dimensions.get("screen").height / 3,
+              }}
+            ></ImageBackground>
+          </View>
+          <View style={styles.wrapper}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                paddingVertical: 20,
+              }}
+            >
+              <View style={styles.titleLeft}>
+                <View>
+                  <Text style={{ fontSize: 20, fontWeight: "700" }}>
+                    {hotelDetail.name}
+                  </Text>
+                  <View style={styles.priceContent}>
+                    <Ionicons
+                      style={styles.iconStyle}
+                      name="md-pricetags"
+                      size={24}
+                      color="#222"
+                    />
+                    <Text
+                      style={{ fontSize: 15, fontWeight: "600", color: "#111" }}
+                    >{`${hotelDetail.price} / 1 Đêm`}</Text>
+                  </View>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Fontisto
+                      style={[{ paddingRight: 10 }, styles.secondaryColor]}
+                      name="map-marker-alt"
+                      size={24}
+                      color="#666"
+                    />
+                    <Text style={styles.secondaryColor}>
+                      {hotelDetail.address}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.titleRight}>
+                <View style={styles.footerRight}>
+                  <AntDesign
+                    style={[{ paddingRight: 10 }, styles.IconColor]}
+                    name="heart"
+                    size={25}
                     color="#666"
                   />
-                  <Text style={styles.secondaryColor}>Paris, Franch</Text>
                 </View>
               </View>
             </View>
-            <View style={styles.titleRight}>
-              <View style={styles.footerRight}>
-                <AntDesign
-                  style={[{ paddingRight: 10 }, styles.IconColor]}
-                  name="heart"
-                  size={25}
-                  color="#666"
-                />
+            <View style={{ paddingVertical: 20 }}>
+              <View style={styles.servicesWrapper}>
+                {hotelDetail.services.map((item, index) => {
+                  return (
+                    <View key={index} style={styles.serviceWrapper}>
+                      <HotelService type={item.name} />
+                    </View>
+                  );
+                })}
+              </View>
+              <View style={styles.descriptionStyle}>
+                <Text>{hotelDetail.description}</Text>
+              </View>
+              <View style={styles.rowWrapper}>
+                <View style={{ flex: 1 }}>
+                  {hotelDetail.linking.map((item, index) => {
+                    return (
+                      <HotelPlatform
+                        key={index}
+                        type={item.type}
+                        url={item.url}
+                      />
+                    );
+                  })}
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  {/* google map in here */}
+                  <MapView provider="google" style={styles.mapStyle} />
+                </View>
               </View>
             </View>
-          </View>
-          <View style={{ paddingVertical: 20 }}>
-            <View style={styles.servicesWrapper}>
-              <View style={styles.serviceWrapper}>
-                <HotelService type="wifi" />
-              </View>
-              <View style={styles.serviceWrapper}>
-                <HotelService type="wifi" />
-              </View>
-              <View style={styles.serviceWrapper}>
-                <HotelService type="wifi" />
-              </View>
-              <View style={styles.serviceWrapper}>
-                <HotelService type="wifi" />
-              </View>
+            <View style={styles.hashTagWrapper}>
+              <Text style={styles.hashTag}>#photograhpy</Text>
+              <Text style={styles.hashTag}>#sea</Text>
             </View>
-            <View style={styles.descriptionStyle}>
-              <Text>
-                Lorem ipsum dolor sit amet, corsectetur adjpisicing elit. Porin
-                subpit
+            <View style={styles.footer}>
+              <Text style={{ fontSize: 20, fontWeight: "700" }}>
+                Khách sạn được gợi ý cho bạn
               </Text>
-            </View>
-            <View style={styles.rowWrapper}>
-              <View style={{ flex: 1 }}>
-                <HotelPlatform type="agoda" />
-                <HotelPlatform type="luxstay" />
-                <HotelPlatform type="booking" />
-                <HotelPlatform type="traveloka" />
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
+              <FlatList
+                showsHorizontalScrollIndicator={false}
+                horizontal={true}
+                keyExtractor={(item, index) => index.toString()}
+                data={hotelDetail.hotelRecommended.items}
+                renderItem={({ item }) => {
+                  return (
+                    <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
+                      <TouchableOpacity>
+                        <View style={styles.cardWrapper}>
+                          <HotelGrid hotel={item} />
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  );
                 }}
-              >
-                {/* google map in here */}
-                <MapView provider="google" style={styles.mapStyle} />
-              </View>
+              />
             </View>
           </View>
-          <View style={styles.hashTagWrapper}>
-            <Text style={styles.hashTag}>#photograhpy</Text>
-            <Text style={styles.hashTag}>#sea</Text>
-          </View>
-          <View style={styles.footer}>
-            <Text style={{ fontSize: 20, fontWeight: "700" }}>
-              Khách sạn được gợi ý cho bạn
-            </Text>
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              horizontal={true}
-              keyExtractor={(item, index) => index.toString()}
-              data={[{}, {}, {}, {}]}
-              renderItem={({ item }) => {
-                return (
-                  <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
-                    <TouchableOpacity>
-                      <View style={styles.cardWrapper}>
-                        <HotelGrid />
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                );
-              }}
-            />
-          </View>
-        </View>
-      </ScrollView>
-    </View>
-  );
+        </ScrollView>
+      </View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -241,6 +258,7 @@ const styles = StyleSheet.create({
   },
   secondaryColor: {
     color: "#6c757d",
+    alignSelf: "flex-end",
   },
 
   // hash tag
@@ -269,10 +287,30 @@ const styles = StyleSheet.create({
   },
   mapStyle: {
     width: "70%",
+    minHeight: 150,
     height: "100%",
     overflow: "hidden",
-    borderRadius: 8
+    borderRadius: 8,
+  },
+  priceContent: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  iconStyle: {
+    paddingRight: 5,
   },
 });
 
-export default HotelDetail;
+function mapStateToProps(state) {
+  return {
+    hotelDetail: state.hotelDetail.hotelDetail,
+    isPending: state.hotelDetail.isPending,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    getHotelDetail: (hotelID) => dispatch(getHotelDetailAction(hotelID)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(HotelDetail);

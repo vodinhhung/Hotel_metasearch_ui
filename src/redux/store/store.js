@@ -15,7 +15,10 @@ if (__DEV__) {
     rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ &&
       window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(sagaMiddleware, createLogger())
+    applyMiddleware(
+      sagaMiddleware
+      //  createLogger()
+    )
   );
 } else {
   store = createStore(rootReducer, applyMiddleware(sagaMiddleware));

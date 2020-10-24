@@ -4,23 +4,21 @@ import { Card, ListItem, Button, Icon } from "react-native-elements";
 import { StyleSheet, View, Image, TouchableHighlight } from "react-native";
 import { Text } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import HotelService from "./HotelService";
 import Rating from "../Common/TalkBubble";
 
-const HotelGrid = () => {
+const HotelGrid = ({ hotel }) => {
   const [widthListImage, setWidthListImage] = useState(0);
   const navigation = useNavigation();
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [item, setItem] = useState({
     image: {
-      uri:
-        "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+      uri: hotel.assets[0].url,
     },
-    title: "Ha long",
-    key: "1",
+    // title: "Ha long",
+    // key: "1",
   });
-
   return (
     <Card containerStyle={styles.cardStyle}>
       {/* <Card.Title>CARD WITH DIVIDER</Card.Title>
@@ -35,12 +33,12 @@ const HotelGrid = () => {
         }}
         underlayColor="#ffffff00"
         onPress={() => {
-          navigation.navigate("HotelDetailPage", { image: item.image });
+          navigation.navigate("HotelDetailPage", { hotelID: hotel.id });
         }}
       >
         <View style={styles.cardBody}>
           <View style={styles.ratingStyle}>
-            <Rating />
+            <Rating rating={hotel.rating} />
           </View>
           <Image
             style={{
@@ -50,7 +48,7 @@ const HotelGrid = () => {
             source={item.image}
           ></Image>
           <View style={styles.wrapperContent}>
-            <Text style={styles.cardTitle}>Media hotel Khanh Vy</Text>
+            <Text style={styles.cardTitle}>{hotel.name}</Text>
             <View style={styles.cardContent}>
               <View style={styles.priceContent}>
                 <Ionicons
@@ -59,11 +57,12 @@ const HotelGrid = () => {
                   size={24}
                   color="#DDD"
                 />
-                <Text>300.000VND / 1 Đêm</Text>
+                <Text>{`${hotel.price} / 1 Đêm`}</Text>
               </View>
               <View style={styles.serviceContent}>
-                <HotelService type="wifi" />
-                <HotelService type="break-fast" />
+                {hotel.services.map((item, index) => {
+                  return <HotelService key={index} type={item.name} />;
+                })}
               </View>
             </View>
           </View>
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   ratingStyle: {
-    right:0,
+    right: 0,
     zIndex: 1,
     position: "absolute",
   },

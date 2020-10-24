@@ -1,38 +1,33 @@
 // Imports: Dependencies
 import { delay, takeEvery, takeLatest, put } from "redux-saga/effects";
-// Worker: Increase Counter Async (Delayed By 4 Seconds)
-function* increaseCounterAsync() {
+import { getSearchHotelService } from "../../api/hotel";
+import {
+  GET_SEARCH_HOTEL,
+  GET_SEARCH_HOTEL_FAILED,
+  GET_SEARCH_HOTEL_PENDING,
+  GET_SEARCH_HOTEL_SUCCESS,
+} from "../definitions/hotelDefine";
+
+function* getSearchHotel(params) {
   try {
-    // Delay 4 Seconds
-    yield delay(4000);
-    // Dispatch Action To Redux Store
     yield put({
-      type: "INCREASE_COUNTER_ASYNC",
-      value: 1,
+      type: GET_SEARCH_HOTEL_PENDING,
+    });
+
+    const hotelSearch = yield getSearchHotelService(params);
+    yield put({
+      type: GET_SEARCH_HOTEL_SUCCESS,
+      data: hotelSearch,
     });
   } catch (error) {
-    console.log(error);
-  }
-}
-// Watcher: Increase Counter Async
-export function* watchIncreaseCounter() {
-  // Take Last Action Only
-  yield takeLatest("INCREASE_COUNTER", increaseCounterAsync);
-}
-// Worker: Decrease Counter
-function* decreaseCounter() {
-  try {
-    // Dispatch Action To Redux Store
     yield put({
-      type: "DECREASE_COUNTER_ASYNC",
-      value: 1,
+      type: GET_SEARCH_HOTEL_FAILED,
+      message: error,
     });
-  } catch (error) {
-    console.log(error);
   }
 }
 // Watcher: Decrease Counter
 export function* watchHotelSearching() {
   // Take Last Action Only
-  yield takeLatest("DECREASE_COUNTER", decreaseCounter);
+  yield takeLatest(GET_SEARCH_HOTEL, getSearchHotel);
 }

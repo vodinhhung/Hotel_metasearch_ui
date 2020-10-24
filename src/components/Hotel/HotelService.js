@@ -13,7 +13,7 @@ const HotelService = ({ type, color = "#666" }) => {
       case "person":
         return <FontAwesome style={styles.iconStyle} name="group" size={24} color={color} />;
       default:
-        return <AntDesign style={styles.iconStyle} name="wifi" size={24} color={color} />;
+        return null;
     }
   };
   const renderTitle = () => {

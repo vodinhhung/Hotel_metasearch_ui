@@ -1,6 +1,14 @@
-const GET_HOTEL_DETAIL = "GET_HOTEL_DETAIL";
-const GET_HOTEL_DETAIL_PENDING = "GET_HOTEL_DETAIL_PENDING";
-const GET_HOTEL_DETAIL_SUCCESS = "GET_HOTEL_DETAIL_SUCCESS";
-const GET_SEARCH_HOTEL = "GET_SEARCH_HOTEL";
-const GET_SEARCH_HOTEL_PENDING = "GET_SEARCH_HOTEL_PENDING";
-const GET_SEARCH_HOTEL_SUCCESS = "GET_SEARCH_HOTEL_SUCCESS";
+import { GET_HOTEL_DETAIL, GET_SEARCH_HOTEL } from "../definitions/hotelDefine";
+
+export function getSearchHotelAction(params) {
+    return {
+        type: GET_SEARCH_HOTEL,
+        params: params
+    }
+}
+export function getHotelDetailAction(hotelID) {
+    return {
+        type: GET_HOTEL_DETAIL,
+        id: hotelID
+    }
+}
