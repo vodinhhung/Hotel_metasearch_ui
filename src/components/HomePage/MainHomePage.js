@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import { connect } from "react-redux";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   Animated,
   Platform,
@@ -23,7 +22,7 @@ const image = {
     "https://images.pexels.com/photos/258196/pexels-photo-258196.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
 };
 
-export default class App extends Component {
+export class MainHomePage extends Component {
   constructor(props) {
     super(props);
 
@@ -218,6 +217,7 @@ export default class App extends Component {
     ];
     return hotel;
   }
+
   _renderScrollViewContent() {
     const data = Array.from({ length: 30 });
     return (
@@ -473,6 +473,7 @@ export default class App extends Component {
           <TextInput
             style={styles.searchBox}
             // autoFocus={true}
+            onFocus={() => this.props.navigation.navigate("SearchPage")}
             placeholder="Search Destination"
             placeholderTextColor="#358c63"
           ></TextInput>
@@ -626,7 +627,6 @@ const styles = StyleSheet.create({
     marginTop: -30,
   },
 });
-
 
 function mapStateToProps(state) {
   return {};
