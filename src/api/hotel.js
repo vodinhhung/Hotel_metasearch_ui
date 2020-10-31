@@ -4,7 +4,7 @@ import { instance as axios } from "../config/axios";
 export async function getHotelDetailService(id) {
   let result = null;
   try {
-    // result = await axios.get("/user?ID=12345");
+    console.log(result);
     result = {
       id: "1",
       name: "Sao Mai Hotel",
@@ -231,177 +231,177 @@ export async function getHotelDetailService(id) {
 export async function getSearchHotelService(params) {
   let result = null;
   try {
-    // result = await axios.post("/user?ID=12345", params);
-    result = {
-      items: [
-        {
-          id: 1,
-          name: "Patel Hotel Hanoi",
-          assets: [
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-          ],
-          price: "860.000VND",
-          rating: {
-            value: "4.6",
-          },
-          services: [
-            {
-              name: "wifi", // dich vu wifi
-            },
-            {
-              name: "receptionist", // dich vu le tan
-            },
-            {
-              name: "breakfast", // ho tro bua sang
-            },
-          ],
-        },
-        {
-          id: 2,
-          name: "Patel Hotel Hanoi",
-          assets: [
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-          ],
-          price: "860.000VND",
-          rating: {
-            value: "4.6",
-          },
-          services: [
-            {
-              name: "wifi", // dich vu wifi
-            },
-            {
-              name: "receptionist", // dich vu le tan
-            },
-            {
-              name: "breakfast", // ho tro bua sang
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "Patel Hotel Hanoi",
-          assets: [
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-          ],
-          price: "860.000VND",
-          rating: {
-            value: "4.6",
-          },
-          services: [
-            {
-              name: "wifi", // dich vu wifi
-            },
-            {
-              name: "receptionist", // dich vu le tan
-            },
-            {
-              name: "breakfast", // ho tro bua sang
-            },
-          ],
-        },
-        {
-          id: 4,
-          name: "Patel Hotel Hanoi",
-          assets: [
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-          ],
-          price: "860.000VND",
-          rating: {
-            value: "4.6",
-          },
-          services: [
-            {
-              name: "wifi", // dich vu wifi
-            },
-            {
-              name: "receptionist", // dich vu le tan
-            },
-            {
-              name: "breakfast", // ho tro bua sang
-            },
-          ],
-        },
-        {
-          id: 5,
-          name: "Patel Hotel Hanoi",
-          assets: [
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-            {
-              url:
-                "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
-            },
-          ],
-          price: "860.000VND",
-          rating: {
-            value: "4.6",
-          },
-          services: [
-            {
-              name: "wifi", // dich vu wifi
-            },
-            {
-              name: "receptionist", // dich vu le tan
-            },
-            {
-              name: "breakfast", // ho tro bua sang
-            },
-          ],
-        },
-      ],
-      totalItem: 5,
-    };
+    result = await axios.get(`/hotel`);
+    // result = {
+    //   items: [
+    //     {
+    //       id: 1,
+    //       name: "Patel Hotel Hanoi",
+    //       assets: [
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //       ],
+    //       price: "860.000VND",
+    //       rating: {
+    //         value: "4.6",
+    //       },
+    //       services: [
+    //         {
+    //           name: "wifi", // dich vu wifi
+    //         },
+    //         {
+    //           name: "receptionist", // dich vu le tan
+    //         },
+    //         {
+    //           name: "breakfast", // ho tro bua sang
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       id: 2,
+    //       name: "Patel Hotel Hanoi",
+    //       assets: [
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //       ],
+    //       price: "860.000VND",
+    //       rating: {
+    //         value: "4.6",
+    //       },
+    //       services: [
+    //         {
+    //           name: "wifi", // dich vu wifi
+    //         },
+    //         {
+    //           name: "receptionist", // dich vu le tan
+    //         },
+    //         {
+    //           name: "breakfast", // ho tro bua sang
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       id: 3,
+    //       name: "Patel Hotel Hanoi",
+    //       assets: [
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //       ],
+    //       price: "860.000VND",
+    //       rating: {
+    //         value: "4.6",
+    //       },
+    //       services: [
+    //         {
+    //           name: "wifi", // dich vu wifi
+    //         },
+    //         {
+    //           name: "receptionist", // dich vu le tan
+    //         },
+    //         {
+    //           name: "breakfast", // ho tro bua sang
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       id: 4,
+    //       name: "Patel Hotel Hanoi",
+    //       assets: [
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //       ],
+    //       price: "860.000VND",
+    //       rating: {
+    //         value: "4.6",
+    //       },
+    //       services: [
+    //         {
+    //           name: "wifi", // dich vu wifi
+    //         },
+    //         {
+    //           name: "receptionist", // dich vu le tan
+    //         },
+    //         {
+    //           name: "breakfast", // ho tro bua sang
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       id: 5,
+    //       name: "Patel Hotel Hanoi",
+    //       assets: [
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //         {
+    //           url:
+    //             "https://pix6.agoda.net/hotelImages/13360968/-1/a1d908f4f241e0c1594c21be926a279f.jpg?s=1024x768",
+    //         },
+    //       ],
+    //       price: "860.000VND",
+    //       rating: {
+    //         value: "4.6",
+    //       },
+    //       services: [
+    //         {
+    //           name: "wifi", // dich vu wifi
+    //         },
+    //         {
+    //           name: "receptionist", // dich vu le tan
+    //         },
+    //         {
+    //           name: "breakfast", // ho tro bua sang
+    //         },
+    //       ],
+    //     },
+    //   ],
+    //   totalItem: 5,
+    // };
   } catch (e) {
     console.log(e);
   }

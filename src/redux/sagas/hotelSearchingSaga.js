@@ -17,9 +17,10 @@ function* getSearchHotel(params) {
     const hotelSearch = yield getSearchHotelService(params);
     yield put({
       type: GET_SEARCH_HOTEL_SUCCESS,
-      data: hotelSearch,
+      data: hotelSearch.data,
     });
   } catch (error) {
+    console.log(error);
     yield put({
       type: GET_SEARCH_HOTEL_FAILED,
       message: error,

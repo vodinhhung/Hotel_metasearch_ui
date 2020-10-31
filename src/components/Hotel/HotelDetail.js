@@ -35,7 +35,6 @@ const HotelDetail = ({
 }) => {
   const navigation = useNavigation();
   useEffect(() => {
-    console.log(route);
     getHotelDetail(route.params.hotelID);
   }, []);
 
@@ -44,7 +43,7 @@ const HotelDetail = ({
     return <ActivityIndicator size="large" color="#0000ff" />;
   else
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, flexDirection: "row" }}>
         <SafeAreaView style={styles.headerWrapper}>
           <View style={styles.wrapper}>
             <View style={styles.headerBar}>

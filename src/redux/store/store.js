@@ -2,6 +2,8 @@
 import { createStore, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import createSagaMiddleware from "redux-saga";
+import { composeWithDevTools } from "redux-devtools-extension";
+
 // Imports: Redux Root Reducer
 import rootReducer from "../reducers/index";
 // Imports: Redux Root Saga
@@ -13,11 +15,11 @@ let store = null;
 if (__DEV__) {
   store = createStore(
     rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(
-      sagaMiddleware
-      //  createLogger()
+    composeWithDevTools(
+      applyMiddleware(
+        sagaMiddleware
+        //  createLogger()
+      )
     )
   );
 } else {
