@@ -14,7 +14,7 @@ const HotelGrid = ({ hotel }) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [item, setItem] = useState({
     image: {
-      uri: hotel.assets[0].url,
+      uri: hotel.logo,
     },
     // title: "Ha long",
     // key: "1",
@@ -27,7 +27,7 @@ const HotelGrid = ({ hotel }) => {
         onLayout={async (event) => {
           let { x, y, width } = event.nativeEvent.layout;
           let newImageSize = imageSize;
-          const height = 150;
+          const height = 200;
           newImageSize = { width, height };
           setImageSize(newImageSize);
         }}
@@ -38,7 +38,7 @@ const HotelGrid = ({ hotel }) => {
       >
         <View style={styles.cardBody}>
           <View style={styles.ratingStyle}>
-            <Rating rating={hotel.rating} />
+            <Rating rating={hotel.overall_score} />
           </View>
           <Image
             style={{
@@ -57,13 +57,13 @@ const HotelGrid = ({ hotel }) => {
                   size={24}
                   color="#DDD"
                 />
-                <Text>{`${hotel.price} / 1 Đêm`}</Text>
+                <Text>{`${hotel.price.value} VNĐ / 1 Đêm`}</Text>
               </View>
-              <View style={styles.serviceContent}>
+              {/* <View style={styles.serviceContent}>
                 {hotel.services.map((item, index) => {
                   return <HotelService key={index} type={item.name} />;
                 })}
-              </View>
+              </View> */}
             </View>
           </View>
         </View>

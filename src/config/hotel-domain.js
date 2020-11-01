@@ -1,0 +1,12 @@
+let hotelDomain = [];
+hotelDomain[1] = "Hotels";
+hotelDomain[2] = "Traveloka";
+hotelDomain[3] = "Agoda";
+hotelDomain[4] = "Expedia";
+hotelDomain[5] = "Booking";
+hotelDomain[6] = "Tripadvisor";
+hotelDomain[7] = "VNTrip";
+hotelDomain[666] = "Mytour";
+hotelDomain[888] = "Olive";
+hotelDomain[999] = "Tripi";
+export { hotelDomain };

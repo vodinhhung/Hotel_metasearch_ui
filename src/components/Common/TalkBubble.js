@@ -4,7 +4,7 @@ const Rating = ({rating}) => {
   return (
     <View style={styles.talkBubble}>
       <View style={styles.talkBubbleSquare}>
-        <Text style={{ color: "white", marginLeft:4, fontWeight: "500" }}>{rating.value}</Text>
+        <Text style={{ flex: 1, textAlign: "center", color: "white", marginLeft:4, fontWeight: "500" }}>{rating}</Text>
       </View>
       <View style={styles.talkBubbleTriangle} />
     </View>
@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   talkBubbleSquare: {
+    display: "flex",
+    justifyContent: "center",
     width: 30,
     height: 20,
     backgroundColor: "#0F8FE5",

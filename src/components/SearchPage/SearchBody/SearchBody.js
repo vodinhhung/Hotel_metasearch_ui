@@ -9,11 +9,11 @@ const SearchBody = ({ getSearchHotel, searchHotels = { items: [] } }) => {
   useEffect(() => {
     getSearchHotel("test");
   }, []);
-  console.log(searchHotels);
   return (
     <ScrollView>
       <View style={styles.container}>
         {searchHotels?.items.map((item, index) => {
+          console.log(item);
           return (
             <View key={index} style={styles.cardWrapper}>
               <HotelGrid hotel={item} />
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     flex: 8,
   },
   cardWrapper: {
-    flexBasis: "50%",
+    // flexBasis: "50%",
     flexDirection: "row",
     padding: 0,
     marginBottom: 10,
