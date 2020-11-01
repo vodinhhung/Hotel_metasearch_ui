@@ -4,6 +4,7 @@ import { Card, ListItem, Button, Icon } from "react-native-elements";
 import { StyleSheet, View, Image, TouchableHighlight } from "react-native";
 import { Text } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
+import { Fontisto } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import HotelService from "./HotelService";
 import Rating from "../Common/TalkBubble";
@@ -58,6 +59,15 @@ const HotelGrid = ({ hotel }) => {
                   color="#DDD"
                 />
                 <Text>{`${hotel.price.value} VNĐ / 1 Đêm`}</Text>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Fontisto
+                  style={[{ paddingRight: 10 }, styles.secondaryColor]}
+                  name="map-marker-alt"
+                  size={24}
+                  color="#DDD"
+                />
+                <Text style={styles.secondaryColor}>{hotel.address}</Text>
               </View>
               {/* <View style={styles.serviceContent}>
                 {hotel.services.map((item, index) => {
