@@ -8,6 +8,7 @@ import TripIconSmall from "../../Common/TripIconSmall";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
+
 const SearchHeader = () => {
   const navigation = useNavigation();
   return (
@@ -26,17 +27,14 @@ const SearchHeader = () => {
         <View style={[styles.input, { height: 40 }]}>
           <Input
             onChangeText={(text) => {}}
-            // value={value}
+            autoFocus={true}
           />
         </View>
         <View style={styles.logoIcon}>
-          <TripIconSmall />
+        <Feather name="filter" size={24} color="#666"  onPress={() => navigation.navigate("SearchFilter")}/>
         </View>
       </View>
-      <View style={[styles.container, styles.filterContainer]}>
-        <Feather name="filter" size={24} color="#666" />
-        <Text style={styles.titleFilter}>Some more filter</Text>
-      </View>
+      
     </View>
   );
 };
@@ -44,15 +42,17 @@ const SearchHeader = () => {
 const styles = StyleSheet.create({
   headerWrapper: {
     justifyContent: "flex-start",
-    flex: 1,
+    flex:1,
     flexDirection: "column",
-    marginHorizontal: 4,
+    marginHorizontal: 2,
+    
   },
   container: {
-    flex: 1,
+    flex: 0.5,
     flexDirection: "row",
     alignItems: "center",
-    // height: 20
+    height:"10%"
+
   },
   backIcon: {
     justifyContent: "center",
