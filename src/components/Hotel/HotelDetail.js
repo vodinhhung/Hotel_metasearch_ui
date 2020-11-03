@@ -68,7 +68,7 @@ const HotelDetail = ({
             }}
           >
             <ImageBackground
-              source={hotelDetail?.assets[0]}
+              source={{ uri: hotelDetail?.assets[0] }}
               style={{
                 width: widthListImage,
                 height: Dimensions.get("screen").height / 3,
@@ -169,7 +169,7 @@ const HotelDetail = ({
               <Text style={{ fontSize: 20, fontWeight: "700" }}>
                 Khách sạn được gợi ý cho bạn
               </Text>
-              <FlatList
+              {/* <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 keyExtractor={(item, index) => index.toString()}
@@ -185,7 +185,7 @@ const HotelDetail = ({
                     </View>
                   );
                 }}
-              />
+              /> */}
             </View>
           </View>
         </ScrollView>

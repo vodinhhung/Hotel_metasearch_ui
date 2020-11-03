@@ -15,10 +15,10 @@ function* getHotelDetail(hotelID) {
       type: GET_HOTEL_DETAIL_PENDING,
     });
 
-    const hotelDetail = yield getHotelDetailService(hotelID.id);
+    const hotelDetailRes = yield getHotelDetailService(hotelID.id);
     yield put({
       type: GET_HOTEL_DETAIL_SUCCESS,
-      data: hotelDetail
+      data: hotelDetailRes.data
     })
   } catch (error) {
     yield put({
