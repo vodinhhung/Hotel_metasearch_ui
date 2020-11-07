@@ -12,7 +12,8 @@ const convertSearchHotelToHotelDetail = (hotel) => {
   return {
     ...hotel,
     assets: [hotel.logo],
-    prices: [hotel.price]
+    prices: [hotel.price],
+    description: ""
   };
 };
 function* getHotelDetail(hotelParams) {
