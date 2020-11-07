@@ -23,7 +23,7 @@ const hotelDetailReducer = (state = initialState, action) => {
       return {
         ...state,
         isPending: true,
-        hotelDetail: null,
+        hotelDetail: action.data,
       };
     }
     case GET_HOTEL_DETAIL_FAILED: {

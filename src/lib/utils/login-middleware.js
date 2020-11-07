@@ -10,13 +10,14 @@ export const googleLoginResolver = async () => {
     );
     if (type === "success") {
       // Then you can use the Google REST API
+      // let userInfoResponse;
       let userInfoResponse = await fetch(
         "https://www.googleapis.com/userinfo/v2/me",
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
-      return { status: true, userInfo: userInfoResponse };
+      return { status: true, userInfo: userInfoResponse, accessToken };
     }
   } catch (e) {
     return { status: false };
@@ -40,7 +41,7 @@ export const facebookLogInResolver = async () => {
       const dataRes = await fetch(
         `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,picture.height(500)`
       );
-      return { status: true, userInfo: dataRes };
+      return { status: true, userInfo: dataRes,accessToken: token };
     } else {
       return { status: false };
     }

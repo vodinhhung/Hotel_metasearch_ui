@@ -6,9 +6,9 @@ export function getSearchHotelAction(params) {
         params: params
     }
 }
-export function getHotelDetailAction(hotelID) {
+export function getHotelDetailAction(hotel) {
     return {
         type: GET_HOTEL_DETAIL,
-        id: hotelID
+        hotel
     }
 }

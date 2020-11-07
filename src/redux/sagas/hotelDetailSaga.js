@@ -1,5 +1,5 @@
 // Imports: Dependencies
-import { delay, takeEvery, takeLatest, put } from "redux-saga/effects";
+import { delay, takeEvery, takeLatest, select, put } from "redux-saga/effects";
 import { getHotelDetailService } from "../../api/hotel";
 import {
   GET_HOTEL_DETAIL,
@@ -8,18 +8,27 @@ import {
   GET_HOTEL_DETAIL_SUCCESS,
 } from "../definitions/hotelDefine";
 
-function* getHotelDetail(hotelID) {
+const convertSearchHotelToHotelDetail = (hotel) => {
+  return {
+    ...hotel,
+    assets: [hotel.logo],
+    prices: [hotel.price],
+    description: ""
+  };
+};
+function* getHotelDetail(hotelParams) {
   try {
     // Dispatch Action To Redux Store
     yield put({
       type: GET_HOTEL_DETAIL_PENDING,
+      data: convertSearchHotelToHotelDetail(hotelParams.hotel),
     });
 
-    const hotelDetail = yield getHotelDetailService(hotelID.id);
+    const hotelDetailRes = yield getHotelDetailService(hotelParams.hotel.id);
     yield put({
       type: GET_HOTEL_DETAIL_SUCCESS,
-      data: hotelDetail
-    })
+      data: hotelDetailRes.data,
+    });
   } catch (error) {
     yield put({
       type: GET_HOTEL_DETAIL_FAILED,

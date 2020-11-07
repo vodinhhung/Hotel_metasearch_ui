@@ -34,7 +34,6 @@ const SearchHeader = () => {
         <Feather name="filter" size={24} color="#666"  onPress={() => navigation.navigate("SearchFilter")}/>
         </View>
       </View>
-      
     </View>
   );
 };
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
     flex: 0.5,
     flexDirection: "row",
     alignItems: "center",
-    height:"10%"
+    height:"5%"
 
   },
   backIcon: {
@@ -74,9 +73,6 @@ const styles = StyleSheet.create({
     textDecorationColor: "#666",
     textDecorationLine: "underline",
   },
-  filterContainer: {
-    marginHorizontal: 20
-  }
 });
 
 export default SearchHeader;

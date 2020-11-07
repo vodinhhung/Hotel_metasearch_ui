@@ -27,18 +27,20 @@ export default function Login() {
     navigation.navigate("App");
   };
   const googleLoginAction = async () => {
-    const { status, userInfo } = await googleLoginResolver();
-    if (status) handleLoginSuccess("google", userInfo);
-    else {
-      console.log("error login");
-    }
+    const { status, userInfo, accessToken } = await googleLoginResolver();
+    console.log("google token : ",accessToken);
+    // if (status) handleLoginSuccess("google", userInfo);
+    // else {
+    //   console.log("error login");
+    // }
   };
   const facebookLoginAction = async () => {
-    const { status, userInfo } = await facebookLogInResolver();
-    if (status) handleLoginSuccess("facebook", userInfo);
-    else {
-      console.log("error login");
-    }
+    const { status, userInfo, accessToken } = await facebookLogInResolver();
+    console.log("facebook token : ",accessToken)
+    // if (status) handleLoginSuccess("facebook", userInfo);
+    // else {
+    //   console.log("error login");
+    // }
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -81,7 +83,7 @@ export default function Login() {
             color="white"
           />
           <Text style={{ color: "#fff", fontWeight: "700" }}>
-            Continue with Facebook
+            Continue with Google 
           </Text>
         </TouchableOpacity>
       </View>

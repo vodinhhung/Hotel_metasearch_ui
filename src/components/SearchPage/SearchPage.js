@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight
   },
   searchHeader: {
-    height: 100,
+    height: 80,
   },
   searchBody: {
     flex: 1,
