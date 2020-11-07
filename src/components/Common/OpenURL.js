@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Alert, Button, Linking } from "react-native";
+import { Alert, TouchableHighlight, Linking } from "react-native";
 
 // const supportedURL = "https://google.com";
 
@@ -20,9 +20,13 @@ const OpenURL = ({ url, children, title }) => {
   }, [url]);
 
   return (
-    <Button title={title} onPress={handlePress}>
+    <TouchableHighlight
+      underlayColor="#ffffff00"
+      title={title}
+      onPress={handlePress}
+    >
       {children}
-    </Button>
+    </TouchableHighlight>
   );
 };
 export default OpenURL;

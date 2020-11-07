@@ -232,7 +232,12 @@ export async function getHotelDetailService(id) {
 export async function getSearchHotelService(params) {
   let result = null;
   try {
-    result = await axios.get(`/hotel`);
+    result = await axios.get(`/hotel`, {
+      params: {
+        destination: "Hà Nội",
+        page: 1,
+      },
+    });
     // result = {
     //   items: [
     //     {

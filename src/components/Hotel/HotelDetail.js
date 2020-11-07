@@ -22,6 +22,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 import HotelService from "../Hotel/HotelService";
+import HTMLView from "react-native-htmlview";
 
 import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
 import HotelPlatform from "./HotelPlatform";
@@ -31,16 +32,14 @@ const HotelDetail = ({
   route,
   getHotelDetail,
   hotelDetail = { assets: [{ url: "" }] },
-  isPending,
 }) => {
   const navigation = useNavigation();
   useEffect(() => {
-    getHotelDetail(route.params.hotelID);
+    getHotelDetail(route.params.hotel);
   }, []);
 
   const [widthListImage, setWidthListImage] = useState(0);
-  if (!hotelDetail || isPending)
-    return <ActivityIndicator size="large" color="#0000ff" />;
+  if (!hotelDetail) return <ActivityIndicator size="large" color="#0000ff" />;
   else
     return (
       <View style={{ flex: 1, flexDirection: "row" }}>
@@ -76,19 +75,22 @@ const HotelDetail = ({
             ></ImageBackground>
           </View>
           <View style={styles.wrapper}>
+            <View>
+              <Text
+                style={{ fontSize: 20, fontWeight: "700", paddingVertical: 20 }}
+              >
+                {hotelDetail.name}
+              </Text>
+            </View>
             <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
-                paddingVertical: 20,
               }}
             >
               <View style={styles.titleLeft}>
                 <View>
-                  <Text style={{ fontSize: 20, fontWeight: "700" }}>
-                    {hotelDetail.name}
-                  </Text>
                   <View style={styles.priceContent}>
                     <Ionicons
                       style={styles.iconStyle}
@@ -98,7 +100,9 @@ const HotelDetail = ({
                     />
                     <Text
                       style={{ fontSize: 15, fontWeight: "600", color: "#111" }}
-                    >{`${hotelDetail.price} / 1 Đêm`}</Text>
+                    >{`${Math.max(
+                      hotelDetail.prices.map((price) => price.value)
+                    )}VNĐ / 1 Đêm`}</Text>
                   </View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Fontisto
@@ -126,7 +130,7 @@ const HotelDetail = ({
             </View>
             <View style={{ paddingVertical: 20 }}>
               <View style={styles.servicesWrapper}>
-                {hotelDetail.services.map((item, index) => {
+                {hotelDetail.services?.map((item, index) => {
                   return (
                     <View key={index} style={styles.serviceWrapper}>
                       <HotelService type={item.name} />
@@ -135,11 +139,11 @@ const HotelDetail = ({
                 })}
               </View>
               <View style={styles.descriptionStyle}>
-                <Text>{hotelDetail.description}</Text>
+                <HTMLView value={hotelDetail.description} stylesheet={styles} />
               </View>
               <View style={styles.rowWrapper}>
                 <View style={{ flex: 1 }}>
-                  {hotelDetail.linking.map((item, index) => {
+                  {hotelDetail.linking?.map((item, index) => {
                     return (
                       <HotelPlatform
                         key={index}
@@ -304,7 +308,6 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     hotelDetail: state.hotelDetail.hotelDetail,
-    isPending: state.hotelDetail.isPending,
   };
 }
 function mapDispatchToProps(dispatch) {

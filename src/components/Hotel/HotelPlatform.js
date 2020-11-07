@@ -29,28 +29,30 @@ const HotelPlatform = ({ type, color = "black", url }) => {
     }
   };
   const renderTitle = () => {
+
     let text = "";
     switch (type) {
-      case "luxstay":
+      case "Luxstay":
         text = "Luxstay";
         break;
-      case "agoda":
+      case "Agoda":
         text = "Agoda";
         break;
-      case "booking":
+      case "Booking":
         text = "Booking";
         break;
-      case "traveloka":
+      case "Traveloka":
         text = "Traveloka";
       default:
         break;
     }
     return (
       <OpenURL title={type} url={url}>
-        <Text style={styles.titleStyle}>{text}</Text>
+          <Text style={styles.titleStyle}>{text}</Text>
       </OpenURL>
     );
   };
+  console.log(type);
   return (
     <View style={styles.container}>
       {renderIcon()}
@@ -67,6 +69,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   titleStyle: {
+    color: "black",
     paddingLeft: 10,
     fontWeight: "800",
     textDecorationLine: "underline",
