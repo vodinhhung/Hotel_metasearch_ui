@@ -8,6 +8,7 @@ import { Fontisto } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import HotelService from "./HotelService";
 import Rating from "../Common/TalkBubble";
+import { convertCurrency } from "../../lib/utils/hotel";
 
 const HotelGrid = ({ hotel }) => {
   const [widthListImage, setWidthListImage] = useState(0);
@@ -58,7 +59,7 @@ const HotelGrid = ({ hotel }) => {
                   size={24}
                   color="#DDD"
                 />
-                <Text>{`${hotel.price.value} VNĐ / 1 Đêm`}</Text>
+                <Text>{`${convertCurrency(hotel.price.value)} / 1 Đêm`}</Text>
               </View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Fontisto

@@ -28,6 +28,7 @@ import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
 import HotelPlatform from "./HotelPlatform";
 import HotelGrid from "./HotelGrid";
 import { getHotelDetailAction } from "../../redux/actions/hotelAction";
+import { convertCurrency } from "../../lib/utils/hotel";
 const HotelDetail = ({
   route,
   getHotelDetail,
@@ -100,9 +101,11 @@ const HotelDetail = ({
                     />
                     <Text
                       style={{ fontSize: 15, fontWeight: "600", color: "#111" }}
-                    >{`${Math.max(
-                      hotelDetail.prices.map((price) => price.value)
-                    )}VNĐ / 1 Đêm`}</Text>
+                    >{`${convertCurrency(
+                      Math.min(
+                        ...hotelDetail.prices.map((price) => price.value)
+                      )
+                    )} / 1 Đêm`}</Text>
                   </View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Fontisto
