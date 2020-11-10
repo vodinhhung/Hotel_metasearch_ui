@@ -17,9 +17,36 @@ import { EvilIcons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { connect } from "react-redux";
+import { logoutRequest } from "../../redux/actions/userAction";
 // import {  } from "react-native-gesture-handler";
-const MainAccount = () => {
+const MainAccount = ({ userInfo, logoutRequest }) => {
   const navigation = useNavigation();
+  const renderUserAction = () => {
+    if (userInfo) {
+      return (
+        <TouchableHighlight
+          underlayColor="#DDDDDD"
+          onPress={() => {
+            logoutRequest();
+            navigation.navigate("Login");
+          }}
+        >
+          <Text>Logout</Text>
+        </TouchableHighlight>
+      );
+    }
+    return (
+      <TouchableHighlight
+        underlayColor="#DDDDDD"
+        onPress={() => {
+          navigation.navigate("Login");
+        }}
+      >
+        <Text>Login</Text>
+      </TouchableHighlight>
+    );
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
@@ -31,27 +58,7 @@ const MainAccount = () => {
         </View>
         <View style={styles.headerRight}>
           <View>
-            <View style={{ flexDirection: "row" }}>
-              <TouchableHighlight
-                // style={styles.loginFacebookBtn}
-                underlayColor="#DDDDDD"
-                onPress={() => {
-                  navigation.navigate("Login");
-                }}
-              >
-                <Text>Đăng nhập</Text>
-              </TouchableHighlight>
-              <Text>/</Text>
-              <TouchableHighlight
-                // style={styles.loginFacebookBtn}
-                underlayColor="#DDDDDD"
-                onPress={() => {
-                  navigation.navigate("Login");
-                }}
-              >
-                <Text>Đăng ký</Text>
-              </TouchableHighlight>
-            </View>
+            <View style={{ flexDirection: "row" }}>{renderUserAction()}</View>
           </View>
         </View>
       </View>
@@ -183,4 +190,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainAccount;
+function mapStateToProps(state) {
+  return { userInfo: state.user.userProfile };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    logoutRequest: () => dispatch(logoutRequest())
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MainAccount);

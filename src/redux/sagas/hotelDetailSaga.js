@@ -36,6 +36,6 @@ function* getHotelDetail(hotelParams) {
     });
   }
 }
-export function* watchHotelDetail() {
+export function* watchHotelDetailSaga() {
   yield takeLatest(GET_HOTEL_DETAIL, getHotelDetail);
 }

@@ -28,7 +28,7 @@ function* getSearchHotel(params) {
   }
 }
 // Watcher: Decrease Counter
-export function* watchHotelSearching() {
+export function* watchHotelSearchingSaga() {
   // Take Last Action Only
   yield takeLatest(GET_SEARCH_HOTEL, getSearchHotel);
 }

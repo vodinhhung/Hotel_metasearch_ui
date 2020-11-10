@@ -5,7 +5,7 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ActivityIndicator,
+  Alert,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
@@ -19,28 +19,42 @@ import {
 } from "../lib/utils/login-middleware";
 import TripIcon from "../components/Common/TripIcon";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { connect } from "react-redux";
+import { loginRequest, loginScreen } from "../redux/actions/userAction";
 
-export default function Login() {
+const Login = ({
+  loginRequest,
+  userLogged,
+  loginScreen,
+  loginScreenAction,
+}) => {
   const navigation = useNavigation();
 
   const handleLoginSuccess = (type, userInfo) => {
-    navigation.navigate("App");
+    loginScreenAction(true);
+    navigation.goBack();
   };
+  if (userLogged && !loginScreen) {
+    handleLoginSuccess();
+  }
   const googleLoginAction = async () => {
-    const { status, userInfo, accessToken } = await googleLoginResolver();
-    console.log("google token : ",accessToken);
-    // if (status) handleLoginSuccess("google", userInfo);
-    // else {
-    //   console.log("error login");
-    // }
+    try {
+      const { accessToken } = await googleLoginResolver();
+      loginRequest({ type: "google", token: accessToken });
+    } catch (e) {
+      Alert("Login error");
+    }
   };
   const facebookLoginAction = async () => {
-    const { status, userInfo, accessToken } = await facebookLogInResolver();
-    console.log("facebook token : ",accessToken)
-    // if (status) handleLoginSuccess("facebook", userInfo);
-    // else {
-    //   console.log("error login");
-    // }
+    try {
+      const { accessToken } = await facebookLogInResolver();
+      loginRequest({ type: "facebook", token: accessToken });
+    } catch (e) {
+      Alert("Login error");
+    }
+  };
+  const skipAction = () => {
+    navigation.goBack();
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -83,13 +97,18 @@ export default function Login() {
             color="white"
           />
           <Text style={{ color: "#fff", fontWeight: "700" }}>
-            Continue with Google 
+            Continue with Google
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={skipAction}>
+          <Text style={{ color: "#eee", fontWeight: "700" }}>
+            Skip to continue
           </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -160,3 +179,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+function mapStateToProps(state) {
+  return {
+    userLogged: state.user.isLogin,
+    loginScreen: state.user.loginScreen,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    loginRequest: (params) => dispatch(loginRequest(params)),
+    loginScreenAction: (params) => dispatch(loginScreen(params)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
