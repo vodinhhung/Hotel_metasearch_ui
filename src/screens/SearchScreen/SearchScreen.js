@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Constants from 'expo-constants';
-import { SafeAreaView } from "react-native-safe-area-context";
-import Search from "./Search";
 import { StyleSheet, View, TextInput } from "react-native";
 import SearchHeader from "./SearchHeader/SearchHeader";
 import SearchBody from "./SearchBody/SearchBody";

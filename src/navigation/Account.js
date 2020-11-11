@@ -1,18 +1,7 @@
 import React, { useState } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import MainAccount from "../components/Account/MainAccount";
-const Stack = createStackNavigator();
+import MainAccount from "../screens/AccountPageScreen/AccountPageScreen";
 const Account = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      initialRouteName="MainAccount"
-    >
-      <Stack.Screen name="MainAccount" component={MainAccount} />
-    </Stack.Navigator>
-  );
+  return <MainAccount />;
 };
 
 export default Account;
