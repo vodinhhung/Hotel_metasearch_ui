@@ -1,6 +1,6 @@
 // Imports: Dependencies
 import { delay, takeEvery, takeLatest, select, put } from "redux-saga/effects";
-import { getHotelDetailService } from "@api/hotel";
+import { getHotelDetailService, setHotelRecentlyViewedService } from "@api/hotel";
 import {
   GET_HOTEL_DETAIL,
   GET_HOTEL_DETAIL_FAILED,
@@ -8,6 +8,7 @@ import {
   GET_HOTEL_DETAIL_SUCCESS,
 } from "../definitions/hotelDefine";
 
+const tokenState = (state) => state.user.accessToken;
 const convertSearchHotelToHotelDetail = (hotel) => {
   return {
     ...hotel,
@@ -23,8 +24,9 @@ function* getHotelDetail(hotelParams) {
       type: GET_HOTEL_DETAIL_PENDING,
       data: convertSearchHotelToHotelDetail(hotelParams.hotel),
     });
-
+    const token = yield select(tokenState);
     const hotelDetailRes = yield getHotelDetailService(hotelParams.hotel.id);
+    setHotelRecentlyViewedService({id: hotelParams.hotel.id, token})
     yield put({
       type: GET_HOTEL_DETAIL_SUCCESS,
       data: hotelDetailRes.data,

@@ -10,6 +10,43 @@ export async function getHotelDetailService(id) {
   }
   return result;
 }
+export async function setHotelRecentlyViewedService(params) {
+  let result = null;
+  try {
+    result = await axios.post(
+      `/hotel/view`,
+      {
+        hotel_id: params.id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${params.token}`,
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+  return result;
+}
+
+export async function getHotelRecentlyViewedService(params) {
+  let result = null;
+  try {
+    result = await axios.post(
+      `/hotel/like`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${params.token}`,
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+  return result;
+}
 
 export async function getSearchHotelService(params) {
   let result = null;
