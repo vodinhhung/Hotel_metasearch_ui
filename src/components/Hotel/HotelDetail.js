@@ -27,8 +27,8 @@ import HTMLView from "react-native-htmlview";
 import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
 import HotelPlatform from "./HotelPlatform";
 import HotelGrid from "./HotelGrid";
-import { getHotelDetailAction } from "../../redux/actions/hotelAction";
-import { convertCurrency } from "../../lib/utils/hotel";
+import { getHotelDetailAction } from "@redux/actions/hotelAction";
+import { convertCurrency } from "@lib/utils/hotel";
 const HotelDetail = ({
   route,
   getHotelDetail,

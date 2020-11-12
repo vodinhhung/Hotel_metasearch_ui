@@ -1,6 +1,6 @@
 // Imports: Dependencies
 import { delay, takeEvery, takeLatest, select, put } from "redux-saga/effects";
-import { getHotelDetailService } from "../../api/hotel";
+import { getHotelDetailService } from "@api/hotel";
 import {
   GET_HOTEL_DETAIL,
   GET_HOTEL_DETAIL_FAILED,

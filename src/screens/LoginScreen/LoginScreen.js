@@ -16,11 +16,11 @@ import { AntDesign } from "@expo/vector-icons";
 import {
   facebookLogInResolver,
   googleLoginResolver,
-} from "../lib/utils/login-middleware";
-import TripIcon from "../components/Common/TripIcon";
+} from "@lib/utils/login-middleware";
+import TripIcon from "@components/Common/TripIcon";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { connect } from "react-redux";
-import { loginRequest, loginScreen } from "../redux/actions/userAction";
+import { loginRequest, loginScreen } from "@redux/actions/userAction";
 
 const Login = ({
   loginRequest,
@@ -59,7 +59,7 @@ const Login = ({
   return (
     <SafeAreaView style={styles.container}>
       <Image
-        source={require("../../assets/travel/image-travel-2.jpg")}
+        source={require("@assets/travel/image-travel-2.jpg")}
         style={[styles.backgroundImage, { opacity: 0.7 }]}
       />
       <StatusBar style="light" />

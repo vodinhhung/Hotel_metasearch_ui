@@ -1,27 +1,16 @@
 import React, { useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
-import MainHomePage from "../components/HomePage/MainHomePage";
-import SearchPage from "../components/SearchPage/SearchPage";
-import SearchFilter from "../components/SearchByFilter/SearchFilter";
-import HotelDetail from "../components/Hotel/HotelDetail";
-
-const Stack = createStackNavigator();
+import HomePageScreen from "@screens/HomePageScreen/HomePageScreen";
+import SearchPage from "@screens/SearchScreen/SearchScreen";
 
 const HomePage = () => {
+  const Stack = createStackNavigator();
+
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      initialRouteName="MainHomePage"
-    >
-      <Stack.Screen name="MainHomePage" component={MainHomePage} />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="HomePage" component={HomePageScreen} />
       <Stack.Screen name="SearchPage" component={SearchPage} />
-      <Stack.Screen name="SearchFilter" component={SearchFilter} />
-      <Stack.Screen name="HotelDetailPage" component={HotelDetail} />
     </Stack.Navigator>
   );
 };
-
 export default HomePage;

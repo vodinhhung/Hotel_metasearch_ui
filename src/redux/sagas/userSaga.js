@@ -1,6 +1,6 @@
 // Imports: Dependencies
 import { delay, takeEvery, takeLatest, put } from "redux-saga/effects";
-import { loginRequestService } from "../../api/user";
+import { loginRequestService } from "@api/user";
 import {
   LOGIN_REQUEST,
   REQUEST_LOGGING,

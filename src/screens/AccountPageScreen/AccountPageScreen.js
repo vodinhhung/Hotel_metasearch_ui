@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import DefaultAvatar from "../Common/DefaultAvatar";
+import DefaultAvatar from "@components/Common/DefaultAvatar";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
@@ -18,9 +18,9 @@ import { Fontisto } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
-import { logoutRequest } from "../../redux/actions/userAction";
+import { logoutRequest } from "@redux/actions/userAction";
 // import {  } from "react-native-gesture-handler";
-const MainAccount = ({ userInfo, logoutRequest }) => {
+const AccountPageScreen = ({ userInfo, logoutRequest }) => {
   const navigation = useNavigation();
   const renderUserAction = () => {
     if (userInfo) {
@@ -198,4 +198,4 @@ function mapDispatchToProps(dispatch) {
     logoutRequest: () => dispatch(logoutRequest())
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(MainAccount);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountPageScreen);

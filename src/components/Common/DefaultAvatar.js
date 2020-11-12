@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-import { getScaleSizeOfImage } from "../../lib/utils/image-size-resolver";
+import { getScaleSizeOfImage } from "@lib/utils/image-size-resolver";
 const images = {
-  tripILogo: require("../../../assets/icons/default_avatar.png"),
+  tripILogo: require("@assets/icons/default_avatar.png"),
 };
 const DefaultAvatar = ({ color = "#026E6E" }) => {
   return (

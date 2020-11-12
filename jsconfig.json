@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": "./src/",
+    "paths": {
+      "@api": ["api"],
+      "@components": ["components"],
+      "@navigation": ["navigation"],
+      "@redux": ["redux"],
+      "@config": ["config"],
+      "@lib": ["lib"],
+      "@screens": ["screens"],
+      "@assets": ["assets"]
+    }
+  },
+  "exclude": ["node_modules"]
+}

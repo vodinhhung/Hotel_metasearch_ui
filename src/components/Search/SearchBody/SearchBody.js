@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, TextInput } from "react-native";
-import HotelGrid from "../../Hotel/HotelGrid";
+import HotelGrid from "@components/Hotel/HotelGrid";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { getSearchHotelAction } from "../../../redux/actions/hotelAction";
+import { getSearchHotelAction } from "@redux/actions/hotelAction";
 
 const SearchBody = ({ getSearchHotel, searchHotels = { items: [] } }) => {
   useEffect(() => {
