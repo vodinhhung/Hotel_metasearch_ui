@@ -21,15 +21,15 @@ import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
-import HotelService from "../Hotel/HotelService";
+import HotelService from "@components/Hotel/HotelService";
 import HTMLView from "react-native-htmlview";
 
 import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
-import HotelPlatform from "./HotelPlatform";
-import HotelGrid from "./HotelGrid";
+import HotelPlatform from "@components/Hotel/HotelPlatform";
+import HotelGrid from "@components/Hotel/HotelGrid";
 import { getHotelDetailAction } from "@redux/actions/hotelAction";
 import { convertCurrency } from "@lib/utils/hotel";
-const HotelDetail = ({
+const HotelDetailScreen = ({
   route,
   getHotelDetail,
   hotelDetail = { assets: [{ url: "" }] },
@@ -127,6 +127,9 @@ const HotelDetail = ({
                     name="heart"
                     size={25}
                     color="#666"
+                    onPress={()=> {
+                      console.log("hi")
+                    }}
                   />
                 </View>
               </View>
@@ -306,6 +309,12 @@ const styles = StyleSheet.create({
   iconStyle: {
     paddingRight: 5,
   },
+  titleLeft: {
+    flex: 9
+  },
+  titleRight: {
+    flex: 1
+  }
 });
 
 function mapStateToProps(state) {
@@ -318,4 +327,4 @@ function mapDispatchToProps(dispatch) {
     getHotelDetail: (hotelID) => dispatch(getHotelDetailAction(hotelID)),
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(HotelDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(HotelDetailScreen);
