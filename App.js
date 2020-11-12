@@ -15,8 +15,8 @@ export default function App() {
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator headerMode="none">
-            {/* <Stack.Screen name="App" component={AppFollow} /> */}
-            {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+            <Stack.Screen name="App" component={AppFollow} />
+            <Stack.Screen name="Login" component={LoginScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

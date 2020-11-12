@@ -1,7 +1,7 @@
 import * as Facebook from "expo-facebook";
 import * as Google from "expo-google-app-auth";
 import Expo from "expo"
-import { facebookLoginConfig, googleLoginConfig } from "../../config/loginConfig";
+import { facebookLoginConfig, googleLoginConfig } from "@config/loginConfig";
 
 export const googleLoginResolver = async () => {
   try {

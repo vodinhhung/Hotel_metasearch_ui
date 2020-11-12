@@ -14,6 +14,8 @@ import {
   Image,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = Platform.OS === "ios" ? 80 : 93;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
@@ -22,20 +24,17 @@ const image = {
     "https://images.pexels.com/photos/258196/pexels-photo-258196.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
 };
 
-export class MainHomePage extends Component {
-  constructor(props) {
-    super(props);
+const MainHomePage = () => {
+  const navigation = useNavigation();
+  const [scrollYState, setScrollY] = useState(
+    new Animated.Value(
+      // iOS has negative initial scroll value because content inset...
+      Platform.OS === "ios" ? -HEADER_MAX_HEIGHT : 0
+    )
+  );
+  const [refreshing, setRefreshing] = useState(false);
 
-    this.state = {
-      scrollY: new Animated.Value(
-        // iOS has negative initial scroll value because content inset...
-        Platform.OS === "ios" ? -HEADER_MAX_HEIGHT : 0
-      ),
-      refreshing: false,
-    };
-  }
-
-  _renderGallery() {
+  const _renderGallery = () => {
     const gallery = [
       {
         image: {
@@ -120,9 +119,9 @@ export class MainHomePage extends Component {
     ];
 
     return gallery;
-  }
+  };
 
-  _renderHotel() {
+  const _renderHotel = () => {
     const hotel = [
       {
         image: {
@@ -216,9 +215,9 @@ export class MainHomePage extends Component {
       },
     ];
     return hotel;
-  }
+  };
 
-  _renderScrollViewContent() {
+  const _renderScrollViewContent = () => {
     const data = Array.from({ length: 30 });
     return (
       <View style={styles.scrollViewContent}>
@@ -231,7 +230,7 @@ export class MainHomePage extends Component {
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            data={this._renderGallery()}
+            data={_renderGallery()}
             renderItem={({ item }) => {
               return (
                 <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
@@ -279,7 +278,7 @@ export class MainHomePage extends Component {
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            data={this._renderHotel()}
+            data={_renderHotel()}
             renderItem={({ item }) => {
               return (
                 <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
@@ -345,154 +344,152 @@ export class MainHomePage extends Component {
         </View>
       </View>
     );
-  }
+  };
 
-  render() {
-    // Because of content inset the scroll value will be negative on iOS so bring
-    // it back to 0.
-    const scrollY = Animated.add(
-      this.state.scrollY,
-      Platform.OS === "ios" ? HEADER_MAX_HEIGHT : 0
-    );
-    const headerTranslate = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, -HEADER_SCROLL_DISTANCE],
-      extrapolate: "clamp",
-    });
+  // Because of content inset the scroll value will be negative on iOS so bring
+  // it back to 0.
+  const scrollY = Animated.add(
+    scrollYState,
+    Platform.OS === "ios" ? HEADER_MAX_HEIGHT : 0
+  );
+  const headerTranslate = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE],
+    outputRange: [0, -HEADER_SCROLL_DISTANCE],
+    extrapolate: "clamp",
+  });
 
-    const imageOpacity = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [1, 1, 0],
-      extrapolate: "clamp",
-    });
-    const imageTranslate = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, 100],
-      extrapolate: "clamp",
-    });
+  const imageOpacity = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+    outputRange: [1, 1, 0],
+    extrapolate: "clamp",
+  });
+  const imageTranslate = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE],
+    outputRange: [0, 100],
+    extrapolate: "clamp",
+  });
 
-    const barScale = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [1, 1, 1],
-      extrapolate: "clamp",
-    });
-    const barTranslate = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, -50, -120],
-      extrapolate: "clamp",
-    });
+  const barScale = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+    outputRange: [1, 1, 1],
+    extrapolate: "clamp",
+  });
+  const barTranslate = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+    outputRange: [0, -50, -120],
+    extrapolate: "clamp",
+  });
 
-    const logoScale = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, 0, 0],
-      extrapolate: "clamp",
-    });
+  const logoScale = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+    outputRange: [0, 0, 0],
+    extrapolate: "clamp",
+  });
 
-    const logoTranslate = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, 0, -150],
-      extrapolate: "clamp",
-    });
-    return (
-      <View style={styles.fill}>
-        <StatusBar
-          translucent
-          barStyle="light-content"
-          backgroundColor="rgba(0, 0, 0, 0.251)"
-        />
-        <Animated.ScrollView
-          style={styles.fill}
-          showsVerticalScrollIndicator={false}
-          scrollEventThrottle={1}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-            { useNativeDriver: true }
-          )}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={() => {
-                this.setState({ refreshing: true });
-                setTimeout(() => this.setState({ refreshing: false }), 1000);
-              }}
-              // Android offset for RefreshControl
-              progressViewOffset={HEADER_MAX_HEIGHT}
-            />
-          }
-          // iOS offset for RefreshControl
-          contentInset={{
-            top: HEADER_MAX_HEIGHT,
-          }}
-          contentOffset={{
-            y: -HEADER_MAX_HEIGHT,
-          }}
-        >
-          {this._renderScrollViewContent()}
-        </Animated.ScrollView>
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.header,
-            { transform: [{ translateY: headerTranslate }] },
-          ]}
-        >
-          <Animated.Image
-            style={[
-              styles.backgroundImage,
-              {
-                opacity: imageOpacity,
-                transform: [{ translateY: imageTranslate }],
-              },
-            ]}
-            source={image}
+  const logoTranslate = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+    outputRange: [0, 0, -150],
+    extrapolate: "clamp",
+  });
+  return (
+    <View style={styles.fill}>
+      <StatusBar
+        translucent
+        barStyle="light-content"
+        backgroundColor="rgba(0, 0, 0, 0.251)"
+      />
+      <Animated.ScrollView
+        style={styles.fill}
+        showsVerticalScrollIndicator={false}
+        scrollEventThrottle={1}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollYState } } }],
+          { useNativeDriver: true }
+        )}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+              setTimeout(() => setRefreshing(false), 1000);
+            }}
+            // Android offset for RefreshControl
+            progressViewOffset={HEADER_MAX_HEIGHT}
           />
-        </Animated.View>
-
-        <Animated.View
+        }
+        // iOS offset for RefreshControl
+        contentInset={{
+          top: HEADER_MAX_HEIGHT,
+        }}
+        contentOffset={{
+          y: -HEADER_MAX_HEIGHT,
+        }}
+      >
+        {_renderScrollViewContent()}
+      </Animated.ScrollView>
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          styles.header,
+          { transform: [{ translateY: headerTranslate }] },
+        ]}
+      >
+        <Animated.Image
           style={[
-            styles.bar,
+            styles.backgroundImage,
             {
-              transform: [{ scale: barScale }, { translateY: barTranslate }],
+              opacity: imageOpacity,
+              transform: [{ translateY: imageTranslate }],
             },
           ]}
-        >
-          <Image
-            source={require("../../../assets/icons/tripi-logo.png")}
-            style={styles.tripiIcon}
-          />
-          <Animated.View style={styles.searchContainer}>
-            <Animated.Text
-              style={[
-                styles.userText,
-                { transform: [{ translateY: logoTranslate }] },
-              ]}
-            >
-              Where would you like to go today?
-            </Animated.Text>
-          </Animated.View>
-          <TextInput
-            style={styles.searchBox}
-            // autoFocus={true}
-            onFocus={() => this.props.navigation.navigate("SearchPage")}
-            placeholder="Search Destination"
-            placeholderTextColor="#358c63"
-          ></TextInput>
-          <Feather
-            name="search"
-            size={22}
-            color="#666"
-            style={{
-              position: "absolute",
-              top: 8,
-              right: "16%",
-              opacity: 0.6,
-            }}
-          />
+          source={image}
+        />
+      </Animated.View>
+
+      <Animated.View
+        style={[
+          styles.bar,
+          {
+            transform: [{ scale: barScale }, { translateY: barTranslate }],
+          },
+        ]}
+      >
+        <Image
+          source={require("@assets/icons/tripi-logo.png")}
+          style={styles.tripiIcon}
+        />
+        <Animated.View style={styles.searchContainer}>
+          <Animated.Text
+            style={[
+              styles.userText,
+              { transform: [{ translateY: logoTranslate }] },
+            ]}
+          >
+            Where would you like to go today?
+          </Animated.Text>
         </Animated.View>
-      </View>
-    );
-  }
-}
+        <TextInput
+          style={styles.searchBox}
+          // autoFocus={true}
+          onFocus={() => navigation.navigate("SearchPage")}
+          placeholder="Search Destination"
+          placeholderTextColor="#358c63"
+        ></TextInput>
+        <Feather
+          name="search"
+          size={22}
+          color="#666"
+          style={{
+            position: "absolute",
+            top: 8,
+            right: "16%",
+            opacity: 0.6,
+          }}
+        />
+      </Animated.View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   fill: {

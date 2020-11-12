@@ -8,7 +8,7 @@ import { Fontisto } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import HotelService from "./HotelService";
 import Rating from "../Common/TalkBubble";
-import { convertCurrency } from "../../lib/utils/hotel";
+import { convertCurrency } from "@lib/utils/hotel";
 
 const HotelGrid = ({ hotel }) => {
   const [widthListImage, setWidthListImage] = useState(0);

@@ -1,4 +1,4 @@
-import { instance as axios } from "../config/axios";
+import { instance as axios } from "@config/axios";
 
 // Make a request for a user with a given ID
 export async function getHotelDetailService(id) {

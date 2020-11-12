@@ -3,13 +3,13 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { getScaleSizeOfImage } from "../../lib/utils/image-size-resolver";
+import { getScaleSizeOfImage } from "@lib/utils/image-size-resolver";
 import OpenURL from "../Common/OpenURL";
 const images = {
-  agoda: require("../../../assets/icons/agoda-logo.png"),
-  booking: require("../../../assets/icons/booking.png"),
-  luxstay: require("../../../assets/icons/luxstay-icon.png"),
-  traveloka: require("../../../assets/icons/traveloka-logo.png"),
+  agoda: require("@assets/icons/agoda-logo.png"),
+  booking: require("@assets/icons/booking.png"),
+  luxstay: require("@assets/icons/luxstay-icon.png"),
+  traveloka: require("@assets/icons/traveloka-logo.png"),
 };
 const HotelPlatform = ({ type, color = "black", url }) => {
   const renderIcon = () => {

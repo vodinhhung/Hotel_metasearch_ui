@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { Input, Text } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import TripIconSmall from "../../Common/TripIconSmall";
+import TripIconSmall from "@components/Common/TripIconSmall";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 

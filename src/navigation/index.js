@@ -6,16 +6,24 @@ import Account from "./Account";
 import HotelLike from "./HotelLike";
 const Tab = createBottomTabNavigator();
 const screenOptionsRender = ({ route }) => ({
-    tabBarIcon: ({ focused, color, size }) => {
-      let iconName;
-      if (route.name === "Home") {
+  tabBarIcon: ({ focused, color, size }) => {
+    let iconName;
+    switch (route.name) {
+      case "Home":
         iconName = focused ? "home" : "home";
-      } else if (route.name === "Account") {
+        break;
+      case "Account":
         iconName = focused ? "user" : "user";
-      }
-      return <Feather name={iconName} size={size} color={color} />;
-    },
-  });
+        break;
+      case "Like":
+        iconName = focused ? "heart" : "heart";
+        break;
+      default:
+        iconName = "null";
+    }
+    return <Feather name={iconName} size={size} color={color} />;
+  },
+});
 
 const AppFollow = () => {
   return (
@@ -27,6 +35,7 @@ const AppFollow = () => {
       }}
     >
       <Tab.Screen name="Home" component={HomePage} />
+      <Tab.Screen name="Like" component={HotelLike} />
       <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   );
