@@ -6,6 +6,7 @@ export async function loginRequestService(params) {
   try {
     result = await axios.post(`/hotel/login`, {
       access_token: params.token,
+      domain: params.type === "facebook" ? 1 : 2,
     });
   } catch (e) {
     console.log(e);
@@ -33,7 +34,7 @@ export async function setHotelLikeService(params) {
     result = await axios.post(
       `/hotel/like`,
       {
-        hotel_id: params.hotelId
+        hotel_id: params.hotelId,
       },
       {
         headers: {
