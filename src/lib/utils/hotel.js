@@ -6,3 +6,6 @@ export function convertCurrency(price) {
   }).format(price);
   return currencyPrice;
 }
+export function statusHotelLike(hotel, hotelList = []) {
+  return hotelList.filter((hotelItems) => hotelItems.id === hotel.id).length;
+}
