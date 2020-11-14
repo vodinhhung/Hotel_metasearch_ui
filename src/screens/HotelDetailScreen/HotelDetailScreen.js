@@ -28,17 +28,22 @@ import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
 import HotelPlatform from "@components/Hotel/HotelPlatform";
 import HotelGrid from "@components/Hotel/HotelGrid";
 import { getHotelDetailAction } from "@redux/actions/hotelAction";
-import { convertCurrency } from "@lib/utils/hotel";
+import { setHotelLike } from "@redux/actions/userAction";
+import { convertCurrency, statusHotelLike } from "@lib/utils/hotel";
 const HotelDetailScreen = ({
   route,
   getHotelDetail,
   hotelDetail = { assets: [{ url: "" }] },
+  setHotelLike,
+  hotelLikeList,
 }) => {
   const navigation = useNavigation();
   useEffect(() => {
     getHotelDetail(route.params.hotel);
   }, []);
-
+  const hotelLikeAction = () => {
+    setHotelLike(hotelDetail.id);
+  };
   const [widthListImage, setWidthListImage] = useState(0);
   if (!hotelDetail) return <ActivityIndicator size="large" color="#0000ff" />;
   else
@@ -124,11 +129,15 @@ const HotelDetailScreen = ({
                 <View style={styles.footerRight}>
                   <AntDesign
                     style={[{ paddingRight: 10 }, styles.IconColor]}
-                    name="heart"
+                    name={
+                      statusHotelLike(hotelDetail, hotelLikeList)
+                        ? "heart"
+                        : "hearto"
+                    }
                     size={25}
                     color="#666"
-                    onPress={()=> {
-                      console.log("hi")
+                    onPress={() => {
+                      hotelLikeAction();
                     }}
                   />
                 </View>
@@ -310,21 +319,23 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   titleLeft: {
-    flex: 9
+    flex: 9,
   },
   titleRight: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
 
 function mapStateToProps(state) {
   return {
     hotelDetail: state.hotelDetail.hotelDetail,
+    hotelLikeList: state?.hotelLike?.hotelLike?.items ?? [],
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
     getHotelDetail: (hotelID) => dispatch(getHotelDetailAction(hotelID)),
+    setHotelLike: (hotelID) => dispatch(setHotelLike(hotelID)),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(HotelDetailScreen);

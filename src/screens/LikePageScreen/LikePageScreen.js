@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -9,44 +9,18 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import DefaultAvatar from "@components/Common/DefaultAvatar";
-import { MaterialIcons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { EvilIcons } from "@expo/vector-icons";
-import { Fontisto } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
-import { logoutRequest } from "@redux/actions/userAction";
-// import {  } from "react-native-gesture-handler";
-const LikePageScreen = ({ userInfo, logoutRequest }) => {
+import { logoutRequest, getHotelLike } from "@redux/actions/userAction";
+const LikePageScreen = ({ userInfo, logoutRequest, getHotelLike }) => {
   const navigation = useNavigation();
-  const renderUserAction = () => {
-    if (userInfo) {
-      return (
-        <TouchableHighlight
-          underlayColor="#DDDDDD"
-          onPress={() => {
-            logoutRequest();
-            navigation.navigate("Login");
-          }}
-        >
-          <Text>Logout</Text>
-        </TouchableHighlight>
-      );
-    }
-    return (
-      <TouchableHighlight
-        underlayColor="#DDDDDD"
-        onPress={() => {
-          navigation.navigate("Login");
-        }}
-      >
-        <Text>Login</Text>
-      </TouchableHighlight>
-    );
-  };
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {      
+      // The screen is focused
+      // Call any action
+      getHotelLike();
+    });
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
@@ -108,7 +82,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    logoutRequest: () => dispatch(logoutRequest())
+    getHotelLike: () => dispatch(getHotelLike()),
+    logoutRequest: () => dispatch(logoutRequest()),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(LikePageScreen);
