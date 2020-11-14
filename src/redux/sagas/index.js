@@ -1,14 +1,14 @@
 // Imports: Dependencies
 import { all, fork } from "redux-saga/effects";
 // Imports: Redux Sagas
-import { watchHotelDetailSaga } from "./hotelDetailSaga";
+import { watchHotelSaga } from "./hotelSaga";
 // Redux Saga: Root Saga
-import { watchHotelSearchingSaga } from "./hotelSearchingSaga";
+import { watchHotelListSaga } from "./hotelListSaga";
 import { watchUserSaga } from "./userSaga";
 export function* rootSaga() {
   yield all([
-    fork(watchHotelDetailSaga),
-    fork(watchHotelSearchingSaga),
+    fork(watchHotelSaga),
+    fork(watchHotelListSaga),
     fork(watchUserSaga),
   ]);
 }

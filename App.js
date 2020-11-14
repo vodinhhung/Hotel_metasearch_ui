@@ -6,6 +6,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "./src/screens/LoginScreen/LoginScreen";
+import HotelDetailPage from "@screens/HotelDetailScreen/HotelDetailScreen";
 import { PersistGate } from "redux-persist/integration/react";
 import AppFollow from "./src/navigation/index";
 const Stack = createStackNavigator();
@@ -19,6 +20,10 @@ export default function App() {
             <Stack.Navigator headerMode="none">
               <Stack.Screen name="App" component={AppFollow} />
               <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen
+                name="HotelDetailPage"
+                component={HotelDetailPage}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaProvider>

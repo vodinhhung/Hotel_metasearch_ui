@@ -2,20 +2,18 @@ import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
-  Text,
-  Image,
-  TouchableHighlight,
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
+import HotelGrid from "@components/Hotel/HotelGrid";
 import { logoutRequest, getHotelLike } from "@redux/actions/userAction";
-const LikePageScreen = ({ userInfo, logoutRequest, getHotelLike }) => {
+const LikePageScreen = ({ userInfo, getHotelLike, hotelLikeList }) => {
   const navigation = useNavigation();
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {      
+    const unsubscribe = navigation.addListener("focus", () => {
       // The screen is focused
       // Call any action
       getHotelLike();
@@ -26,7 +24,16 @@ const LikePageScreen = ({ userInfo, logoutRequest, getHotelLike }) => {
       <StatusBar style="dark" />
       <View style={styles.headerContainer}></View>
       <ScrollView>
-        <Text>Hello</Text>
+        <View style={styles.container}>
+          {hotelLikeList?.items?.map((item, index) => {
+            console.log(item);
+            return (
+              <View key={index} style={styles.cardWrapper}>
+                <HotelGrid hotel={item} />
+              </View>
+            );
+          })}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -78,7 +85,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return { userInfo: state.user.userProfile };
+  return { userInfo: state.user.userProfile,
+    hotelLikeList: state?.hotelLike?.hotelLike
+   };
 }
 function mapDispatchToProps(dispatch) {
   return {

@@ -33,15 +33,11 @@ export async function setHotelRecentlyViewedService(params) {
 export async function getHotelRecentlyViewedService(params) {
   let result = null;
   try {
-    result = await axios.post(
-      `/hotel/like`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${params.token}`,
-        },
-      }
-    );
+    result = await axios.get(`/hotel/view`, {
+      headers: {
+        Authorization: `Bearer ${params.token}`,
+      },
+    });
   } catch (e) {
     console.log(e);
   }

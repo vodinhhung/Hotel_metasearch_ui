@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import {
   Animated,
   Platform,
@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { getHotelViewed } from "@redux/actions/hotelAction";
 
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = Platform.OS === "ios" ? 80 : 93;
@@ -24,8 +25,15 @@ const image = {
     "https://images.pexels.com/photos/258196/pexels-photo-258196.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
 };
 
-const MainHomePage = () => {
+const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
   const navigation = useNavigation();
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      // The screen is focused
+      // Call any action
+      getHotelViewed();
+    });
+  }, []);
   const [scrollYState, setScrollY] = useState(
     new Animated.Value(
       // iOS has negative initial scroll value because content inset...
@@ -276,15 +284,20 @@ const MainHomePage = () => {
             </Text>
           </View>
           <FlatList
+            keyExtractor={(item, index) => index.toString()}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            data={_renderHotel()}
+            data={hotelRecentlyViewed?.items ?? []}
             renderItem={({ item }) => {
               return (
                 <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("HotelDetailPage", { hotel: item });
+                    }}
+                  >
                     <Image
-                      source={item.image}
+                      source={{ uri: item.logo }}
                       style={{
                         width: 300,
                         marginRight: 8,
@@ -320,7 +333,7 @@ const MainHomePage = () => {
                             marginHorizontal: "2%",
                           }}
                         >
-                          {item.title}
+                          {item.name}
                         </Text>
                       </View>
                       <Text
@@ -333,7 +346,7 @@ const MainHomePage = () => {
                           marginLeft: 10,
                         }}
                       >
-                        {item.location}
+                        {item.address}
                       </Text>
                     </View>
                   </TouchableOpacity>
@@ -626,9 +639,13 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    hotelRecentlyViewed: state.hotelViewed.hotelViewed,
+  };
 }
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    getHotelViewed: () => dispatch(getHotelViewed()),
+  };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MainHomePage);
