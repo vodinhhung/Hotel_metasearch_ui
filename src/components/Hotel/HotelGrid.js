@@ -59,7 +59,8 @@ const HotelGrid = ({ hotel }) => {
                   size={24}
                   color="#DDD"
                 />
-                <Text>{`${convertCurrency(hotel.price.value)} / 1 Đêm`}</Text>
+                <Text>{`${hotel.price.value}/ 1 Night`}</Text>
+                {/* <Text>{`${convertCurrency(hotel.price.value)} / 1 Đêm`}</Text> */}
               </View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Fontisto

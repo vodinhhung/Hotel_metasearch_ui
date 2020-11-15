@@ -3,7 +3,6 @@ import React, { Component, useState } from "react";
 import {
   Animated,
   Platform,
-  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -13,6 +12,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -393,11 +393,7 @@ const MainHomePage = () => {
   });
   return (
     <View style={styles.fill}>
-      <StatusBar
-        translucent
-        barStyle="light-content"
-        backgroundColor="rgba(0, 0, 0, 0.251)"
-      />
+      <StatusBar style="light" />
       <Animated.ScrollView
         style={styles.fill}
         showsVerticalScrollIndicator={false}
@@ -471,7 +467,7 @@ const MainHomePage = () => {
         <TextInput
           style={styles.searchBox}
           // autoFocus={true}
-          onFocus={() => navigation.navigate("SearchPage")}
+          onFocus={() => navigation.navigate("SearchHeader")}
           placeholder="Search Destination"
           placeholderTextColor="#358c63"
         ></TextInput>
