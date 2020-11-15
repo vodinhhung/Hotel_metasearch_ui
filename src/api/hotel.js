@@ -58,3 +58,21 @@ export async function getSearchHotelService(params) {
   }
   return result;
 }
+export async function getSearchHotelByFilter(hotelFilter) {
+  let result = null;
+  try {
+    result = await axios.get(`/hotel`, {
+      params: {
+        destination: "Kiên Giang",
+        page: 1,
+        facility: hotelFilter.hotel.services.toString(),
+        star: hotelFilter.hotel.star,
+        priceFrom: 0,
+        priceTo: hotelFilter.hotel.value,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  return result;
+}

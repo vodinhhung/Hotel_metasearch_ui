@@ -10,6 +10,8 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 
 
 const SearchHeader = () => {
+
+  
   const navigation = useNavigation();
   return (
     <View style={styles.headerWrapper}>
@@ -31,7 +33,7 @@ const SearchHeader = () => {
           />
         </View>
         <View style={styles.logoIcon}>
-        <Feather name="filter" size={24} color="#666"  onPress={() => navigation.navigate("SearchFilter")}/>
+        <Feather name="search" size={24} color="#666"  onPress={() => navigation.navigate("SearchPage")}/>
         </View>
       </View>
     </View>
@@ -41,9 +43,9 @@ const SearchHeader = () => {
 const styles = StyleSheet.create({
   headerWrapper: {
     justifyContent: "flex-start",
-    flex:1,
+    flex:0.15,
     flexDirection: "column",
-    marginHorizontal: 2,
+    marginTop: "10%",
     
   },
   container: {

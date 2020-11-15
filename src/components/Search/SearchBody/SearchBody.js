@@ -5,10 +5,15 @@ import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getSearchHotelAction } from "@redux/actions/hotelAction";
 
-const SearchBody = ({ getSearchHotel, searchHotels = { items: [] } }) => {
+const SearchBody = ({
+  getSearchHotel,
+  searchHotels = { items: [] },
+  hotels = { items: [] },
+}) => {
   useEffect(() => {
     getSearchHotel("test");
   }, []);
+  // console.log(hotels);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -16,6 +21,7 @@ const SearchBody = ({ getSearchHotel, searchHotels = { items: [] } }) => {
           console.log(item);
           return (
             <View key={index} style={styles.cardWrapper}>
+              {/* {console.log(item)} */}
               <HotelGrid hotel={item} />
             </View>
           );
@@ -24,7 +30,6 @@ const SearchBody = ({ getSearchHotel, searchHotels = { items: [] } }) => {
     </ScrollView>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -51,8 +56,10 @@ const styles = StyleSheet.create({
 });
 function mapStateToProps(state) {
   // console.log(state);
+  // alert(`${JSON.stringify(state.hotelSearchingByFilter)}`);
   return {
     searchHotels: state.hotelSearching.searchHotels,
+    hotels: state.hotelSearchingByFilter.searchHotels,
   };
 }
 function mapDispatchToProps(dispatch) {
