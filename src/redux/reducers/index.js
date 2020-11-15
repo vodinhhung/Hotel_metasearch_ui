@@ -7,6 +7,7 @@ import hotelSearchingReducer from "./hotelSearchingReducer";
 import hotelRecentlyViewed from "./hotelViewedReducer";
 import userReducer from "./userReducer";
 import hotelSearchingByFilterReducer from "./hotelSearchingByFilterReducer";
+import searchDestinationReducer from "./searchDestinationReducer";
 
 // Redux: Root Reducer
 const rootReducer = combineReducers({
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   hotelLike: hotelLikeReducer,
   hotelViewed: hotelRecentlyViewed,
-  hotelSearchingByFilter: hotelSearchingByFilterReducer
+  hotelSearchingByFilter: hotelSearchingByFilterReducer,
+  searchDestination: searchDestinationReducer
 
 });
 // Exports

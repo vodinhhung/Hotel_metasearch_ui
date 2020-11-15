@@ -18,7 +18,7 @@ const SearchBody = ({
     <ScrollView>
       <View style={styles.container}>
         {searchHotels?.items.map((item, index) => {
-          console.log(item);
+          //console.log(item);
           return (
             <View key={index} style={styles.cardWrapper}>
               {/* {console.log(item)} */}

@@ -42,14 +42,24 @@ export function getSearchHotelByFilterFailed(error) {
 }
 
 //Search Suggestion
-export function getSearchSuggestion(text){
+export function getSearchSuggestion(destination) {
     return {
         type: GET_SEARCH_SUGGESTION,
-        text: text
+        destination: destination
     }
 }
 
 //ACtion suggestion 
-export function getSearchSuggestionSuccess(){
-    
+export function getSearchSuggestionSuccess(destinations) {
+    return {
+        type: GET_SEARCH_SUGGESTION_SUCCESS,
+        destinations
+    }
+}
+
+export function getSearchSuggestionFailed(error) {
+    return {
+        type: GET_SEARCH_SUGGESTION_FAILED,
+        error
+    }
 }

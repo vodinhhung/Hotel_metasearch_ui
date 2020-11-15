@@ -10,7 +10,7 @@ import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import TripIconSmall from "@components/Common/TripIconSmall";
 import { useNavigation } from "@react-navigation/native";
-const SearchPage = () => {
+const SearchPage = ({route}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.containerAll}>
@@ -31,11 +31,12 @@ const SearchPage = () => {
             <Text
               style={{ fontSize: 24, color: "white", fontWeight: "normal" }}
             >
-              Destinations
+              {route.params.destination}
             </Text>
           </View>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Feather name="filter" size={24} color="#fff"  onPress={() => navigation.navigate("SearchFilterScreen")}/>
+          <Feather name="filter" size={24} color="#fff" 
+           onPress={() => navigation.navigate("SearchFilterScreen",{destination: `${route.params.destination}`})}/>
           </View>
         </View>
       </View>

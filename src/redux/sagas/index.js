@@ -6,12 +6,14 @@ import { watchHotelSaga } from "./hotelSaga";
 import { watchHotelListSaga } from "./hotelListSaga";
 import { watchUserSaga } from "./userSaga";
 import { watchHotelSearchingByFilterSaga } from "./hotelSearchingByFilterSaga";
+import { watchDestinationsSaga } from "./searchDestinationSaga";
 
 export function* rootSaga() {
   yield all([
     fork(watchHotelSaga),
     fork(watchHotelListSaga),
     fork(watchUserSaga),
-    fork(watchHotelSearchingByFilterSaga)
+    fork(watchHotelSearchingByFilterSaga),
+    fork(watchDestinationsSaga),
   ]);
 }

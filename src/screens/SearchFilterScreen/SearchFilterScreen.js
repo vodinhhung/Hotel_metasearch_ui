@@ -193,6 +193,7 @@ export class SearchFilter extends Component {
       value: 0,
       star: 0,
       service: [],
+      isSelected: false,
     };
   }
 
@@ -265,14 +266,15 @@ export class SearchFilter extends Component {
                 >
                   <Slider
                     value={this.state.value}
-                    step={10.0}
-                    minimumValue={100.0}
+                    step={25000}
+                    minimumValue={100000}
                     maximumValue={15000000}
                     onValueChange={(value) => this.setState({ value })}
                     backgroundColor="#FFF"
                   />
                   <Text>Value: {this.state.value}</Text>
                 </View>
+               
               </View>
             </View>
             <View style={styles.filterOption}>
@@ -378,6 +380,7 @@ export class SearchFilter extends Component {
                 value: this.state.value,
                 star: this.state.star,
                 services: this.state.service,
+                destination: this.props.route.params.destination
               });
               this.props.navigation.navigate("SearchPage");
             }}
@@ -416,6 +419,7 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     marginTop: "5%",
     width: "98%",
+    left: "1%",
   },
   priceOption: {
     marginTop: 10,

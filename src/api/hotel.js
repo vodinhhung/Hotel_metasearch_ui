@@ -46,6 +46,7 @@ export async function getHotelRecentlyViewedService(params) {
 
 export async function getSearchHotelService(params) {
   let result = null;
+  console.log(params);
   try {
     result = await axios.get(`/hotel`, {
       params: {
@@ -63,7 +64,7 @@ export async function getSearchHotelByFilter(hotelFilter) {
   try {
     result = await axios.get(`/hotel`, {
       params: {
-        destination: "Kiên Giang",
+        destination: hotelFilter.hotel.destination,
         page: 1,
         facility: hotelFilter.hotel.services.toString(),
         star: hotelFilter.hotel.star,
@@ -73,6 +74,22 @@ export async function getSearchHotelByFilter(hotelFilter) {
     });
   } catch (error) {
     console.log(error);
+  }
+  return result;
+}
+
+// search destinations
+export async function getDestinationsInput(params) {
+  let result = null;
+  console.log(params.destination.destination);
+  try {
+      result = await axios.get(`/hotel/search`, {
+          params: {
+              text: params.destination.destination
+          },
+      });
+  } catch (error) {
+      console.log(error);
   }
   return result;
 }
