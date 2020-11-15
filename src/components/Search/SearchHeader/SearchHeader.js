@@ -10,6 +10,8 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 
 
 const SearchHeader = () => {
+
+  
   const navigation = useNavigation();
   return (
     <View style={styles.headerWrapper}>
