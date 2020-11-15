@@ -46,6 +46,7 @@ export async function getHotelRecentlyViewedService(params) {
 
 export async function getSearchHotelService(params) {
   let result = null;
+  console.log(params);
   try {
     result = await axios.get(`/hotel`, {
       params: {
@@ -55,6 +56,40 @@ export async function getSearchHotelService(params) {
     });
   } catch (e) {
     console.log(e);
+  }
+  return result;
+}
+export async function getSearchHotelByFilter(hotelFilter) {
+  let result = null;
+  try {
+    result = await axios.get(`/hotel`, {
+      params: {
+        destination: hotelFilter.hotel.destination,
+        page: 1,
+        facility: hotelFilter.hotel.services.toString(),
+        star: hotelFilter.hotel.star,
+        priceFrom: 0,
+        priceTo: hotelFilter.hotel.value,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  return result;
+}
+
+// search destinations
+export async function getDestinationsInput(params) {
+  let result = null;
+  console.log(params.destination.destination);
+  try {
+      result = await axios.get(`/hotel/search`, {
+          params: {
+              text: params.destination.destination
+          },
+      });
+  } catch (error) {
+      console.log(error);
   }
   return result;
 }

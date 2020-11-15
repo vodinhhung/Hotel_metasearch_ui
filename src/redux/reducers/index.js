@@ -6,13 +6,19 @@ import hotelLikeReducer from "./hotelLike";
 import hotelSearchingReducer from "./hotelSearchingReducer";
 import hotelRecentlyViewed from "./hotelViewedReducer";
 import userReducer from "./userReducer";
+import hotelSearchingByFilterReducer from "./hotelSearchingByFilterReducer";
+import searchDestinationReducer from "./searchDestinationReducer";
+
 // Redux: Root Reducer
 const rootReducer = combineReducers({
   hotelDetail: hotelDetailReducer,
   hotelSearching: hotelSearchingReducer,
   user: userReducer,
   hotelLike: hotelLikeReducer,
-  hotelViewed: hotelRecentlyViewed
+  hotelViewed: hotelRecentlyViewed,
+  hotelSearchingByFilter: hotelSearchingByFilterReducer,
+  searchDestination: searchDestinationReducer
+
 });
 // Exports
 export default rootReducer;
