@@ -4,12 +4,13 @@ import { getScaleSizeOfImage } from "@lib/utils/image-size-resolver";
 const images = {
   tripILogo: require("@assets/icons/default_avatar.png"),
 };
-const DefaultAvatar = ({ color = "#026E6E" }) => {
+const Avatar = ({ avatar, color = "#026E6E" }) => {
+  console.log(avatar);
   return (
     <View style={styles.imageWrapper}>
       <Image
         style={[styles.imageStyle, { tintColor: color }]}
-        source={images.tripILogo}
+        source={avatar || images.tripILogo }
       />
     </View>
   );
@@ -23,4 +24,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DefaultAvatar;
+export default Avatar;

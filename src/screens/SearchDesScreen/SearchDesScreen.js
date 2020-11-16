@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { StyleSheet, View, ScrollView } from "react-native";
 import { Input, Text, ListItem } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
@@ -8,16 +9,16 @@ import { useNavigation } from "@react-navigation/native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getSearchSuggestion } from "@redux/actions/hotelAction";
-const SearchHeader = ({
+const SearchDesScreen = ({
   getDestinations,
-  destinations = { province_items: [], hotel_items:[]},
+  destinations = { province_items: [], hotel_items: [] },
 }) => {
   useEffect(() => {
     getDestinations({ destination: "" });
   }, []);
   const navigation = useNavigation();
   const [textInput, setTextInput] = useState("");
-  const [timeout, setTime] = useState(0);
+  const [time, setTime] = useState(0);
   return (
     <ScrollView style={styles.headerWrapper}>
       <View style={styles.container}>
@@ -59,36 +60,39 @@ const SearchHeader = ({
           />
         </View>
       </View>
-      
+
       <View style={{ marginTop: 10 }}>
-        {destinations?.province_items.map((item, index) => {
+        {destinations?.province_items.map((province, index) => {
           return (
             <ListItem
               key={index}
               bottomDivider
-              style={{ marginBottom: 10, height: 40 }}
+              style={{ marginBottom: 10 }}
               onPress={() => {
-                setTextInput(item.name);
+                setTextInput(province.name);
               }}
             >
               <ListItem.Content>
-                <ListItem.Title>{item.name}</ListItem.Title>
+                <ListItem.Title>{province.name}</ListItem.Title>
               </ListItem.Content>
               <ListItem.Chevron />
             </ListItem>
           );
         })}
       </View>
-      <View >
-        {destinations?.hotel_items.map((item, index) => {
+      <View>
+        {destinations?.hotel_items.map((hotel, index) => {
           return (
             <ListItem
               key={index}
               bottomDivider
-              style={{ marginBottom: 10, height: 40 }}
+              style={{ marginBottom: 10 }}
+              onPress={() => {
+                navigation.navigate("HotelDetailPage", { hotel });
+              }}
             >
               <ListItem.Content>
-                <ListItem.Title>{item.name}</ListItem.Title>
+                <ListItem.Title>{hotel.name}</ListItem.Title>
               </ListItem.Content>
               <ListItem.Chevron />
             </ListItem>
@@ -146,4 +150,4 @@ function mapDispatchToProps(dispatch) {
     getDestinations: (params) => dispatch(getSearchSuggestion(params)),
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(SearchHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchDesScreen);

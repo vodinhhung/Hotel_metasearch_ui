@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import DefaultAvatar from "@components/Common/DefaultAvatar";
+import Avatar from "@components/Common/Avatar";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
@@ -53,10 +53,11 @@ const AccountPageScreen = ({ userInfo, logoutRequest }) => {
       <View style={styles.headerContainer}>
         <View style={styles.headerLeft}>
           <View style={styles.avatarWrapper}>
-            <DefaultAvatar />
+            <Avatar avatar={{ uri: userInfo?.picture?.data?.url }} />
           </View>
         </View>
         <View style={styles.headerRight}>
+          <Text>{userInfo?.name}</Text>
           <View>
             <View style={{ flexDirection: "row" }}>{renderUserAction()}</View>
           </View>
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 10,
     paddingLeft: 10,
-    flexDirection: "row",
+    flexDirection: "column",
   },
   bodyContainer: {
     paddingTop: 20,
@@ -195,7 +196,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    logoutRequest: () => dispatch(logoutRequest())
+    logoutRequest: () => dispatch(logoutRequest()),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AccountPageScreen);

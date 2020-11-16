@@ -108,7 +108,7 @@ const HotelDetailScreen = ({
                       style={{ fontSize: 15, fontWeight: "600", color: "#111" }}
                     >{`${convertCurrency(
                       Math.min(
-                        ...hotelDetail.prices.map((price) => price.value)
+                        ...hotelDetail.prices.map((price) => price?.value)
                       )
                     )} / 1 Đêm`}</Text>
                   </View>

@@ -484,7 +484,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
         <TextInput
           style={styles.searchBox}
           // autoFocus={true}
-          onFocus={() => navigation.navigate("SearchHeader")}
+          onFocus={() => navigation.navigate("SearchDes")}
           placeholder="Search Destination"
           placeholderTextColor="#358c63"
         ></TextInput>
