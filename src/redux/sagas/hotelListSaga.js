@@ -1,9 +1,8 @@
 // Imports: Dependencies
 import { delay, takeEvery, takeLatest, put, select } from "redux-saga/effects";
 import {
-  getSearchHotelService,
   getHotelRecentlyViewedService,
-  getSearchHotelByFilterService
+  getSearchHotelByFilterService,
 } from "@api/hotel";
 import {
   GET_HOTEL_RECENTLY_VIEWED,
@@ -17,7 +16,7 @@ import {
 } from "../definitions/hotelDefine";
 
 const tokenState = (state) => state.user.accessToken;
-
+const searchParamsState = (state) => state.hotelSearchingByFilter.params;
 function* getHotelViewed() {
   try {
     yield put({
@@ -40,13 +39,16 @@ function* getHotelViewed() {
 
 function* getHotelByFilter(params) {
   try {
-    yield put({ type: GET_SEARCH_HOTEL_BY_FILTER_PENDING, e });
-    const hotelSearch = yield getSearchHotelByFilterService(params);
+    yield put({ type: GET_SEARCH_HOTEL_BY_FILTER_PENDING });
+    const searchParams = yield select(searchParamsState);
+    const hotelSearch = yield getSearchHotelByFilterService(searchParams);
+
     yield put({
       type: GET_SEARCH_HOTEL_BY_FILTER_SUCCESS,
       receivedHotels: hotelSearch.data,
     });
   } catch (e) {
+    console.log(e);
     yield put({ type: GET_SEARCH_HOTEL_BY_FILTER_FAILED, e });
   }
 }

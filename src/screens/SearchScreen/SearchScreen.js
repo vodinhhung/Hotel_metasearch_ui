@@ -14,11 +14,10 @@ import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getSearchHotelByFilter } from "@redux/actions/hotelAction";
 import { connect } from "react-redux";
-const SearchPage = ({ route, getSearchHotelByFilter }) => {
+const SearchPage = ({ getSearchHotelByFilter }) => {
   useEffect(() => {
-    console.log(route);
-    getSearchHotelByFilter({ destination: "" });
-  });
+    getSearchHotelByFilter();
+  },[]);
   const { colors } = useTheme();
   const navigation = useNavigation();
   return (

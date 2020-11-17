@@ -14,11 +14,15 @@ import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { getSearchSuggestion } from "@redux/actions/hotelAction";
+import {
+  getSearchSuggestion,
+  setSearchParams,
+} from "@redux/actions/hotelAction";
 import { useTheme, Searchbar, Avatar } from "react-native-paper";
 import { FontAwesome5 } from "@expo/vector-icons";
 const SearchDesScreen = ({
   getDestinations,
+  setSearchParams,
   destinations = { province_items: [], hotel_items: [] },
   userInfo,
 }) => {
@@ -99,8 +103,11 @@ const SearchDesScreen = ({
               <ListItem
                 key={index}
                 bottomDivider
-                onPress={() => {
-                  navigation.navigate("SearchPage", { destination: province.name });
+                onPress={async () => {
+                  await setSearchParams({ destination: province.name });
+                  navigation.navigate("SearchPage", {
+                    destination: province.name,
+                  });
                   // setTextInput(province.name);
                 }}
               >
@@ -206,6 +213,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getDestinations: (params) => dispatch(getSearchSuggestion(params)),
+    setSearchParams: (params) => dispatch(setSearchParams(params)),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SearchDesScreen);

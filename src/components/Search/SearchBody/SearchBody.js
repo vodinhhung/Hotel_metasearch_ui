@@ -3,21 +3,19 @@ import { StyleSheet, View, TextInput } from "react-native";
 import HotelGrid from "@components/Hotel/HotelGrid";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { getSearchHotelAction } from "@redux/actions/hotelAction";
+import { getSearchHotelByFilter } from "@redux/actions/hotelAction";
 
 const SearchBody = ({
-  getSearchHotel,
-  searchHotels = { items: [] },
-  hotels = { items: [] },
+  getSearchHotelByFilter,
+  hotelLists = { items: [] },
 }) => {
-  useEffect(() => {
-    getSearchHotel("test");
-  }, []);
-  // console.log(hotels);
+  // useEffect(() => {
+  //   getSearchHotelByFilter();
+  // }, []);
   return (
     <ScrollView>
       <View style={styles.container}>
-        {searchHotels?.items.map((item, index) => {
+        {hotelLists?.items.map((item, index) => {
           //console.log(item);
           return (
             <View key={index} style={styles.cardWrapper}>
@@ -58,13 +56,12 @@ function mapStateToProps(state) {
   // console.log(state);
   // alert(`${JSON.stringify(state.hotelSearchingByFilter)}`);
   return {
-    searchHotels: state.hotelSearching.searchHotels,
-    hotels: state.hotelSearchingByFilter.searchHotels,
+    hotelLists: state?.hotelSearchingByFilter?.searchHotels,
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    getSearchHotel: (params) => dispatch(getSearchHotelAction(params)),
+    getSearchHotelByFilter: (params) => dispatch(getSearchHotelByFilter(params)),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBody);
