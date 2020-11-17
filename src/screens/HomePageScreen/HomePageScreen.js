@@ -481,13 +481,19 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
             Where would you like to go today?
           </Animated.Text>
         </Animated.View>
-        <TextInput
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("SearchDes");
+          }}
           style={styles.searchBox}
-          // autoFocus={true}
-          onFocus={() => navigation.navigate("SearchDes")}
-          placeholder="Search Destination"
-          placeholderTextColor="#358c63"
-        ></TextInput>
+        >
+          <TextInput
+            editable={false}
+            pointerEvents="none"
+            placeholder="Search Destination"
+            placeholderTextColor="#358c63"
+          ></TextInput>
+        </TouchableOpacity>
         <Feather
           name="search"
           size={22}

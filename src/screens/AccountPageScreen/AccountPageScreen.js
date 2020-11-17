@@ -155,12 +155,19 @@ const styles = StyleSheet.create({
   headerContainer: {
     paddingHorizontal: 10,
     flexDirection: "row",
+    height: 50,
   },
   headerRight: {
     flex: 1,
     paddingTop: 10,
     paddingLeft: 10,
     flexDirection: "column",
+  },
+  headerLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  avatarWrapper: {
   },
   bodyContainer: {
     paddingTop: 20,

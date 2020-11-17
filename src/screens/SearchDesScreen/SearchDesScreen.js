@@ -1,127 +1,177 @@
 import React, { useState, useEffect } from "react";
 
-import { StyleSheet, View, ScrollView } from "react-native";
-import { Input, Text, ListItem } from "react-native-elements";
-import { Feather } from "@expo/vector-icons";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Animated,
+  LayoutAnimation,
+} from "react-native";
+import { Text, ListItem } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
-import TripIconSmall from "@components/Common/TripIconSmall";
+import StatusBar from "@components/Common/StatusBar";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getSearchSuggestion } from "@redux/actions/hotelAction";
+import { useTheme, Searchbar, Avatar } from "react-native-paper";
+import { FontAwesome5 } from "@expo/vector-icons";
 const SearchDesScreen = ({
   getDestinations,
   destinations = { province_items: [], hotel_items: [] },
+  userInfo,
 }) => {
+  const [textInput, setTextInput] = useState("");
+  const [time, setTime] = useState(0);
+  const { colors } = useTheme();
+  const [switchEffect, setSwitchEffect] = useState(true);
   useEffect(() => {
     getDestinations({ destination: "" });
   }, []);
   const navigation = useNavigation();
-  const [textInput, setTextInput] = useState("");
-  const [time, setTime] = useState(0);
-  return (
-    <ScrollView style={styles.headerWrapper}>
-      <View style={styles.container}>
-        <View style={styles.backIcon}>
-          <TouchableHighlight
-            underlayColor="#DDDDDD"
-            onPress={() => {
-              navigation.goBack();
-            }}
-          >
-            <MaterialIcons
-              name="arrow-back"
-              size={24}
-              style={styles.backIcon}
-              color="#666"
-            />
-          </TouchableHighlight>
-        </View>
-        <View style={[styles.input, { height: 40 }]}>
-          <Input
-            onChangeText={(text) => {
-              setTextInput(text);
-              setTimeout(() => {
-                getDestinations({ destination: text });
-              }, 1000);
-            }}
-            value={textInput}
-            autoFocus={true}
-          />
-        </View>
-        <View style={styles.logoIcon}>
-          <Feather
-            name="search"
-            size={24}
-            color="#666"
-            onPress={() =>
-              navigation.navigate("SearchPage", { destination: textInput })
-            }
-          />
-        </View>
-      </View>
 
-      <View style={{ marginTop: 10 }}>
-        {destinations?.province_items.map((province, index) => {
-          return (
-            <ListItem
-              key={index}
-              bottomDivider
-              style={{ marginBottom: 10 }}
+  const onChangeSearch = (query) => {
+    getDestinations({ destination: query });
+  };
+  const focusSearchInput = (status = true) => {
+    LayoutAnimation.easeInEaseOut();
+    if (status) {
+      setSwitchEffect(false);
+    }
+  };
+  return (
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <StatusBar colors={colors} />
+      <SafeAreaView style={styles.headerWrapper}>
+        <View style={styles.headerLeft}>
+          <View>
+            <TouchableHighlight
+              underlayColor="#DDDDDD"
               onPress={() => {
-                setTextInput(province.name);
+                navigation.goBack();
               }}
             >
-              <ListItem.Content>
-                <ListItem.Title>{province.name}</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
-          );
-        })}
-      </View>
+              <MaterialIcons
+                name="arrow-back"
+                size={25}
+                style={styles.backIcon}
+                color="#007BFF"
+              />
+            </TouchableHighlight>
+          </View>
+        </View>
+        <View style={styles.headerTitle}>
+          <Text style={[styles.bigTitle2, { alignSelf: "center" }]}>
+            Search
+          </Text>
+        </View>
+        <View style={styles.headerRight}>
+          {userInfo ? (
+            <Avatar.Image
+              size={35}
+              source={{ uri: userInfo.picture.data.url }}
+            />
+          ) : null}
+        </View>
+      </SafeAreaView>
       <View>
-        {destinations?.hotel_items.map((hotel, index) => {
-          return (
-            <ListItem
-              key={index}
-              bottomDivider
-              style={{ marginBottom: 10 }}
-              onPress={() => {
-                navigation.navigate("HotelDetailPage", { hotel });
-              }}
-            >
-              <ListItem.Content>
-                <ListItem.Title>{hotel.name}</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
-          );
-        })}
+        {switchEffect && (
+          <Animated.View style={[styles.bodyWrapper, { height: 120 }]}>
+            <Text style={styles.bigTitle}>
+              Hello, {userInfo?.name ? `${userInfo?.name}.` : null}
+            </Text>
+            <Text style={styles.bigTitle}>What would you like to search ?</Text>
+          </Animated.View>
+        )}
+        <View style={[styles.bodyWrapper, { height: 60 }]}>
+          <Searchbar
+            placeholder="Find you want."
+            onFocus={() => {
+              focusSearchInput();
+            }}
+            onChangeText={onChangeSearch}
+          />
+        </View>
+        <ScrollView style={[styles.bodyWrapper, { height: "100%" }]}>
+          {destinations?.province_items?.slice(0, 3).map((province, index) => {
+            return (
+              <ListItem
+                key={index}
+                bottomDivider
+                onPress={() => {
+                  navigation.navigate("SearchPage", { destination: province.name });
+                  // setTextInput(province.name);
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={15}
+                      color="#208838"
+                    />
+                    {" " + province.name}
+                  </ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            );
+          })}
+          {destinations?.hotel_items?.slice(0, 3)?.map((hotel, index) => {
+            return (
+              <ListItem
+                key={index}
+                bottomDivider
+                onPress={() => {
+                  navigation.navigate("HotelDetailPage", { hotel });
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>
+                    <FontAwesome5 name="hotel" size={15} color="#208838" />
+                    {" " + hotel.name}
+                  </ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            );
+          })}
+        </ScrollView>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerWrapper: {
-    // justifyContent: "flex-start",
-    flex: 0.15,
-    flexDirection: "column",
-    marginTop: "10%",
+    height: 80,
+    flexDirection: "row",
+  },
+  bodyWrapper: {
+    marginHorizontal: 15,
   },
   container: {
-    flex: 0.5,
+    flex: 1,
+    flexDirection: "column",
+  },
+  headerLeft: {
+    justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
-    height: "5%",
+    flex: 3,
   },
-  backIcon: {
+  headerTitle: {
+    flex: 15,
+    flexDirection: "row",
     justifyContent: "center",
-    // flexDirection: "row",
+    alignContent: "center",
+  },
+  headerRight: {
+    justifyContent: "center",
+    flexDirection: "row",
     alignItems: "center",
     flex: 3,
-    height: 40,
   },
   input: {
     flex: 15,
@@ -138,11 +188,19 @@ const styles = StyleSheet.create({
     textDecorationColor: "#666",
     textDecorationLine: "underline",
   },
+  bigTitle: {
+    fontSize: 25,
+    fontWeight: "500",
+  },
+  bigTitle2: {
+    fontSize: 20,
+    fontWeight: "500",
+  },
 });
 function mapStateToProps(state) {
-  console.log(state.searchDestination.destinations);
   return {
     destinations: state.searchDestination.destinations,
+    userInfo: state.user.userProfile,
   };
 }
 function mapDispatchToProps(dispatch) {
