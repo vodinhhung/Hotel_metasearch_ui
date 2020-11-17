@@ -1,7 +1,7 @@
 import {
-  GET_SEARCH_HOTEL_BY_FILTER,
   GET_SEARCH_HOTEL_BY_FILTER_SUCCESS,
   GET_SEARCH_HOTEL_BY_FILTER_FAILED,
+  GET_SEARCH_HOTEL_BY_FILTER_PENDING,
 } from "../definitions/hotelDefine";
 
 const initialState = {
@@ -11,11 +11,17 @@ const initialState = {
 
 const hotelSearchingByFilterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_SEARCH_HOTEL_BY_FILTER_SUCCESS:
+    case GET_SEARCH_HOTEL_BY_FILTER_PENDING:
       return {
         ...state,
         isPending: true,
-        searchHotels: action.receivedHotels,
+        searchHotels: [],
+      };
+    case GET_SEARCH_HOTEL_BY_FILTER_SUCCESS:
+      return {
+        ...state,
+        isPending: false,
+        searchHotels: action.data,
       };
     case GET_SEARCH_HOTEL_BY_FILTER_FAILED:
       return {

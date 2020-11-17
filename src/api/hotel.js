@@ -59,7 +59,7 @@ export async function getSearchHotelService(params) {
   }
   return result;
 }
-export async function getSearchHotelByFilter(hotelFilter) {
+export async function getSearchHotelByFilterService(hotelFilter) {
   let result = null;
   try {
     result = await axios.get(`/hotel`, {

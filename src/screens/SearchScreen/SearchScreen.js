@@ -1,28 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Constants from "expo-constants";
 import { StyleSheet, View, TextInput } from "react-native";
 import SearchHeader from "@components/Search/SearchHeader/SearchHeader";
 import SearchBody from "@components/Search/SearchBody/SearchBody";
-import { StatusBar } from "expo-status-bar";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { Input, Text } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useTheme } from "react-native-paper";
 import TripIconSmall from "@components/Common/TripIconSmall";
+import StatusBar from "@components/Common/StatusBar";
 import { useNavigation } from "@react-navigation/native";
-const SearchPage = ({route}) => {
+import { SafeAreaView } from "react-native-safe-area-context";
+import { getSearchHotelByFilter } from "@redux/actions/hotelAction";
+import { connect } from "react-redux";
+const SearchPage = ({ route, getSearchHotelByFilter }) => {
+  useEffect(() => {
+    console.log(route);
+    getSearchHotelByFilter({ destination: "" });
+  });
+  const { colors } = useTheme();
   const navigation = useNavigation();
   return (
-    <View style={styles.containerAll}>
-      <StatusBar style="dark" />
-      <View style={styles.searchHeader}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <StatusBar colors={colors} />
+      <SafeAreaView style={styles.headerWrapper}>
+        <View style={styles.headerLeft}>
+          <View>
+            <TouchableHighlight
+              underlayColor="#DDDDDD"
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <MaterialIcons
+                name="arrow-back"
+                size={25}
+                style={styles.backIcon}
+                color="#007BFF"
+              />
+            </TouchableHighlight>
+          </View>
+        </View>
+        <View style={styles.headerTitle}>
+          <Text style={[styles.bigTitle2, { alignSelf: "center" }]}>
+            Search
+          </Text>
+        </View>
+        <View style={styles.headerRight}>
+          {/* {userInfo ? (
+            <Avatar.Image
+              size={35}
+              source={{ uri: userInfo.picture.data.url }}
+            />
+          ) : null} */}
+        </View>
+      </SafeAreaView>
+      {/* <View style={styles.searchHeader}>
         <View style={styles.headerWrapper}>
           <View style={styles.backIcon}>
             <TouchableHighlight
               underlayColor="#DDDDDD"
               onPress={() => {
-              navigation.goBack();
-            }}
+                navigation.goBack();
+              }}
             >
               <MaterialIcons name="arrow-back" size={30} color="white" />
             </TouchableHighlight>
@@ -35,11 +76,19 @@ const SearchPage = ({route}) => {
             </Text>
           </View>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Feather name="filter" size={24} color="#fff" 
-           onPress={() => navigation.navigate("SearchFilterScreen",{destination: `${route.params.destination}`})}/>
+            <Feather
+              name="filter"
+              size={24}
+              color="#fff"
+              onPress={() =>
+                navigation.navigate("SearchFilterScreen", {
+                  destination: `${route.params.destination}`,
+                })
+              }
+            />
           </View>
         </View>
-      </View>
+      </View> */}
       <View style={styles.searchBody}>
         <SearchBody />
       </View>
@@ -49,13 +98,26 @@ const SearchPage = ({route}) => {
 
 const styles = StyleSheet.create({
   headerWrapper: {
-    top: "4%",
-    left: 0,
-    padding: "2%",
+    height: 80,
     flexDirection: "row",
-    justifyContent: "space-between",
-    height: 50,
-    backgroundColor: "#00B388",
+  },
+  headerLeft: {
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 3,
+  },
+  headerTitle: {
+    flex: 15,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  headerRight: {
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 3,
   },
   backIcon: {
     justifyContent: "center",
@@ -65,12 +127,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  containerAll: {
-    marginHorizontal: 4,
+  container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "white",
-    paddingTop: Constants.statusBarHeight,
   },
   searchHeader: {
     height: 80,
@@ -79,6 +138,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
+  bigTitle2: {
+    fontSize: 20,
+    fontWeight: "500",
+  },
 });
 
-export default SearchPage;
+function mapStateToProps(dispatch) {
+  return { getSearchHotelByFilter: (params) => dispatch(getSearchHotelByFilter(params)) };
+}
+export default connect(null, mapStateToProps)(SearchPage);
