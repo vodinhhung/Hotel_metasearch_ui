@@ -1,5 +1,5 @@
 import { instance as axios } from "@config/axios";
-import { solveNull } from "@lib/utils/resolver";
+import { convertNotNull } from "@lib/utils/resolver";
 
 // Make a request for a user with a given ID
 export async function getHotelDetailService(id) {
@@ -47,10 +47,10 @@ export async function getHotelRecentlyViewedService(params) {
 
 export async function getSearchHotelByFilterService(hotelFilter) {
   let result = null;
-  console.log(hotelFilter);
   try {
+    let hotelFilterSolve = convertNotNull(hotelFilter);
     result = await axios.get(`/hotel`, {
-      params: hotelFilter,
+      params: hotelFilterSolve
     });
   } catch (error) {
     console.log(error);
@@ -60,7 +60,6 @@ export async function getSearchHotelByFilterService(hotelFilter) {
 
 // search destinations
 export async function getDestinationsInput(params) {
-  params = solveNull(params);
   let result = null;
   console.log(params.destination.destination);
   try {

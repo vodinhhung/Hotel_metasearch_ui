@@ -7,15 +7,15 @@ import { getSearchHotelByFilter } from "@redux/actions/hotelAction";
 
 const SearchBody = ({
   getSearchHotelByFilter,
-  hotelLists = { items: [] },
+  hotelLists = { items: null },
 }) => {
-  // useEffect(() => {
-  //   getSearchHotelByFilter();
-  // }, []);
+  useEffect(() => {
+    getSearchHotelByFilter();
+  }, []);
   return (
     <ScrollView>
       <View style={styles.container}>
-        {hotelLists?.items.map((item, index) => {
+        {hotelLists?.items?.map((item, index) => {
           //console.log(item);
           return (
             <View key={index} style={styles.cardWrapper}>
@@ -61,7 +61,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    getSearchHotelByFilter: (params) => dispatch(getSearchHotelByFilter(params)),
+    getSearchHotelByFilter: (params) =>
+      dispatch(getSearchHotelByFilter(params)),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBody);

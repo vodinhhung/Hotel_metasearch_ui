@@ -16,7 +16,7 @@ const HotelGrid = ({ hotel }) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [item, setItem] = useState({
     image: {
-      uri: hotel.logo,
+      uri: hotel?.logo,
     },
     // title: "Ha long",
     // key: "1",
@@ -42,13 +42,15 @@ const HotelGrid = ({ hotel }) => {
           <View style={styles.ratingStyle}>
             <Rating rating={hotel.overall_score} />
           </View>
-          <Image
-            style={{
-              width: imageSize.width,
-              height: imageSize.height,
-            }}
-            source={item.image}
-          ></Image>
+          {item.image.uri && (
+            <Image
+              style={{
+                width: imageSize.width,
+                height: imageSize.height,
+              }}
+              source={item.image}
+            ></Image>
+          )}
           <View style={styles.wrapperContent}>
             <Text style={styles.cardTitle}>{hotel.name}</Text>
             <View style={styles.cardContent}>

@@ -12,12 +12,16 @@ import TripIconSmall from "@components/Common/TripIconSmall";
 import StatusBar from "@components/Common/StatusBar";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getSearchHotelByFilter } from "@redux/actions/hotelAction";
+import {
+  getSearchHotelByFilter,
+  setSearchParams,
+} from "@redux/actions/hotelAction";
 import { connect } from "react-redux";
-const SearchPage = ({ getSearchHotelByFilter }) => {
+const SearchPage = ({ getSearchHotelByFilter, destination }) => {
   useEffect(() => {
     getSearchHotelByFilter();
-  },[]);
+    setSearchParams;
+  }, []);
   const { colors } = useTheme();
   const navigation = useNavigation();
   return (
@@ -43,7 +47,7 @@ const SearchPage = ({ getSearchHotelByFilter }) => {
         </View>
         <View style={styles.headerTitle}>
           <Text style={[styles.bigTitle2, { alignSelf: "center" }]}>
-            Search
+            {destination}
           </Text>
         </View>
         <View style={styles.headerRight}>
@@ -143,7 +147,15 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(dispatch) {
-  return { getSearchHotelByFilter: (params) => dispatch(getSearchHotelByFilter(params)) };
+function mapDispatchToProps(dispatch) {
+  return {
+    getSearchHotelByFilter: (params) =>
+      dispatch(getSearchHotelByFilter(params)),
+  };
 }
-export default connect(null, mapStateToProps)(SearchPage);
+function mapStateToProps(state) {
+  return {
+    destination: state.hotelSearchingByFilter.params.destination,
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

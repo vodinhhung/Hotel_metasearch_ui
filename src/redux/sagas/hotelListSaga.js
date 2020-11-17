@@ -1,9 +1,6 @@
 // Imports: Dependencies
 import { delay, takeEvery, takeLatest, put, select } from "redux-saga/effects";
-import {
-  getHotelRecentlyViewedService,
-  getSearchHotelByFilterService,
-} from "@api/hotel";
+
 import {
   GET_HOTEL_RECENTLY_VIEWED,
   GET_HOTEL_RECENTLY_VIEWED_FAILED,
@@ -15,6 +12,10 @@ import {
   GET_SEARCH_HOTEL_BY_FILTER_PENDING,
 } from "../definitions/hotelDefine";
 
+import {
+  getHotelRecentlyViewedService,
+  getSearchHotelByFilterService,
+} from "@api/hotel";
 const tokenState = (state) => state.user.accessToken;
 const searchParamsState = (state) => state.hotelSearchingByFilter.params;
 function* getHotelViewed() {
@@ -29,7 +30,6 @@ function* getHotelViewed() {
       data: hotelSearch.data,
     });
   } catch (error) {
-    console.log(error);
     yield put({
       type: GET_HOTEL_RECENTLY_VIEWED_FAILED,
       message: error,
@@ -42,14 +42,12 @@ function* getHotelByFilter(params) {
     yield put({ type: GET_SEARCH_HOTEL_BY_FILTER_PENDING });
     const searchParams = yield select(searchParamsState);
     const hotelSearch = yield getSearchHotelByFilterService(searchParams);
-
     yield put({
       type: GET_SEARCH_HOTEL_BY_FILTER_SUCCESS,
-      receivedHotels: hotelSearch.data,
+      data: hotelSearch.data,
     });
   } catch (e) {
-    console.log(e);
-    yield put({ type: GET_SEARCH_HOTEL_BY_FILTER_FAILED, e });
+    yield put({ type: GET_SEARCH_HOTEL_BY_FILTER_FAILED, message: e });
   }
 }
 // Watcher: Decrease Counter

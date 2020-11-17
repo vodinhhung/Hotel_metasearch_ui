@@ -1,4 +1,3 @@
-export function solveNull(myObj) {
-  Object.keys(myObj).forEach((key) => myObj[key] == null && delete myObj[key]);
-  return myObj;
-}
+export const convertNotNull = (obj) => {
+  return Object.entries(obj).reduce((a,[k,v]) => (v == null ? a : (a[k]=v, a)), {})
+};
