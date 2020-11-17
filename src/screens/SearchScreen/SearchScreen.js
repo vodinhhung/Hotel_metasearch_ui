@@ -51,47 +51,16 @@ const SearchPage = ({ getSearchHotelByFilter, destination }) => {
           </Text>
         </View>
         <View style={styles.headerRight}>
-          {/* {userInfo ? (
-            <Avatar.Image
-              size={35}
-              source={{ uri: userInfo.picture.data.url }}
-            />
-          ) : null} */}
+          <TouchableHighlight
+            underlayColor="#DDDDDD"
+            onPress={() => {
+              navigation.navigate("SearchFilterScreen", {});
+            }}
+          >
+            <Feather name="filter" size={24} color="#007BFF" />
+          </TouchableHighlight>
         </View>
       </SafeAreaView>
-      {/* <View style={styles.searchHeader}>
-        <View style={styles.headerWrapper}>
-          <View style={styles.backIcon}>
-            <TouchableHighlight
-              underlayColor="#DDDDDD"
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <MaterialIcons name="arrow-back" size={30} color="white" />
-            </TouchableHighlight>
-          </View>
-          <View style={[styles.titleDes]}>
-            <Text
-              style={{ fontSize: 24, color: "white", fontWeight: "normal" }}
-            >
-              {route.params.destination}
-            </Text>
-          </View>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Feather
-              name="filter"
-              size={24}
-              color="#fff"
-              onPress={() =>
-                navigation.navigate("SearchFilterScreen", {
-                  destination: `${route.params.destination}`,
-                })
-              }
-            />
-          </View>
-        </View>
-      </View> */}
       <View style={styles.searchBody}>
         <SearchBody />
       </View>

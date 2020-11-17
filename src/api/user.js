@@ -6,8 +6,12 @@ export async function loginRequestService(params) {
   try {
     result = await axios.post(`/hotel/login`, {
       access_token: params.token,
-      domain: params.type === "facebook" ? 1 : 2,
+      domain: params.type === "facebook" ? 1 : 0,
     });
+    if (params.type !== "facebook") {
+      result.data.user.picture = { data: { url: result.data.user.picture } };
+    }
+    console.log(result);
   } catch (e) {
     console.log(e);
   }
