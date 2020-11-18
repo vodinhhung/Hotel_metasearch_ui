@@ -297,7 +297,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
                     }}
                   >
                     <Image
-                      source={{ uri: item.logo }}
+                      source={{ uri: item?.logo ?? " " }}
                       style={{
                         width: 300,
                         marginRight: 8,

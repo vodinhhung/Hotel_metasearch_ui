@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, FlatList, Text } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useTheme } from "react-native-paper";
+import { Paragraph, useTheme, Chip } from "react-native-paper";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import Accordion from "@dooboo-ui/native-accordion";
 import { connect } from "react-redux";
@@ -10,8 +10,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { getSearchHotelByFilter } from "@redux/actions/hotelAction";
 import DatePicker from "@components/Hotel/Filter/DatePicker";
+import ModalDatePicker from "@components/Hotel/Filter/ModalDatePicker";
 import PriceRange from "@components/Hotel/Filter/PriceRange";
+import StarHotel from "@components/Hotel/Filter/StarHotel";
 const SearchFilter = () => {
+  const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
   const { colors } = useTheme();
   const [value, setValue] = useState(0);
@@ -41,9 +44,70 @@ const SearchFilter = () => {
         <View style={styles.headerTitle}></View>
       </SafeAreaView>
       <ScrollView style={styles.bodyWrapper}>
-        <DatePicker/>
-        {/* <PriceRange/> */}
+        <View style={{ paddingVertical: 5 }}>
+          <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
+            BOOKING DATE
+          </Paragraph>
+          <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
+            <DatePicker setVisible={setVisible} />
+          </View>
+        </View>
+
+        <View style={{ paddingVertical: 5 }}>
+          <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
+            PRICE/DAY
+          </Paragraph>
+          <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
+            <PriceRange />
+          </View>
+        </View>
+
+        {/* <View style={{ paddingVertical: 5 }}>
+          <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
+            ĐÁNH GIÁ
+          </Paragraph>
+          <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
+            <PriceRange />
+          </View>
+        </View> */}
+
+        <View style={{ paddingVertical: 5 }}>
+          <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
+            HOTEL STAR
+          </Paragraph>
+          <View style={{ flex: 1, flexDirection: "row", padding: 10 }}>
+            <StarHotel />
+          </View>
+        </View>
+
+        <View style={{ paddingVertical: 5 }}>
+          <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
+            FACILITIES
+          </Paragraph>
+          <View style={{ flex: 1, flexDirection: "row", padding: 10 }}>
+            {/* <StarHotel /> */}
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              data={[{}, {}]}
+              renderItem={({ item }) => {
+                return (
+                  <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
+                    <Chip
+                      // icon="information"
+                      onPress={() => console.log("Pressed")}
+                    >
+                      
+                      <Text>Hello</Text>
+                    </Chip>
+                  </View>
+                );
+              }}
+            />
+          </View>
+        </View>
       </ScrollView>
+      <ModalDatePicker visible={visible} setVisible={setVisible} />
     </View>
   );
 };
@@ -134,15 +198,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {
-    hotels: state.hotelSearchingByFilter[1],
-  };
+  return {};
 }
 function mapDispatchToProps(dispatch) {
-  return {
-    onFetchHotels: (params) => {
-      dispatch(getSearchHotelByFilter(params));
-    },
-  };
+  return {};
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFilter);
