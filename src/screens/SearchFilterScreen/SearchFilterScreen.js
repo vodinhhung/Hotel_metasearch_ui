@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView, FlatList, Text } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Paragraph, useTheme, Chip } from "react-native-paper";
@@ -13,6 +13,7 @@ import DatePicker from "@components/Hotel/Filter/DatePicker";
 import ModalDatePicker from "@components/Hotel/Filter/ModalDatePicker";
 import PriceRange from "@components/Hotel/Filter/PriceRange";
 import StarHotel from "@components/Hotel/Filter/StarHotel";
+import Facilities from "@components/Hotel/Filter/Facilities";
 const SearchFilter = () => {
   const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
@@ -84,28 +85,8 @@ const SearchFilter = () => {
           <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
             FACILITIES
           </Paragraph>
-          <View style={{ flex: 1, flexDirection: "row", padding: 10 }}>
-            {/* <StarHotel /> */}
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              horizontal={true}
-              data={[{}, {}]}
-              renderItem={({ item }) => {
-                return (
-                  <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
-                    <Chip
-                      // icon="information"
-                      onPress={() => console.log("Pressed")}
-                    >
-                      
-                      <Text>Hello</Text>
-                    </Chip>
-                  </View>
-                );
-              }}
-            />
-          </View>
         </View>
+        <Facilities />
       </ScrollView>
       <ModalDatePicker visible={visible} setVisible={setVisible} />
     </View>
