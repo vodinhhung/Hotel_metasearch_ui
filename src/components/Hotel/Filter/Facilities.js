@@ -4,15 +4,12 @@ import { Chip } from "react-native-paper";
 import { StyleSheet, View, Text, Image, FlatList } from "react-native";
 import { getScaleSizeOfImage } from "@lib/utils/image-size-resolver";
 import { facilitiesData } from "@lib/utils/facilityHotel";
-import {
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
 const images = {
   star: require("@assets/icons/star.png"),
 };
 import { setSearchParams } from "@redux/actions/hotelAction";
 const Facility = ({ index, facilities, setSearchParams }) => {
+  console.log(facilities);
   return (
     <FlatList
       showsHorizontalScrollIndicator={false}
@@ -25,7 +22,7 @@ const Facility = ({ index, facilities, setSearchParams }) => {
             <Chip
               style={{ flexDirection: "column", alignItems: "center" }}
               onPress={() => {
-                const newFacilities = facilities;
+                const newFacilities = [...facilities];
                 newFacilities[index] = !newFacilities[index];
                 setSearchParams({
                   facility: newFacilities,
@@ -52,11 +49,12 @@ const Facility = ({ index, facilities, setSearchParams }) => {
 const styles = StyleSheet.create({
   imageStyle: {
     ...getScaleSizeOfImage(images.star, 30),
+    tintColor: "#208838",
   },
 });
 function mapStateToProps(state) {
   return {
-    facilities: state.hotelSearchingByFilter.params.facility ?? [],
+    facilities: state.hotelSearchingByFilter.params.facility,
   };
 }
 function mapDispatchToProps(dispatch) {

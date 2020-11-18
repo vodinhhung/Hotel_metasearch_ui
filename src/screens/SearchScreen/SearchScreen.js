@@ -3,7 +3,7 @@ import Constants from "expo-constants";
 import { StyleSheet, View, TextInput } from "react-native";
 import SearchHeader from "@components/Search/SearchHeader/SearchHeader";
 import SearchBody from "@components/Search/SearchBody/SearchBody";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 import { Input, Text } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -30,7 +30,7 @@ const SearchPage = ({ getSearchHotelByFilter, destination }) => {
       <SafeAreaView style={styles.headerWrapper}>
         <View style={styles.headerLeft}>
           <View>
-            <TouchableHighlight
+            <TouchableOpacity
               underlayColor="#DDDDDD"
               onPress={() => {
                 navigation.goBack();
@@ -42,7 +42,7 @@ const SearchPage = ({ getSearchHotelByFilter, destination }) => {
                 style={styles.backIcon}
                 color="#007BFF"
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.headerTitle}>
@@ -51,14 +51,14 @@ const SearchPage = ({ getSearchHotelByFilter, destination }) => {
           </Text>
         </View>
         <View style={styles.headerRight}>
-          <TouchableHighlight
+          <TouchableOpacity
             underlayColor="#DDDDDD"
             onPress={() => {
               navigation.navigate("SearchFilterScreen", {});
             }}
           >
             <Feather name="filter" size={24} color="#007BFF" />
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
       <View style={styles.searchBody}>

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, Text } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Paragraph, useTheme, Chip } from "react-native-paper";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { Paragraph, useTheme, Chip, Title, Button } from "react-native-paper";
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import Accordion from "@dooboo-ui/native-accordion";
 import { connect } from "react-redux";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -27,7 +30,7 @@ const SearchFilter = () => {
       <SafeAreaView style={styles.headerWrapper}>
         <View style={styles.headerLeft}>
           <View>
-            <TouchableHighlight
+            <TouchableOpacity
               underlayColor="#DDDDDD"
               onPress={() => {
                 navigation.goBack();
@@ -39,10 +42,29 @@ const SearchFilter = () => {
                 style={styles.backIcon}
                 color="#007BFF"
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.headerTitle}></View>
+        <View style={styles.headerTitle}>
+          <Text style={[styles.bigTitle2, { alignSelf: "center" }]}>
+            Filter
+          </Text>
+        </View>
+        <View style={styles.headerRight}>
+          <TouchableOpacity
+            underlayColor="#DDDDDD"
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <MaterialCommunityIcons
+              name="filter-remove-outline"
+              size={26}
+              style={styles.backIcon}
+              color="#007BFF"
+            />
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
       <ScrollView style={styles.bodyWrapper}>
         <View style={{ paddingVertical: 5 }}>
@@ -175,6 +197,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 320,
     paddingEnd: 160,
+  },
+  bigTitle2: {
+    fontSize: 20,
+    fontWeight: "500",
   },
 });
 

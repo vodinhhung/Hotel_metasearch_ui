@@ -12,7 +12,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import StatusBar from "@components/Common/StatusBar";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import {
   getSearchSuggestion,
@@ -50,7 +50,7 @@ const SearchDesScreen = ({
       <SafeAreaView style={styles.headerWrapper}>
         <View style={styles.headerLeft}>
           <View>
-            <TouchableHighlight
+            <TouchableOpacity
               underlayColor="#DDDDDD"
               onPress={() => {
                 navigation.goBack();
@@ -62,7 +62,7 @@ const SearchDesScreen = ({
                 style={styles.backIcon}
                 color="#007BFF"
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.headerTitle}>
