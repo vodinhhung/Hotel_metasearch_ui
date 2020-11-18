@@ -9,11 +9,10 @@ const images = {
 };
 import { setSearchParams } from "@redux/actions/hotelAction";
 const Facility = ({ index, facilities, setSearchParams }) => {
-  console.log(facilities);
   return (
     <FlatList
       showsHorizontalScrollIndicator={false}
-      extraData={[...facilities]}
+      extraData={facilities}
       horizontal={true}
       data={facilitiesData}
       renderItem={({ item, index }) => {
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
 });
 function mapStateToProps(state) {
   return {
-    facilities: state.hotelSearchingByFilter.params.facility,
+    facilities: state.hotelSearchingByFilter.params.facility ?? [],
   };
 }
 function mapDispatchToProps(dispatch) {
