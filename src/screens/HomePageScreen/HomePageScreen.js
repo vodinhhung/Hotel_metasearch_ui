@@ -280,9 +280,6 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
             >
               Recently Viewed
             </Text>
-            <Text style={{ fontSize: 14, fontWeight: "bold", color: "grey" }}>
-              View All
-            </Text>
           </View>
           <FlatList
             keyExtractor={(item, index) => index.toString()}

@@ -1,3 +1,5 @@
+import 'intl';
+import 'intl/locale-data/jsonp/en';
 export function convertCurrency(price) {
   price = Math.round(price / 1000) * 1000;
   const currencyPrice = new Intl.NumberFormat("de-DE", {

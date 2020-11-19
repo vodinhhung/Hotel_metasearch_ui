@@ -17,7 +17,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 import HotelService from "@components/Hotel/HotelService";
 import HTMLView from "react-native-htmlview";
@@ -80,12 +80,12 @@ const HotelDetailScreen = ({
           </View>
 
           <View style={{ flex: 1 }}>
-              {hotelDetail.linking?.map((item, index) => {
-                return (
-                  <HotelPlatform key={index} type={item.type} url={item.url} />
-                );
-              })}
-            </View>
+            {hotelDetail.linking?.map((item, index) => {
+              return (
+                <HotelPlatform key={index} type={item.type} url={item.url} />
+              );
+            })}
+          </View>
           <View
             style={{
               flex: 1,
@@ -98,7 +98,30 @@ const HotelDetailScreen = ({
               <Text style={[colors.text, styles.headerStyle]}>Location</Text>
             </View>
             {/* google map in here */}
-            <MapView provider="google" style={styles.mapStyle} />
+            {hotelDetail.position ? (
+              <MapView
+                coordinate={{
+                  // ...hotel,
+                  latitude: hotelDetail?.position?.lat,
+                  longitude: hotelDetail?.position?.long,
+                  latitudeDelta: 600,
+                  longitudeDelta: 600,
+                }}
+                provider="google"
+                style={styles.mapStyle}
+              >
+                <Marker
+                  style={styles.mapStyle}
+                  coordinate={{
+                    // ...hotel,
+                    latitude: hotelDetail?.position?.lat,
+                    longitude: hotelDetail?.position?.long,
+                    latitudeDelta: 600,
+                    longitudeDelta: 600,
+                  }}
+                />
+              </MapView>
+            ) : null}
           </View>
           <View style={{ flexDirection: "column", marginTop: 22 }}>
             <View
@@ -125,7 +148,8 @@ const HotelDetailScreen = ({
                     </ListItem.Title>
                     <View style={styles.subtitleView}>
                       <Text style={styles.ratingText}>
-                        {renderName(item.text)}
+                        {item.text}
+                        {/* {renderName(item.text)} */}
                       </Text>
                     </View>
                   </ListItem.Content>
@@ -322,9 +346,11 @@ const HotelDetailScreen = ({
                 flexDirection: "column",
               }}
             >
-              <Text style={{ fontSize: 24, fontWeight: "900", color: "black" }}>
-                {/* {hotelDetail.name} */}
-                {renderName(hotelDetail.name)}
+              <Text
+                numberOfLines={2}
+                style={{ fontSize: 24, fontWeight: "900", color: "black" }}
+              >
+                {hotelDetail.name}
               </Text>
             </Animated.View>
             <Animated.View style={{ flexDirection: "column" }}>
@@ -499,7 +525,7 @@ const styles = StyleSheet.create({
   headerStyle: {
     fontSize: 20,
     fontWeight: "700",
-    marginBottom:20
+    marginBottom: 20,
   },
   subtitleView: {
     flexDirection: "row",
