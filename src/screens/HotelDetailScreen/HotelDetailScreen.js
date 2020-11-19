@@ -2,41 +2,46 @@ import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
-  ImageBackground,
+  Image,
   Dimensions,
   Text,
   Platform,
   FlatList,
   ActivityIndicator,
   TouchableOpacity,
+  Animated,
 } from "react-native";
-import Constants from "expo-constants";
+import { Avatar, ListItem } from "react-native-elements";
 import { connect } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 import HotelService from "@components/Hotel/HotelService";
 import HTMLView from "react-native-htmlview";
-
+import { useTheme } from "react-native-paper";
 import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
 import HotelPlatform from "@components/Hotel/HotelPlatform";
 import HotelGrid from "@components/Hotel/HotelGrid";
 import { getHotelDetailAction } from "@redux/actions/hotelAction";
 import { setHotelLike } from "@redux/actions/userAction";
 import { convertCurrency, statusHotelLike } from "@lib/utils/hotel";
+import StatusBar from "@components/Common/StatusBar";
+
+const HEADER_MAX_HEIGHT = Dimensions.get("window").height - 32;
+const HEADER_MIN_HEIGHT = Platform.OS === "ios" ? 80 : 93;
+const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const HotelDetailScreen = ({
   route,
   getHotelDetail,
-  hotelDetail = { assets: [{ url: "" }] },
+  hotelLists = { items: null },
+  hotelDetail = { assets: [{ url: "" }], facilities: [] },
   setHotelLike,
   hotelLikeList,
 }) => {
+  const { colors } = useTheme();
   const navigation = useNavigation();
   useEffect(() => {
     getHotelDetail(route.params.hotel);
@@ -44,204 +49,390 @@ const HotelDetailScreen = ({
   const hotelLikeAction = () => {
     setHotelLike(hotelDetail.id);
   };
+
+  const renderScrollViewContent = () => {
+    return (
+      <View style={styles.scrollViewContent}>
+        <View style={{ paddingVertical: 20 }}>
+          <View style={styles.servicesWrapper}>
+            {hotelDetail.services?.map((item, index) => {
+              return (
+                <View key={index} style={styles.serviceWrapper}>
+                  <HotelService type={item.name} />
+                </View>
+              );
+            })}
+          </View>
+
+          <View style={styles.descriptionStyle}>
+            <View>
+              <Text style={[colors.text, styles.headerStyle]}>About</Text>
+            </View>
+            {hotelDetail.description
+              .split("\\n")
+              .join("\\t")
+              .split("\\t")
+              .map((item, index) => {
+                return (
+                  <HTMLView value={item} stylesheet={styles} key={index} />
+                );
+              })}
+          </View>
+
+          <View style={{ flex: 1 }}>
+              {hotelDetail.linking?.map((item, index) => {
+                return (
+                  <HotelPlatform key={index} type={item.type} url={item.url} />
+                );
+              })}
+            </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              marginTop: 50,
+            }}
+          >
+            <View>
+              <Text style={[colors.text, styles.headerStyle]}>Location</Text>
+            </View>
+            {/* google map in here */}
+            <MapView provider="google" style={styles.mapStyle} />
+          </View>
+          <View style={{ flexDirection: "column", marginTop: 22 }}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <View>
+                <Text style={[colors.text, styles.headerStyle]}>Reviews</Text>
+              </View>
+            </View>
+
+            {hotelDetail.review?.slice(0, 5)?.map((item, i) => {
+              return (
+                <ListItem key={i} bottomDivider>
+                  <Avatar
+                    rounded
+                    source={{
+                      uri:
+                        "https://lh3.googleusercontent.com/proxy/HkkxgN0VuqcuUX9KWPBnzkTgg7fIAdt-tKP7PtYlGZqGdfnrpo86bTH4pk2qUKpazMZ3xEhgAePQeSoJmkfWkGzc-676PX0igznzkQ_zCQ",
+                    }}
+                  />
+                  <ListItem.Content>
+                    <ListItem.Title style={{ fontWeight: "bold" }}>
+                      {item.title != null ? item.title : "Guest"}
+                    </ListItem.Title>
+                    <View style={styles.subtitleView}>
+                      <Text style={styles.ratingText}>
+                        {renderName(item.text)}
+                      </Text>
+                    </View>
+                  </ListItem.Content>
+                </ListItem>
+              );
+            })}
+          </View>
+
+          <View style={styles.footer}>
+            <Text style={styles.headerStyle}>Related Post</Text>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              keyExtractor={(item, index) => index.toString()}
+              data={hotelLists?.items}
+              renderItem={({ item }) => {
+                return (
+                  <View
+                    style={{ paddingVertical: 20, paddingLeft: 16, width: 300 }}
+                  >
+                    <TouchableOpacity>
+                      <View style={styles.cardWrapper}>
+                        <HotelGrid hotel={item} />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                );
+              }}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  const renderName = (hotelName) => {
+    return hotelName.replace(/^(.{40}[^\s]*).*/, "$1");
+  };
+  const [scrollYState, setScrollY] = useState(
+    new Animated.Value(Platform.OS === "ios" ? -HEADER_MAX_HEIGHT : 0)
+  );
   const [widthListImage, setWidthListImage] = useState(0);
+
+  const scrollY = Animated.add(
+    scrollYState,
+    Platform.OS === "ios" ? HEADER_MAX_HEIGHT : 0
+  );
+  const headerTranslate = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE],
+    outputRange: [0, -HEADER_SCROLL_DISTANCE],
+    extrapolate: "clamp",
+  });
+  const imageOpacity = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+    outputRange: [0.6, 0, 0],
+    extrapolate: "clamp",
+  });
+  const imageTranslate = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE],
+    outputRange: [0, 100],
+    extrapolate: "clamp",
+  });
+  const titleScale = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+    outputRange: [1, 1, 1],
+    extrapolate: "clamp",
+  });
+  const titleTranslate = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+    outputRange: [0, -50, -120],
+    extrapolate: "clamp",
+  });
+  const logoTranslate = scrollY.interpolate({
+    inputRange: [0, 0, HEADER_SCROLL_DISTANCE],
+    outputRange: [0, -10, -600],
+    extrapolate: "clamp",
+  });
   if (!hotelDetail) return <ActivityIndicator size="large" color="#0000ff" />;
   else
     return (
-      <View style={{ flex: 1, flexDirection: "row" }}>
+      <View style={styles.fill}>
         <SafeAreaView style={styles.headerWrapper}>
-          <View style={styles.wrapper}>
-            <View style={styles.headerBar}>
-              <TouchableHighlight
-                activeOpacity={0.6}
-                underlayColor="#ffffff00"
+          <View style={styles.headerLeft}>
+            <View>
+              <TouchableOpacity
+                underlayColor="#DDDDDD"
                 onPress={() => {
                   navigation.goBack();
                 }}
+                style={{ opacity: 1 }}
               >
-                <MaterialIcons name="arrow-back" size={24} color="#666" />
-              </TouchableHighlight>
+                <MaterialIcons
+                  name="arrow-back"
+                  size={25}
+                  style={styles.backIcon}
+                  color="#007BFF"
+                />
+              </TouchableOpacity>
             </View>
+          </View>
+          <View style={styles.headerTitle}>
+            {/* <Text style={ { alignSelf: "center" }}>
+            Text
+          </Text> */}
+            {/* <TripIcon color="black" style={{ alignSelf: "center" }} /> */}
+          </View>
+          <View style={styles.headerRight}>
+            <AntDesign
+              style={[{ paddingRight: 10 }, styles.IconColor]}
+              name={
+                statusHotelLike(hotelDetail, hotelLikeList) ? "heart" : "hearto"
+              }
+              size={25}
+              color="#666"
+              onPress={() => {
+                hotelLikeAction();
+              }}
+            />
           </View>
         </SafeAreaView>
-        <ScrollView style={styles.container}>
-          <View
-            style={styles.imagesWrapper}
-            onLayout={(event) => {
-              let { width } = event.nativeEvent.layout;
-              setWidthListImage(width);
-            }}
+        <StatusBar
+          translucent
+          barStyle="light-content"
+          backgroundColor="rgba(0, 0, 0, 0.251)"
+        />
+        <Animated.ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.fill}
+          scrollEventThrottle={1}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollYState } } }],
+            { useNativeDriver: true }
+          )}
+          // iOS offset for RefreshControl
+          contentInset={{
+            top: HEADER_MAX_HEIGHT,
+          }}
+          contentOffset={{
+            y: -HEADER_MAX_HEIGHT,
+          }}
+        >
+          {renderScrollViewContent()}
+        </Animated.ScrollView>
+
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            styles.header,
+            { transform: [{ translateY: headerTranslate }] },
+          ]}
+        >
+          <Animated.Image
+            style={[
+              styles.backgroundImage,
+              {
+                opacity: imageOpacity,
+                transform: [{ translateY: imageTranslate }],
+              },
+            ]}
+            source={{ uri: hotelDetail?.assets[0] }}
+          />
+        </Animated.View>
+
+        <Animated.View
+          style={[
+            styles.bar,
+            {
+              transform: [
+                { scale: titleScale },
+                { translateY: titleTranslate },
+              ],
+            },
+          ]}
+        >
+          <Animated.View
+            style={[
+              {
+                backgroundColor: "white",
+                width: "90%",
+                height: 200,
+                top: 520,
+                opacity: 0.8,
+                position: "relative",
+                marginHorizontal: 18,
+                borderRadius: 20,
+                flexDirection: "column",
+                padding: 16,
+              },
+              { transform: [{ translateY: logoTranslate }] },
+            ]}
           >
-            <ImageBackground
-              source={{ uri: hotelDetail?.assets[0] }}
+            <Animated.View
               style={{
-                width: widthListImage,
-                height: Dimensions.get("screen").height / 3,
-              }}
-            ></ImageBackground>
-          </View>
-          <View style={styles.wrapper}>
-            <View>
-              <Text
-                style={{ fontSize: 20, fontWeight: "700", paddingVertical: 20 }}
-              >
-                {hotelDetail.name}
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
+                flexDirection: "column",
               }}
             >
-              <View style={styles.titleLeft}>
-                <View>
-                  <View style={styles.priceContent}>
-                    <Ionicons
-                      style={styles.iconStyle}
-                      name="md-pricetags"
-                      size={24}
-                      color="#222"
-                    />
-                    <Text
-                      style={{ fontSize: 15, fontWeight: "600", color: "#111" }}
-                    >{`${convertCurrency(
-                      Math.min(
-                        ...hotelDetail.prices.map((price) => price?.value)
-                      )
-                    )} / 1 Đêm`}</Text>
-                  </View>
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Fontisto
-                      style={[{ paddingRight: 10 }, styles.secondaryColor]}
-                      name="map-marker-alt"
-                      size={24}
-                      color="#666"
-                    />
-                    <Text style={styles.secondaryColor}>
-                      {hotelDetail.address}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles.titleRight}>
-                <View style={styles.footerRight}>
-                  <AntDesign
-                    style={[{ paddingRight: 10 }, styles.IconColor]}
-                    name={
-                      statusHotelLike(hotelDetail, hotelLikeList)
-                        ? "heart"
-                        : "hearto"
-                    }
-                    size={25}
-                    color="#666"
-                    onPress={() => {
-                      hotelLikeAction();
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
-            <View style={{ paddingVertical: 20 }}>
-              <View style={styles.servicesWrapper}>
-                {hotelDetail.services?.map((item, index) => {
-                  return (
-                    <View key={index} style={styles.serviceWrapper}>
-                      <HotelService type={item.name} />
-                    </View>
-                  );
-                })}
-              </View>
-              <View style={styles.descriptionStyle}>
-                <HTMLView value={hotelDetail.description} stylesheet={styles} />
-              </View>
-              <View style={styles.rowWrapper}>
-                <View style={{ flex: 1 }}>
-                  {hotelDetail.linking?.map((item, index) => {
-                    return (
-                      <HotelPlatform
-                        key={index}
-                        type={item.type}
-                        url={item.url}
-                      />
-                    );
-                  })}
-                </View>
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: "row",
-                    justifyContent: "flex-end",
-                  }}
-                >
-                  {/* google map in here */}
-                  <MapView provider="google" style={styles.mapStyle} />
-                </View>
-              </View>
-            </View>
-            <View style={styles.hashTagWrapper}>
-              <Text style={styles.hashTag}>#photograhpy</Text>
-              <Text style={styles.hashTag}>#sea</Text>
-            </View>
-            <View style={styles.footer}>
-              <Text style={{ fontSize: 20, fontWeight: "700" }}>
-                Khách sạn được gợi ý cho bạn
+              <Text style={{ fontSize: 24, fontWeight: "900", color: "black" }}>
+                {/* {hotelDetail.name} */}
+                {renderName(hotelDetail.name)}
               </Text>
-              {/* <FlatList
-                showsHorizontalScrollIndicator={false}
-                horizontal={true}
-                keyExtractor={(item, index) => index.toString()}
-                data={hotelDetail.hotelRecommended.items}
-                renderItem={({ item }) => {
-                  return (
-                    <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
-                      <TouchableOpacity>
-                        <View style={styles.cardWrapper}>
-                          <HotelGrid hotel={item} />
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  );
+            </Animated.View>
+            <Animated.View style={{ flexDirection: "column" }}>
+              {/* <View>
+                <Text>{hotelDetail.star}</Text>
+              </View> */}
+              <Animated.View
+                style={{
+                  flexDirection: "row",
+                  height: 50,
+                  marginTop: 16,
                 }}
-              /> */}
-            </View>
-          </View>
-        </ScrollView>
+              >
+                <Fontisto
+                  style={[{ paddingRight: 10 }, styles.secondaryColor]}
+                  name="map-marker-alt"
+                  size={14}
+                  color="#666"
+                />
+                <Animated.Text style={styles.secondaryColor}>
+                  {hotelDetail.address}
+                </Animated.Text>
+              </Animated.View>
+              <Animated.View
+                style={{
+                  flexDirection: "row",
+                  marginTop: 10,
+                }}
+              >
+                <Animated.View style={{ alignItems: "center", width: "50%" }}>
+                  <Text
+                    style={{
+                      fontSize: 24,
+                      fontWeight: "bold",
+                      color: colors.primary,
+                    }}
+                  >{`${convertCurrency(
+                    Math.min(...hotelDetail.prices.map((price) => price?.value))
+                  )}`}</Text>
+                </Animated.View>
+                <Animated.View
+                  style={{
+                    width: "60%",
+                    justifyContent: "center",
+                    alignItems: "flex-end",
+                  }}
+                ></Animated.View>
+              </Animated.View>
+            </Animated.View>
+          </Animated.View>
+        </Animated.View>
       </View>
     );
 };
 
 const styles = StyleSheet.create({
-  rowWrapper: {
+  fill: {
     flex: 1,
-    flexDirection: "row",
   },
-  body: {
-    flexDirection: "column",
+  content: {
+    flex: 1,
   },
-  bodyTop: {
-    marginBottom: 5,
-    flexDirection: "row",
+  header: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "white",
+    overflow: "hidden",
+    height: HEADER_MAX_HEIGHT,
   },
-  bodyTopLeft: {
-    flex: 2,
+  backgroundImage: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    width: null,
+    height: HEADER_MAX_HEIGHT,
+    resizeMode: "cover",
   },
-  bodyTopRight: {
-    flexDirection: "column",
-    flex: 3,
-  },
-  headerAction: {
-    paddingVertical: 5,
-    flexDirection: "row",
+  bar: {
+    backgroundColor: "transparent",
+    marginTop: Platform.OS === "ios" ? 28 : 38,
+    height: 32,
     alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
   },
-  headerText: {
-    fontSize: 15,
-    fontWeight: "600",
+  title: {
+    color: "white",
+    fontSize: 18,
   },
-  titleText: {
-    color: "#666",
+  scrollViewContent: {
+    // iOS uses content inset, which acts like padding.
+    marginTop: -70,
+    paddingHorizontal: 12,
+    paddingTop: Platform.OS !== "ios" ? HEADER_MAX_HEIGHT : 0,
+    backgroundColor: "white",
+  },
+  row: {
+    height: 40,
+    margin: 16,
+    backgroundColor: "#D3D3D3",
+    alignItems: "center",
+    justifyContent: "center",
   },
   headerBar: {
     height: 40,
@@ -249,80 +440,79 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   headerWrapper: {
-    top: 0,
-    position: "absolute",
-    zIndex: 2,
-  },
-  container: {
-    flex: 1,
+    alignItems: "center",
+    zIndex: 1,
+    height: 80,
+    flexDirection: "row",
   },
   wrapper: {
     paddingHorizontal: 20,
   },
-  imagesWrapper: {
-    borderBottomEndRadius: 50,
-    borderBottomStartRadius: 50,
-    overflow: "hidden",
-  },
-  footer: {
-    flexDirection: "column",
-    marginVertical: 20,
-  },
-  IconColor: {
-    color: "#9EA6D1",
-  },
-  whiteColor: {
-    color: "white",
-  },
   secondaryColor: {
-    color: "#6c757d",
-    alignSelf: "flex-end",
+    color: "#3b4044",
   },
-
-  // hash tag
-  hashTagWrapper: {
-    flexDirection: "row",
+  serviceWrapper: {
+    width: 80,
+    height: 80,
+    padding: 4,
+    margin: 1,
   },
-  hashTag: {
-    overflow: "hidden",
-    borderRadius: 10,
-    backgroundColor: "#E6E8F3",
-    color: "#B4B8DF",
-    padding: 5,
-    margin: 5,
+  descriptionStyle: {
+    marginVertical: 20,
   },
   servicesWrapper: {
     marginBottom: 4,
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-  },
-  serviceWrapper: {
-    padding: 4,
-  },
-  descriptionStyle: {
-    marginVertical: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   mapStyle: {
-    width: "70%",
-    minHeight: 150,
+    width: "100%",
+    minHeight: 200,
     height: "100%",
     overflow: "hidden",
     borderRadius: 8,
   },
-  priceContent: {
-    flex: 1,
+  headerLeft: {
+    justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
+    flex: 3,
   },
-  iconStyle: {
-    paddingRight: 5,
+  headerTitle: {
+    flex: 15,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
   },
-  titleLeft: {
-    flex: 9,
+  headerRight: {
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 3,
   },
-  titleRight: {
-    flex: 1,
+  IconColor: {
+    color: "#9EA6D1",
+  },
+  headerStyle: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginBottom:20
+  },
+  subtitleView: {
+    flexDirection: "row",
+    paddingLeft: 10,
+    paddingTop: 5,
+  },
+  ratingText: {
+    paddingLeft: 10,
+    color: "grey",
+  },
+  footer: {
+    flexDirection: "column",
+    marginVertical: 20,
   },
 });
 
@@ -330,6 +520,7 @@ function mapStateToProps(state) {
   return {
     hotelDetail: state.hotelDetail.hotelDetail,
     hotelLikeList: state?.hotelLike?.hotelLike?.items ?? [],
+    hotelLists: state?.hotelSearchingByFilter?.searchHotels,
   };
 }
 function mapDispatchToProps(dispatch) {
