@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { StyleSheet, View, ScrollView, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  LayoutAnimation,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import {
@@ -29,7 +35,7 @@ import StarHotel from "@components/Hotel/Filter/StarHotel";
 import Facilities from "@components/Hotel/Filter/Facilities";
 import FilterSelected from "@components/Hotel/Filter/FilterSelected";
 import moment from "moment";
-const SearchFilter = ({ setSearchParams }) => {
+const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
   const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -37,6 +43,9 @@ const SearchFilter = ({ setSearchParams }) => {
   const [star, setStar] = useState(0);
   const [service, setService] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
+  useEffect(() => {
+    LayoutAnimation.easeInEaseOut();
+  }, []);
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <SafeAreaView style={styles.headerWrapper}>
@@ -45,6 +54,7 @@ const SearchFilter = ({ setSearchParams }) => {
             <TouchableOpacity
               underlayColor="#DDDDDD"
               onPress={() => {
+                LayoutAnimation.easeInEaseOut();
                 navigation.goBack();
               }}
             >
@@ -66,8 +76,8 @@ const SearchFilter = ({ setSearchParams }) => {
           <TouchableOpacity
             underlayColor="#DDDDDD"
             onPress={() => {
+              LayoutAnimation.easeInEaseOut();
               setSearchParams({
-                destination: null,
                 star: null,
                 priceFrom: null,
                 priceTo: null,
@@ -99,7 +109,7 @@ const SearchFilter = ({ setSearchParams }) => {
 
         <View style={{ paddingVertical: 5 }}>
           <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
-            PRICE/DAY
+            PRICE /DAY
           </Paragraph>
           <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
             <PriceRange />
@@ -135,7 +145,8 @@ const SearchFilter = ({ setSearchParams }) => {
               style={{ backgroundColor: "#208838" }}
               mode="contained"
               onPress={() => {
-                navigation.goBack();
+                navigation.navigate("SearchPage");
+                getSearchHotelByFilter();
               }}
             >
               <Paragraph style={{ color: "white" }}>Submit</Paragraph>
@@ -244,6 +255,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     setSearchParams: (params) => dispatch(setSearchParams(params)),
+    getSearchHotelByFilter: () => dispatch(getSearchHotelByFilter()),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFilter);

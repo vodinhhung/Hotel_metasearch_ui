@@ -19,8 +19,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { logoutRequest } from "@redux/actions/userAction";
+import { useTheme } from "react-native-paper";
 // import {  } from "react-native-gesture-handler";
 const AccountPageScreen = ({ userInfo, logoutRequest }) => {
+  const { colors } = useTheme();
   const navigation = useNavigation();
   const renderUserAction = () => {
     if (userInfo) {
@@ -48,7 +50,9 @@ const AccountPageScreen = ({ userInfo, logoutRequest }) => {
     );
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
       <StatusBar style="dark" />
       <View style={styles.headerContainer}>
         <View style={styles.headerLeft}>
@@ -167,8 +171,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  avatarWrapper: {
-  },
+  avatarWrapper: {},
   bodyContainer: {
     paddingTop: 20,
     flex: 1,

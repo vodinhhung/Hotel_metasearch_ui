@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect} from "react";
 import { connect } from "react-redux";
 import { Chip } from "react-native-paper";
-import { StyleSheet, View, Text, Image, FlatList } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  FlatList,
+} from "react-native";
 import { getScaleSizeOfImage } from "@lib/utils/image-size-resolver";
 import { facilitiesData } from "@lib/utils/facilityHotel";
 const images = {
@@ -25,6 +31,7 @@ const FilterSelected = ({
     })),
     ...searchParamsConvert,
   ];
+  
   return (
     <FlatList
       keyExtractor={(item, index) => index.toString()}
@@ -49,7 +56,7 @@ const FilterSelected = ({
           if (!item[1]) return null;
         }
         return (
-          <View key={index} style={{ paddingVertical: 10, paddingLeft: 16 }}>
+          <View key={index} style={{ paddingBottom: 15, paddingLeft: 16 }}>
             <Chip
               icon="close"
               style={{ flexDirection: "column", alignItems: "center" }}

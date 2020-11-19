@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, View, TextInput, FlatList } from "react-native";
 import HotelGrid from "@components/Hotel/HotelGrid";
-import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getSearchHotelByFilter } from "@redux/actions/hotelAction";
 
@@ -12,20 +11,20 @@ const SearchBody = ({
   useEffect(() => {
     getSearchHotelByFilter();
   }, []);
-  return (
-    <ScrollView>
-      <View style={styles.container}>
-        {hotelLists?.items?.map((item, index) => {
-          //console.log(item);
-          return (
-            <View key={index} style={styles.cardWrapper}>
-              {/* {console.log(item)} */}
-              <HotelGrid hotel={item} />
-            </View>
-          );
-        })}
+  const hotelCard = (hotel) => {
+    return (
+      <View style={styles.cardWrapper}>
+        <HotelGrid hotel={hotel} />
       </View>
-    </ScrollView>
+    );
+  };
+  return (
+    <FlatList
+      keyExtractor={(item, index) => index.toString()}
+      extraData={hotelLists?.items}
+      data={hotelLists?.items}
+      renderItem={({item}) => hotelCard(item)}
+    ></FlatList>
   );
 };
 const styles = StyleSheet.create({
@@ -53,7 +52,6 @@ const styles = StyleSheet.create({
   },
 });
 function mapStateToProps(state) {
-  // console.log(state);
   // alert(`${JSON.stringify(state.hotelSearchingByFilter)}`);
   return {
     hotelLists: state?.hotelSearchingByFilter?.searchHotels,

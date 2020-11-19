@@ -10,12 +10,12 @@ const PriceRange = ({ setSearchParams, priceFrom, priceTo }) => {
   return (
     <View style={{ flex: 1, flexDirection: "column" }}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <Text>Tối đa {convertCurrency(15000000)}</Text>
+        <Text>Tối đa {convertCurrency(12000000)}</Text>
       </View>
       <Slider
         style={{ width: "100%", height: 40 }}
         minimumValue={priceFrom}
-        maximumValue={15000000}
+        maximumValue={12000000}
         minimumTrackTintColor="#208838"
         maximumTrackTintColor="#CCC"
         step={10000}

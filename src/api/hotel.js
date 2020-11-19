@@ -49,8 +49,15 @@ export async function getSearchHotelByFilterService(hotelFilter) {
   let result = null;
   try {
     let hotelFilterSolve = convertNotNull(hotelFilter);
+    if (hotelFilterSolve?.facility?.length) {
+      let facilitySolve = [];
+      hotelFilterSolve.facility.map((item, index) => {
+        if (item) facilitySolve.push(index + 10);
+      });
+      hotelFilterSolve.facility = facilitySolve;
+    }
     result = await axios.get(`/hotel`, {
-      params: hotelFilterSolve
+      params: hotelFilterSolve,
     });
   } catch (error) {
     console.log(error);

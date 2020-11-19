@@ -11,6 +11,7 @@ import { setSearchParams } from "@redux/actions/hotelAction";
 const Facility = ({ index, facilities, setSearchParams }) => {
   return (
     <FlatList
+      keyExtractor={(item, index) => index.toString()}
       showsHorizontalScrollIndicator={false}
       extraData={facilities}
       horizontal={true}

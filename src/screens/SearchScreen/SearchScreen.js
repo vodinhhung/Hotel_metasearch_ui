@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Constants from "expo-constants";
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, View, TextInput, LayoutAnimation } from "react-native";
 import SearchHeader from "@components/Search/SearchHeader/SearchHeader";
 import SearchBody from "@components/Search/SearchBody/SearchBody";
 import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
@@ -20,7 +20,8 @@ import { connect } from "react-redux";
 const SearchPage = ({ getSearchHotelByFilter, destination }) => {
   useEffect(() => {
     getSearchHotelByFilter();
-    setSearchParams;
+    LayoutAnimation.easeInEaseOut();
+    // setSearchParams;
   }, []);
   const { colors } = useTheme();
   const navigation = useNavigation();

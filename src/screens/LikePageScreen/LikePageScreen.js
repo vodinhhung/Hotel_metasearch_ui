@@ -7,11 +7,13 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "react-native-paper";
 import { connect } from "react-redux";
 import HotelGrid from "@components/Hotel/HotelGrid";
 import { logoutRequest, getHotelLike } from "@redux/actions/userAction";
 const LikePageScreen = ({ userInfo, getHotelLike, hotelLikeList }) => {
   const navigation = useNavigation();
+  const { colors } = useTheme();
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       // The screen is focused
@@ -20,7 +22,7 @@ const LikePageScreen = ({ userInfo, getHotelLike, hotelLikeList }) => {
     });
   }, []);
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, {backgroundColor: colors.background}]}>
       <StatusBar style="dark" />
       <View style={styles.headerContainer}></View>
       <ScrollView>

@@ -236,6 +236,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
         </View>
         <View>
           <FlatList
+            keyExtractor={(item, index) => index.toString()}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={_renderGallery()}
