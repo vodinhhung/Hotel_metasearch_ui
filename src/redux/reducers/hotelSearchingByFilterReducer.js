@@ -31,14 +31,27 @@ const hotelSearchingByFilterReducer = (state = initialState, action) => {
       return {
         ...state,
         isPending: true,
-        searchHotels: null,
+        // searchHotels: null,
       };
     case GET_SEARCH_HOTEL_BY_FILTER_SUCCESS:
-      return {
-        ...state,
-        isPending: false,
-        searchHotels: action.data,
-      };
+      // console.log(action.data);
+      console.log(action.action);
+      if (action?.action?.merge) {
+        return {
+          ...state,
+          isPending: false,
+          searchHotels: {
+            items: [...state.searchHotels.items, ...action.data.items],
+          },
+        };
+      } else {
+        return {
+          ...state,
+          isPending: false,
+          searchHotels: action.data,
+        };
+      }
+
     case GET_SEARCH_HOTEL_BY_FILTER_FAILED:
       return {
         ...state,

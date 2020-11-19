@@ -45,6 +45,7 @@ function* getHotelByFilter(params) {
     yield put({
       type: GET_SEARCH_HOTEL_BY_FILTER_SUCCESS,
       data: hotelSearch.data,
+      action: params.params
     });
   } catch (e) {
     yield put({ type: GET_SEARCH_HOTEL_BY_FILTER_FAILED, message: e });

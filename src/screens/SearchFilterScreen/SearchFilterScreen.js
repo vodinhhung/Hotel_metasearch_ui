@@ -145,8 +145,9 @@ const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
               style={{ backgroundColor: "#208838" }}
               mode="contained"
               onPress={() => {
-                navigation.navigate("SearchPage");
+                setSearchParams({ page: 1 });
                 getSearchHotelByFilter();
+                navigation.navigate("SearchPage", { scrollToTop: true });
               }}
             >
               <Paragraph style={{ color: "white" }}>Submit</Paragraph>

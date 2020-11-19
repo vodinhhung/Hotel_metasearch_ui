@@ -12,7 +12,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import StatusBar from "@components/Common/StatusBar";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import {
   getSearchSuggestion,
@@ -107,6 +110,7 @@ const SearchDesScreen = ({
                   await setSearchParams({ destination: province.name });
                   navigation.navigate("SearchPage", {
                     destination: province.name,
+                    scrollToTop: true,
                   });
                   // setTextInput(province.name);
                 }}

@@ -23,10 +23,10 @@ export function getHotelViewed() {
   };
 }
 // Search by Filter
-export function getSearchHotelByFilter(hotel) {
+export function getSearchHotelByFilter(params) {
   return {
     type: GET_SEARCH_HOTEL_BY_FILTER,
-    hotel: hotel,
+    params,
   };
 }
 
