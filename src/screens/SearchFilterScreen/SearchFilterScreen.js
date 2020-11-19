@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { StyleSheet, View, ScrollView, Text } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Paragraph, useTheme, Chip, Title, Button } from "react-native-paper";
+import {
+  Paragraph,
+  useTheme,
+  Chip,
+  Title,
+  Button,
+  Card,
+} from "react-native-paper";
 import {
   TouchableHighlight,
   TouchableOpacity,
@@ -11,13 +18,18 @@ import Accordion from "@dooboo-ui/native-accordion";
 import { connect } from "react-redux";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import { getSearchHotelByFilter } from "@redux/actions/hotelAction";
+import {
+  getSearchHotelByFilter,
+  setSearchParams,
+} from "@redux/actions/hotelAction";
 import DatePicker from "@components/Hotel/Filter/DatePicker";
 import ModalDatePicker from "@components/Hotel/Filter/ModalDatePicker";
 import PriceRange from "@components/Hotel/Filter/PriceRange";
 import StarHotel from "@components/Hotel/Filter/StarHotel";
 import Facilities from "@components/Hotel/Filter/Facilities";
-const SearchFilter = () => {
+import FilterSelected from "@components/Hotel/Filter/FilterSelected";
+import moment from "moment";
+const SearchFilter = ({ setSearchParams }) => {
   const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -54,7 +66,16 @@ const SearchFilter = () => {
           <TouchableOpacity
             underlayColor="#DDDDDD"
             onPress={() => {
-              navigation.goBack();
+              setSearchParams({
+                destination: null,
+                star: null,
+                priceFrom: null,
+                priceTo: null,
+                dateFrom: moment(),
+                dateTo: moment().add(1, "days"),
+                facility: null,
+                page: 1,
+              });
             }}
           >
             <MaterialCommunityIcons
@@ -85,15 +106,6 @@ const SearchFilter = () => {
           </View>
         </View>
 
-        {/* <View style={{ paddingVertical: 5 }}>
-          <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
-            ĐÁNH GIÁ
-          </Paragraph>
-          <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
-            <PriceRange />
-          </View>
-        </View> */}
-
         <View style={{ paddingVertical: 5 }}>
           <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
             HOTEL STAR
@@ -110,6 +122,28 @@ const SearchFilter = () => {
         </View>
         <Facilities />
       </ScrollView>
+      <Card>
+        <Card.Content>
+          <View
+            style={{
+              flexDirection: "column",
+              justifyContent: "flex-end",
+            }}
+          >
+            <FilterSelected />
+            <Button
+              style={{ backgroundColor: "#208838" }}
+              mode="contained"
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <Paragraph style={{ color: "white" }}>Submit</Paragraph>
+            </Button>
+          </View>
+        </Card.Content>
+      </Card>
+
       <ModalDatePicker visible={visible} setVisible={setVisible} />
     </View>
   );
@@ -208,6 +242,8 @@ function mapStateToProps(state) {
   return {};
 }
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    setSearchParams: (params) => dispatch(setSearchParams(params)),
+  };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFilter);

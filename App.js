@@ -8,6 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import LoginScreen from "./src/screens/LoginScreen/LoginScreen";
 import HotelDetailPage from "@screens/HotelDetailScreen/HotelDetailScreen";
+import SearchFilterScreen from "@screens/SearchFilterScreen/SearchFilterScreen";
 import { PersistGate } from "redux-persist/integration/react";
 import AppFollow from "@navigation/index";
 const Stack = createStackNavigator();
@@ -17,11 +18,10 @@ const theme = {
   colors: {
     ...DefaultTheme.colors,
     background: "#fff",
-    primary: '#3498db',
-    accent: '#f1c40f',
+    primary: "#3498db",
+    accent: "#f1c40f",
   },
 };
-
 export default function App() {
   return (
     <Provider store={store}>
@@ -32,6 +32,10 @@ export default function App() {
               <Stack.Navigator headerMode="none">
                 <Stack.Screen name="App" component={AppFollow} />
                 <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen
+                  name="SearchFilterScreen"
+                  component={SearchFilterScreen}
+                />
                 <Stack.Screen
                   name="HotelDetailPage"
                   component={HotelDetailPage}
