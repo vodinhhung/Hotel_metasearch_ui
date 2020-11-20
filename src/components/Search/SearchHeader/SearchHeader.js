@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
-import { Input, Text, ListItem } from "react-native-elements";
+import { Input, ListItem } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import TripIconSmall from "@components/Common/TripIconSmall";

@@ -230,7 +230,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
     return (
       <View style={styles.scrollViewContent}>
         <View style={{ padding: 16 }}>
-          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#358c63" }}>
+          <Text style={{ fontSize: 20, color: "#358c63" }}>
             Top Trending
           </Text>
         </View>
@@ -276,7 +276,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
             }}
           >
             <Text
-              style={{ fontSize: 20, fontWeight: "bold", color: "#358c63" }}
+              style={{ fontSize: 20, color: "#358c63" }}
             >
               Recently Viewed
             </Text>
@@ -486,6 +486,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
           style={styles.searchBox}
         >
           <TextInput
+            style={{ fontFamily: "Baloo-Regular" }}
             editable={false}
             pointerEvents="none"
             placeholder="Search Destination"

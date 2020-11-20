@@ -5,9 +5,10 @@ import SearchPage from "@screens/SearchScreen/SearchScreen";
 import SearchDesScreen from "@screens/SearchDesScreen/SearchDesScreen";
 import HotelDetailPage from "@screens/HotelDetailScreen/HotelDetailScreen";
 import SearchFilterScreen from "@screens/SearchFilterScreen/SearchFilterScreen";
+
+
 const HomePage = () => {
   const Stack = createStackNavigator();
-
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="HomePage" component={HomePageScreen} />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Button, Platform } from "react-native";
+import { View, Button, Platform, Text } from "react-native";
 import { Card, Title, Paragraph } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
 import dateFormat from "dateformat";
@@ -15,7 +15,7 @@ const DatePicker = ({ dateFrom, dateTo, setVisible }) => {
         }}
       >
         <View style={{ flex: 10 }}>
-          <Paragraph>Check-in date</Paragraph>
+          <Text>Check-in date</Text>
           <Card
             onPress={() => {
               setVisible(true);
@@ -25,13 +25,13 @@ const DatePicker = ({ dateFrom, dateTo, setVisible }) => {
               style={{ flexDirection: "row", alignItems: "center" }}
             >
               <AntDesign name="calendar" size={20} color="#19A2B8" />
-              <Paragraph>{" " + dateFormat(dateFrom, "fullDate")}</Paragraph>
+              <Text>{" " + dateFormat(dateFrom, "fullDate")}</Text>
             </Card.Content>
           </Card>
         </View>
         <View style={{ flex: 1 }}></View>
         <View style={{ flex: 10 }}>
-          <Paragraph>Check-out date</Paragraph>
+          <Text>Check-out date</Text>
           <Card
             onPress={() => {
               setVisible(true);
@@ -41,7 +41,7 @@ const DatePicker = ({ dateFrom, dateTo, setVisible }) => {
               style={{ flexDirection: "row", alignItems: "center" }}
             >
               <AntDesign name="calendar" size={20} color="#19A2B8" />
-              <Paragraph>{" " + dateFormat(dateTo, "fullDate")}</Paragraph>
+              <Text>{" " + dateFormat(dateTo, "fullDate")}</Text>
             </Card.Content>
           </Card>
         </View>

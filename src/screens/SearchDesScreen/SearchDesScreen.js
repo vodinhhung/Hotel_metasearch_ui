@@ -6,8 +6,11 @@ import {
   ScrollView,
   Animated,
   LayoutAnimation,
+  Platform,
+  UIManager,
+  Text,
 } from "react-native";
-import { Text, ListItem } from "react-native-elements";
+import { ListItem } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import StatusBar from "@components/Common/StatusBar";
 import { useNavigation } from "@react-navigation/native";
@@ -23,12 +26,20 @@ import {
 } from "@redux/actions/hotelAction";
 import { useTheme, Searchbar, Avatar } from "react-native-paper";
 import { FontAwesome5 } from "@expo/vector-icons";
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
 const SearchDesScreen = ({
   getDestinations,
   setSearchParams,
   destinations = { province_items: [], hotel_items: [] },
   userInfo,
 }) => {
+  LayoutAnimation.easeInEaseOut();
   const [textInput, setTextInput] = useState("");
   const [time, setTime] = useState(0);
   const { colors } = useTheme();
@@ -42,7 +53,6 @@ const SearchDesScreen = ({
     getDestinations({ destination: query });
   };
   const focusSearchInput = (status = true) => {
-    LayoutAnimation.easeInEaseOut();
     if (status) {
       setSwitchEffect(false);
     }
@@ -82,9 +92,9 @@ const SearchDesScreen = ({
           ) : null}
         </View>
       </SafeAreaView>
-      <View>
+      <View style={{ flex: 1 }}>
         {switchEffect && (
-          <Animated.View style={[styles.bodyWrapper, { height: 120 }]}>
+          <Animated.View style={[styles.bodyWrapper, { minHeight: 120 }]}>
             <Text style={styles.bigTitle}>
               Hello, {userInfo?.name ? `${userInfo?.name}.` : null}
             </Text>
@@ -93,6 +103,7 @@ const SearchDesScreen = ({
         )}
         <View style={[styles.bodyWrapper, { height: 60 }]}>
           <Searchbar
+            inputStyle={{ fontFamily: "Baloo-Regular" }}
             placeholder="Find you want."
             onFocus={() => {
               focusSearchInput();
@@ -100,7 +111,7 @@ const SearchDesScreen = ({
             onChangeText={onChangeSearch}
           />
         </View>
-        <ScrollView style={[styles.bodyWrapper, { height: "100%" }]}>
+        <ScrollView style={[styles.bodyWrapper]}>
           {destinations?.province_items?.slice(0, 3).map((province, index) => {
             return (
               <ListItem
@@ -122,7 +133,7 @@ const SearchDesScreen = ({
                       size={15}
                       color="#208838"
                     />
-                    {" " + province.name}
+                    <Text>{" " + province.name}</Text>
                   </ListItem.Title>
                 </ListItem.Content>
                 <ListItem.Chevron />
@@ -141,7 +152,7 @@ const SearchDesScreen = ({
                 <ListItem.Content>
                   <ListItem.Title>
                     <FontAwesome5 name="hotel" size={15} color="#208838" />
-                    {" " + hotel.name}
+                    <Text>{" " + hotel.name}</Text>
                   </ListItem.Title>
                 </ListItem.Content>
                 <ListItem.Chevron />

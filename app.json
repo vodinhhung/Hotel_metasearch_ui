@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Hotel_metasearch_ui",
-    "slug": "Hotel_metasearch_ui",
+    "name": "PI_Travel",
+    "slug": "PI_Travel",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/icon.png",
@@ -26,7 +26,7 @@
       "web"
     ],
     "android": {
-      "package": "host.exp.exponent",
+      "package": "host.cff.exponent",
       "config": {
         "googleSignIn": {
           "apiKey": "AIzaSyBmGbX-9pUz7vPjWG8UE5XUxVU24O3VeN4",
@@ -36,7 +36,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "host.exp.exponent",
+      "bundleIdentifier": "host.cff.exponent",
       "config": {
         "googleSignIn": {
           "reservedClientId": "942559879619-8ok9ub6r8fldfh8vahtndrm270gia59q.apps.googleusercontent.com"

@@ -5,6 +5,8 @@ import {
   ScrollView,
   Text,
   LayoutAnimation,
+  Platform,
+  UIManager,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -35,6 +37,14 @@ import StarHotel from "@components/Hotel/Filter/StarHotel";
 import Facilities from "@components/Hotel/Filter/Facilities";
 import FilterSelected from "@components/Hotel/Filter/FilterSelected";
 import moment from "moment";
+
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
 const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
   const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
@@ -99,27 +109,21 @@ const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
       </SafeAreaView>
       <ScrollView style={styles.bodyWrapper}>
         <View style={{ paddingVertical: 5 }}>
-          <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
-            BOOKING DATE
-          </Paragraph>
+          <Text style={{ fontSize: 14 }}>BOOKING DATE</Text>
           <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
             <DatePicker setVisible={setVisible} />
           </View>
         </View>
 
         <View style={{ paddingVertical: 5 }}>
-          <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
-            PRICE /DAY
-          </Paragraph>
+          <Text style={{ fontSize: 14 }}>PRICE /DAY</Text>
           <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
             <PriceRange />
           </View>
         </View>
 
         <View style={{ paddingVertical: 5 }}>
-          <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
-            HOTEL STAR
-          </Paragraph>
+          <Text style={{ fontSize: 14 }}>HOTEL STAR</Text>
           <View style={{ flex: 1, flexDirection: "row", padding: 10 }}>
             <StarHotel />
           </View>
@@ -150,7 +154,9 @@ const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
                 navigation.navigate("SearchPage", { scrollToTop: true });
               }}
             >
-              <Paragraph style={{ color: "white" }}>Submit</Paragraph>
+              <Paragraph style={{ color: "white" }}>
+                <Text>Submit</Text>
+              </Paragraph>
             </Button>
           </View>
         </Card.Content>

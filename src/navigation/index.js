@@ -30,6 +30,7 @@ const AppFollow = () => {
     <Tab.Navigator
       screenOptions={screenOptionsRender}
       tabBarOptions={{
+        keyboardHidesTabBar: true,
         activeTintColor: "#358c63",
         inactiveTintColor: "gray",
       }}

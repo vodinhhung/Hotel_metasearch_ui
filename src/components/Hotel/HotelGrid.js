@@ -7,8 +7,13 @@ import {
   Icon,
   AirbnbRating,
 } from "react-native-elements";
-import { StyleSheet, View, Image, TouchableHighlight } from "react-native";
-import { Text } from "react-native-elements";
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableHighlight,
+  Text,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -59,7 +64,12 @@ const HotelGrid = ({ hotel }) => {
               ></Image>
             )}
             <View style={styles.wrapperContent}>
-              <Title numberOfLines={1}>{hotel.name}</Title>
+              <Text
+                style={{ fontSize: 20, fontWeight: "500" }}
+                numberOfLines={1}
+              >
+                {hotel.name}
+              </Text>
               <View>
                 <View style={styles.cardContent}>
                   <View
@@ -88,7 +98,7 @@ const HotelGrid = ({ hotel }) => {
                       <Text style={styles.priceStyle}>
                         {convertCurrency(hotel.price.value)}
                       </Text>
-                      <Text style={{textAlign: "right", fontWeight: "800"}}>
+                      <Text style={{ textAlign: "right", fontWeight: "800" }}>
                         {hotel.price.domain}
                       </Text>
                     </View>

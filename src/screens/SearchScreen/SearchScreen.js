@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Constants from "expo-constants";
-import { StyleSheet, View, TextInput, LayoutAnimation } from "react-native";
+import { StyleSheet, View, TextInput, Text } from "react-native";
 import SearchHeader from "@components/Search/SearchHeader/SearchHeader";
 import SearchBody from "@components/Search/SearchBody/SearchBody";
 import {
   TouchableHighlight,
   TouchableOpacity,
 } from "react-native-gesture-handler";
-import { Input, Text } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
@@ -21,6 +20,7 @@ import {
 } from "@redux/actions/hotelAction";
 import { connect } from "react-redux";
 import moment from "moment";
+
 const SearchPage = ({
   getSearchHotelByFilter,
   setSearchParams,
@@ -38,7 +38,6 @@ const SearchPage = ({
       page: 1,
     });
     getSearchHotelByFilter();
-    LayoutAnimation.easeInEaseOut();
     // setSearchParams;
   }, []);
 
