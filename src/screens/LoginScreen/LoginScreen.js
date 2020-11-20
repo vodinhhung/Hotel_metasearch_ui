@@ -176,7 +176,6 @@ const styles = StyleSheet.create({
   primary: {
     color: "white",
     fontSize: 20,
-    fontWeight: "bold",
   },
 });
 function mapStateToProps(state) {

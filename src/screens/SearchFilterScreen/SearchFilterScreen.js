@@ -214,7 +214,6 @@ const styles = StyleSheet.create({
   textHead: {
     left: "2%",
     fontSize: 18,
-    fontWeight: "bold",
   },
   textAmenities: {
     marginStart: 10,
