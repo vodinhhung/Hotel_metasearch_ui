@@ -17,9 +17,9 @@
       "**/*"
     ],
     "facebookAutoInitEnabled": true,
-    "facebookScheme": "fb2649238258738835",
-    "facebookAppId": "2649238258738835",
-    "facebookDisplayName": "chat-plug-in",
+    "facebookScheme": "fb414760369539393",
+    "facebookAppId": "414760369539393",
+    "facebookDisplayName": "Hotel Search Engine",
     "platforms": [
       "ios",
       "android",
