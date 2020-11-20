@@ -55,13 +55,11 @@ const AccountPageScreen = ({ userInfo, logoutRequest }) => {
     >
       <StatusBar style="dark" />
       <View style={styles.headerContainer}>
-        <View style={styles.headerLeft}>
+        <View style={{ flexDirection: "column", alignItems: "center" }}>
           <View style={styles.avatarWrapper}>
             <Avatar avatar={{ uri: userInfo?.picture?.data?.url }} />
           </View>
-        </View>
-        <View style={styles.headerRight}>
-          <Text>{userInfo?.name}</Text>
+          <Text style={styles.bigTitle2}>{userInfo?.name}</Text>
           <View>
             <View style={{ flexDirection: "row" }}>{renderUserAction()}</View>
           </View>
@@ -159,7 +157,8 @@ const styles = StyleSheet.create({
   headerContainer: {
     paddingHorizontal: 10,
     flexDirection: "row",
-    height: 50,
+    justifyContent: "center",
+    height: 150,
   },
   headerRight: {
     flex: 1,
@@ -198,6 +197,10 @@ const styles = StyleSheet.create({
   },
   iconStyle: {
     paddingRight: 10,
+  },
+  bigTitle2: {
+    fontSize: 20,
+    fontWeight: "500",
   },
 });
 

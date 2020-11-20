@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { getHotelViewed } from "@redux/actions/hotelAction";
+import { getHotelViewed, setSearchParams } from "@redux/actions/hotelAction";
 
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = Platform.OS === "ios" ? 80 : 93;
@@ -25,7 +25,11 @@ const image = {
     "https://images.pexels.com/photos/258196/pexels-photo-258196.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
 };
 
-const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
+const MainHomePage = ({
+  getHotelViewed,
+  hotelRecentlyViewed,
+  setSearchParams,
+}) => {
   const navigation = useNavigation();
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -49,7 +53,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
           uri:
             "https://images.unsplash.com/photo-1506741485568-47c278a3e70a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=864&q=80",
         },
-        title: "Hanoi",
+        title: "Hà Nội",
         key: "1",
       },
       {
@@ -57,7 +61,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
           uri:
             "https://images.unsplash.com/photo-1504457047772-27faf1c00561?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1117&q=80",
         },
-        title: "Ninh Binh",
+        title: "Ninh Bình",
         key: "2",
       },
       {
@@ -65,7 +69,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
           uri:
             "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80",
         },
-        title: "Da Nang",
+        title: "Đà Nẵng",
         key: "3",
       },
       {
@@ -73,7 +77,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
           uri:
             "https://images.unsplash.com/photo-1541079606130-1f46216e419d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
         },
-        title: "Saigon",
+        title: "Hồ Chí Minh",
         key: "4",
       },
       {
@@ -81,7 +85,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
           uri:
             "https://images.unsplash.com/photo-1482982425600-04078062c865?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
         },
-        title: "Sapa",
+        title: "Sa Pa",
         key: "5",
       },
       {
@@ -89,17 +93,17 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
           uri:
             "https://images.unsplash.com/photo-1585155683190-0e92394ac1ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1232&q=80",
         },
-        title: "Phu Quoc",
+        title: "Phú Quốc",
         key: "6",
       },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1569133362252-0b8d3efc964f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-        },
-        title: "Thua Thien Hue",
-        key: "7",
-      },
+      // {
+      //   image: {
+      //     uri:
+      //       "https://images.unsplash.com/photo-1569133362252-0b8d3efc964f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+      //   },
+      //   title: "Thừa Thiên - Huế",
+      //   key: "7",
+      // },
       {
         image: {
           uri:
@@ -113,7 +117,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
           uri:
             "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
         },
-        title: "Quang Ninh",
+        title: "Quảng Ninh",
         key: "9",
       },
       {
@@ -129,110 +133,12 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
     return gallery;
   };
 
-  const _renderHotel = () => {
-    const hotel = [
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1596948209610-c566ee564ea2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-        },
-        title: "MerPerle Hon Tam Resort",
-        location: "Nha Trang",
-        key: "1",
-      },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-        },
-        title: "Hyatt Regency Resort And Spa",
-        location: "Hanoi",
-        key: "2",
-      },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-        },
-        title: "Hyatt Regency Resort And Spa",
-        location: "Hanoi",
-        key: "3",
-      },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-        },
-        title: "Hyatt Regency Resort And Spa",
-        location: "Hanoi",
-        key: "4",
-      },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-        },
-        title: "Hyatt Regency Resort And Spa",
-        location: "Hanoi",
-        key: "5",
-      },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-        },
-        title: "Hyatt Regency Resort And Spa",
-        location: "Hanoi",
-        key: "6",
-      },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-        },
-        title: "Hyatt Regency Resort And Spa",
-        location: "Hanoi",
-        key: "7",
-      },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-        },
-        title: "Hyatt Regency Resort And Spa",
-        location: "Hanoi",
-        key: "8",
-      },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-        },
-        title: "Hyatt Regency Resort And Spa",
-        location: "Hanoi",
-        key: "9",
-      },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1584954490709-3c000d2ec110?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-        },
-        title: "Hyatt Regency Danang Resort And Spa",
-        location: "Da Nang",
-        key: "10",
-      },
-    ];
-    return hotel;
-  };
-
   const _renderScrollViewContent = () => {
     const data = Array.from({ length: 30 });
     return (
       <View style={styles.scrollViewContent}>
         <View style={{ padding: 16 }}>
-          <Text style={{ fontSize: 20, color: "#358c63" }}>
-            Top Trending
-          </Text>
+          <Text style={{ fontSize: 20, color: "#358c63" }}>Top Trending</Text>
         </View>
         <View>
           <FlatList
@@ -243,7 +149,16 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
             renderItem={({ item }) => {
               return (
                 <View style={{ paddingVertical: 20, paddingLeft: 16 }}>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setSearchParams({ destination: item.title });
+                      navigation.navigate("SearchPage", {
+                        destination: item.title,
+                        scrollToTop: true,
+                      });
+                      // getDestinations({ destination: query });
+                    }}
+                  >
                     <Image
                       source={item.image}
                       style={{
@@ -275,9 +190,7 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
               justifyContent: "space-between",
             }}
           >
-            <Text
-              style={{ fontSize: 20, color: "#358c63" }}
-            >
+            <Text style={{ fontSize: 20, color: "#358c63" }}>
               Recently Viewed
             </Text>
           </View>
@@ -309,9 +222,10 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
                         position: "absolute",
                         bottom: 0,
                         padding: 16,
+                        width: "100%"
                       }}
                     >
-                      <View style={{ flexDirection: "row" }}>
+                      <View style={{flex: 1, flexDirection: "row" }}>
                         <Feather
                           name="map-pin"
                           color="white"
@@ -328,8 +242,9 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
                             color: "white",
                             fontWeight: "normal",
                             marginBottom: "2%",
-                            marginHorizontal: "2%",
+                            paddingRight: 15,
                           }}
+                          numberOfLines={1}
                         >
                           {item.name}
                         </Text>
@@ -341,8 +256,9 @@ const MainHomePage = ({ getHotelViewed, hotelRecentlyViewed }) => {
                           fontWeight: "normal",
                           marginBottom: 4,
                           opacity: 0.9,
-                          marginLeft: 10,
+                          paddingLeft: 10,
                         }}
+                        numberOfLines={1}
                       >
                         {item.address}
                       </Text>
@@ -651,6 +567,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getHotelViewed: () => dispatch(getHotelViewed()),
+    setSearchParams: (params) => dispatch(setSearchParams(params)),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MainHomePage);

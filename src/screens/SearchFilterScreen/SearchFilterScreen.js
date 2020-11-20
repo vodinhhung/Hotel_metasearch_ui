@@ -53,9 +53,6 @@ const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
   const [star, setStar] = useState(0);
   const [service, setService] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
-  useEffect(() => {
-    LayoutAnimation.easeInEaseOut();
-  }, []);
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <SafeAreaView style={styles.headerWrapper}>

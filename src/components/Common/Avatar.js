@@ -5,7 +5,7 @@ import { getScaleSizeOfImage } from "@lib/utils/image-size-resolver";
 const images = {
   tripILogo: require("@assets/icons/default_avatar.png"),
 };
-const AvatarCommon = ({ avatar, size=50 }) => {
+const AvatarCommon = ({ avatar, size=100 }) => {
   return (
     <Avatar.Image
       style={{ backgroundColor: "white" }}

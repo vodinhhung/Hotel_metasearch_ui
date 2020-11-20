@@ -40,6 +40,7 @@ const hotelSearchingByFilterReducer = (state = initialState, action) => {
           ...state,
           isPending: false,
           searchHotels: {
+            ...state.searchHotels,
             items: [...state.searchHotels.items, ...action.data.items],
           },
         };

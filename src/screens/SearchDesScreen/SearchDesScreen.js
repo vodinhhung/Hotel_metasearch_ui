@@ -39,7 +39,6 @@ const SearchDesScreen = ({
   destinations = { province_items: [], hotel_items: [] },
   userInfo,
 }) => {
-  LayoutAnimation.easeInEaseOut();
   const [textInput, setTextInput] = useState("");
   const [time, setTime] = useState(0);
   const { colors } = useTheme();
@@ -50,9 +49,11 @@ const SearchDesScreen = ({
   const navigation = useNavigation();
 
   const onChangeSearch = (query) => {
+    LayoutAnimation.easeInEaseOut();
     getDestinations({ destination: query });
   };
   const focusSearchInput = (status = true) => {
+    LayoutAnimation.easeInEaseOut();
     if (status) {
       setSwitchEffect(false);
     }
@@ -117,8 +118,8 @@ const SearchDesScreen = ({
               <ListItem
                 key={index}
                 bottomDivider
-                onPress={async () => {
-                  await setSearchParams({ destination: province.name });
+                onPress={() => {
+                  setSearchParams({ destination: province.name });
                   navigation.navigate("SearchPage", {
                     destination: province.name,
                     scrollToTop: true,

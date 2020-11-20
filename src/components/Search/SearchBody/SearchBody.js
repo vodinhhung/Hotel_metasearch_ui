@@ -26,10 +26,11 @@ if (
 
 const SearchBody = ({
   getSearchHotelByFilter,
-  hotelLists = { items: null },
+  hotelLists = { items: [], total_item: 0 },
   page,
   setSearchParams,
   route,
+  isPending
 }) => {
   const [refreshing, setRefreshing] = useState(false);
   const flatListRef = React.useRef();
@@ -41,10 +42,11 @@ const SearchBody = ({
     );
   };
   const fetchMore = () => {
-    LayoutAnimation.easeInEaseOut();
-
-    setSearchParams({ page: page + 1 });
-    getSearchHotelByFilter({ merge: true });
+    if (hotelLists.items.length < hotelLists.total_item && !isPending) {
+      LayoutAnimation.easeInEaseOut();
+      setSearchParams({ page: page + 1 });
+      getSearchHotelByFilter({ merge: true });
+    }
   };
   const toTop = () => {
     // use current
@@ -81,7 +83,7 @@ const SearchBody = ({
           }}
         />
       }
-      ListFooterComponent={<ActivityIndicator size="large" />}
+      ListFooterComponent={isPending && <ActivityIndicator size="large" />}
     ></FlatList>
   );
 };
@@ -114,6 +116,7 @@ function mapStateToProps(state) {
   return {
     hotelLists: state?.hotelSearchingByFilter?.searchHotels,
     page: state?.hotelSearchingByFilter?.params?.page,
+    isPending: state?.hotelSearchingByFilter?.isPending
   };
 }
 function mapDispatchToProps(dispatch) {

@@ -11,7 +11,6 @@ export async function loginRequestService(params) {
     if (params.type !== "facebook") {
       result.data.user.picture = { data: { url: result.data.user.picture } };
     }
-    console.log(result);
   } catch (e) {
     console.log(e);
   }
