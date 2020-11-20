@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
@@ -22,11 +18,17 @@ const LikePageScreen = ({ userInfo, getHotelLike, hotelLikeList }) => {
     });
   }, []);
   return (
-    <SafeAreaView style={[styles.container, {backgroundColor: colors.background}]}>
-      <StatusBar style="dark" />
-      <View style={styles.headerContainer}></View>
-      <ScrollView>
-        <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <SafeAreaView style={styles.headerWrapper}>
+        <StatusBar style="dark" />
+        <View style={styles.headerTitle}>
+          <Text style={[styles.bigTitle2, { alignSelf: "center" }]}>
+            Hotel Like
+          </Text>
+        </View>
+      </SafeAreaView>
+      <ScrollView style={styles.container}>
+        <View>
           {hotelLikeList?.items?.map((item, index) => {
             return (
               <View key={index} style={styles.cardWrapper}>
@@ -36,15 +38,25 @@ const LikePageScreen = ({ userInfo, getHotelLike, hotelLikeList }) => {
           })}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  headerWrapper: {
+    height: 80,
+    flexDirection: "row",
+  },
+  headerTitle: {
+    flex: 15,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  cardWrapper: { flexDirection: "row", padding: 0, marginBottom: 15 },
   container: {
     flex: 1,
     flexDirection: "column",
-    paddingHorizontal: 5,
   },
   headerContainer: {
     paddingHorizontal: 10,
@@ -83,12 +95,17 @@ const styles = StyleSheet.create({
   iconStyle: {
     paddingRight: 10,
   },
+  bigTitle2: {
+    fontSize: 20,
+    fontWeight: "500",
+  },
 });
 
 function mapStateToProps(state) {
-  return { userInfo: state.user.userProfile,
-    hotelLikeList: state?.hotelLike?.hotelLike
-   };
+  return {
+    userInfo: state.user.userProfile,
+    hotelLikeList: state?.hotelLike?.hotelLike,
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {
