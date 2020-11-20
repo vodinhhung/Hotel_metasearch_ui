@@ -7,7 +7,6 @@ import {
   FlatList,
   RefreshControl,
   UIManager,
-  LayoutAnimation,
 } from "react-native";
 import HotelGrid from "@components/Hotel/HotelGrid";
 import { connect } from "react-redux";
@@ -16,13 +15,6 @@ import {
   getSearchHotelByFilter,
 } from "@redux/actions/hotelAction";
 import moment from "moment";
-
-if (
-  Platform.OS === "android" &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 
 const SearchBody = ({
   getSearchHotelByFilter,
@@ -40,9 +32,6 @@ const SearchBody = ({
       </View>
     );
   };
-  useEffect(() => {
-    LayoutAnimation.easeInEaseOut();
-  }, [hotelLists]);
   const fetchMore = () => {
     setSearchParams({ page: page + 1 });
     console.log("Fetch More");
