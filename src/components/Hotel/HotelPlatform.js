@@ -52,7 +52,6 @@ const HotelPlatform = ({ type, color = "black", url }) => {
       </OpenURL>
     );
   };
-  console.log(type);
   return (
     <View style={styles.container}>
       {renderIcon()}

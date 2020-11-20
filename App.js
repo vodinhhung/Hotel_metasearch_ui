@@ -40,7 +40,6 @@ export default function App() {
     return <AppLoading />;
   }
   setCustomText(customTextProps);
-  console.log("hi")
   return (
     <Provider store={store}>
       <PaperProvider theme={theme}>

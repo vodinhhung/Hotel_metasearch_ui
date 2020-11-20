@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
   },
 });
 function mapStateToProps(state) {
-  console.log(state.searchDestination.destinations);
   return {
     destinations: state.searchDestination.destinations,
   };

@@ -36,7 +36,6 @@ function* loginRequest(requestSaga) {
   }
 }
 function* getHotelLike() {
-  console.log("like pending")
   try {
     yield put({
       type: GET_HOTEL_LIKE_PENDING,

@@ -34,7 +34,6 @@ const SearchBody = ({
   };
   const fetchMore = () => {
     setSearchParams({ page: page + 1 });
-    console.log("Fetch More");
     getSearchHotelByFilter({ merge: true });
   };
   const toTop = () => {

@@ -28,7 +28,6 @@ const LikePageScreen = ({ userInfo, getHotelLike, hotelLikeList }) => {
       <ScrollView>
         <View style={styles.container}>
           {hotelLikeList?.items?.map((item, index) => {
-            console.log(item);
             return (
               <View key={index} style={styles.cardWrapper}>
                 <HotelGrid hotel={item} />

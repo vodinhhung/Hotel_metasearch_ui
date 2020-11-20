@@ -68,7 +68,6 @@ export async function getSearchHotelByFilterService(hotelFilter) {
 // search destinations
 export async function getDestinationsInput(params) {
   let result = null;
-  console.log(params.destination.destination);
   try {
     result = await axios.get(`/hotel/search`, {
       params: {
