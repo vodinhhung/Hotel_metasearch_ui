@@ -174,14 +174,13 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 5,
     },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-
-    elevation: 4,
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
   },
   cardStyle: {
+    elevation: 10,
     overflow: "hidden",
     position: "relative",
     flex: 1,
