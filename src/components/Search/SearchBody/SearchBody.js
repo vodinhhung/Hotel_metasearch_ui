@@ -7,6 +7,7 @@ import {
   FlatList,
   RefreshControl,
   UIManager,
+  LayoutAnimation,
 } from "react-native";
 import HotelGrid from "@components/Hotel/HotelGrid";
 import { connect } from "react-redux";
@@ -15,6 +16,13 @@ import {
   getSearchHotelByFilter,
 } from "@redux/actions/hotelAction";
 import moment from "moment";
+
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 const SearchBody = ({
   getSearchHotelByFilter,
@@ -33,6 +41,8 @@ const SearchBody = ({
     );
   };
   const fetchMore = () => {
+    LayoutAnimation.easeInEaseOut();
+
     setSearchParams({ page: page + 1 });
     getSearchHotelByFilter({ merge: true });
   };
@@ -48,7 +58,6 @@ const SearchBody = ({
     <FlatList
       ref={flatListRef}
       keyExtractor={(item, index) => item.id.toString()}
-      extraData={hotelLists?.items}
       data={hotelLists?.items}
       renderItem={({ item }) => hotelCard(item)}
       onEndReached={fetchMore}
@@ -70,8 +79,6 @@ const SearchBody = ({
             });
             getSearchHotelByFilter();
           }}
-          // Android offset for RefreshControl
-          // progressViewOffset={HEADER_MAX_HEIGHT}
         />
       }
       ListFooterComponent={<ActivityIndicator size="large" />}

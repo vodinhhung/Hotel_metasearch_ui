@@ -31,7 +31,7 @@ const LikePageScreen = ({ userInfo, getHotelLike, hotelLikeList }) => {
         <View>
           {hotelLikeList?.items?.map((item, index) => {
             return (
-              <View key={index} style={styles.cardWrapper}>
+              <View key={item.id} style={styles.cardWrapper}>
                 <HotelGrid hotel={item} />
               </View>
             );

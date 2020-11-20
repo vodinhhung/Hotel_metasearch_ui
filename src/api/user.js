@@ -19,7 +19,6 @@ export async function loginRequestService(params) {
 }
 export async function getHotelLikeService(params) {
   let result = null;
-  console.log(params.token);
   try {
     result = await axios.get(`/hotel/like`, {
       headers: {
@@ -33,7 +32,6 @@ export async function getHotelLikeService(params) {
 }
 export async function setHotelLikeService(params) {
   let result = null;
-  console.log(params);
   try {
     result = await axios.post(
       `/hotel/like`,

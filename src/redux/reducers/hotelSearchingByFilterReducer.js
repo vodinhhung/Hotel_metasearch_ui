@@ -35,7 +35,6 @@ const hotelSearchingByFilterReducer = (state = initialState, action) => {
       };
     case GET_SEARCH_HOTEL_BY_FILTER_SUCCESS:
       // console.log(action.data);
-      console.log(action.action);
       if (action?.action?.merge) {
         return {
           ...state,
