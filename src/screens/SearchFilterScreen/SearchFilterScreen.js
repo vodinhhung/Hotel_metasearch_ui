@@ -38,12 +38,6 @@ import Facilities from "@components/Hotel/Filter/Facilities";
 import FilterSelected from "@components/Hotel/Filter/FilterSelected";
 import moment from "moment";
 
-if (
-  Platform.OS === "android" &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 
 const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
   const [visible, setVisible] = useState(false);

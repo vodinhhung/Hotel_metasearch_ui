@@ -7,7 +7,6 @@ const StarHotel = () => {
     <View
       style={{ flex: 1, flexDirection: "row", justifyContent: "space-around" }}
     >
-      <StarHotelIcon index={0} />
       <StarHotelIcon index={1} />
       <StarHotelIcon index={2} />
       <StarHotelIcon index={3} />

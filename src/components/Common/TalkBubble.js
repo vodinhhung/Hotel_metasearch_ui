@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 const Rating = ({rating}) => {
-  if(rating > 0) return null;
+  if(rating < 0) return null;
   return (
     <View style={styles.talkBubble}>
       <View style={styles.talkBubbleSquare}>

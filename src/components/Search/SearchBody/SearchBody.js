@@ -17,12 +17,6 @@ import {
 } from "@redux/actions/hotelAction";
 import moment from "moment";
 
-if (
-  Platform.OS === "android" &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 
 const SearchBody = ({
   getSearchHotelByFilter,
@@ -83,7 +77,7 @@ const SearchBody = ({
           }}
         />
       }
-      ListFooterComponent={isPending && <ActivityIndicator size="large" />}
+      ListFooterComponent={hotelLists.items.length < hotelLists.total_item && <ActivityIndicator size="large" />}
     ></FlatList>
   );
 };

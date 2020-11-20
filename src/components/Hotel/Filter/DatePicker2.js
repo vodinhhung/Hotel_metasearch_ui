@@ -62,7 +62,11 @@ export default class App extends Component {
         >
           <View>
             <Button
-            style={{backgroundColor: "#208838"}}
+              style={{
+                backgroundColor: !(selectedStartDate && selectedEndDate)
+                  ? "white"
+                  : "#208838",
+              }}
               disabled={!(selectedStartDate && selectedEndDate)}
               mode="contained"
               onPress={() => {

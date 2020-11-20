@@ -11,12 +11,6 @@ import { statusHotelLike } from "@lib/utils/hotel";
 import { connect } from "react-redux";
 import { setHotelLike } from "@redux/actions/userAction";
 import { ActivityIndicator } from "react-native-paper";
-if (
-  Platform.OS === "android" &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 
 const Hearting = ({ hotel, hotelLikeList, setHotelLike, isPending }) => {
   LayoutAnimation.easeInEaseOut();

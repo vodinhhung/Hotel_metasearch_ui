@@ -26,12 +26,6 @@ import {
 } from "@redux/actions/hotelAction";
 import { useTheme, Searchbar, Avatar } from "react-native-paper";
 import { FontAwesome5 } from "@expo/vector-icons";
-if (
-  Platform.OS === "android" &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 
 const SearchDesScreen = ({
   getDestinations,
