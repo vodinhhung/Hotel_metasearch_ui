@@ -132,30 +132,31 @@ const HotelDetailScreen = ({
               </View>
             </View>
 
-            {hotelDetail.review?.slice(0, 5)?.map((item, i) => {
-              return (
-                <ListItem key={i} bottomDivider>
-                  <Avatar
-                    rounded
-                    source={{
-                      uri:
-                        "https://lh3.googleusercontent.com/proxy/HkkxgN0VuqcuUX9KWPBnzkTgg7fIAdt-tKP7PtYlGZqGdfnrpo86bTH4pk2qUKpazMZ3xEhgAePQeSoJmkfWkGzc-676PX0igznzkQ_zCQ",
-                    }}
-                  />
-                  <ListItem.Content>
-                    <ListItem.Title style={{ fontWeight: "bold" }}>
-                      {item.title != null ? item.title : "Guest"}
-                    </ListItem.Title>
-                    <View style={styles.subtitleView}>
-                      <Text style={styles.ratingText}>
-                        {item.text}
-                        {/* {renderName(item.text)} */}
-                      </Text>
-                    </View>
-                  </ListItem.Content>
-                </ListItem>
-              );
-            })}
+            {hotelDetail.review?.length &&
+              hotelDetail?.review?.slice(0, 5)?.map((item, i) => {
+                return (
+                  <ListItem key={i} bottomDivider>
+                    <Avatar
+                      rounded
+                      source={{
+                        uri:
+                          "https://lh3.googleusercontent.com/proxy/HkkxgN0VuqcuUX9KWPBnzkTgg7fIAdt-tKP7PtYlGZqGdfnrpo86bTH4pk2qUKpazMZ3xEhgAePQeSoJmkfWkGzc-676PX0igznzkQ_zCQ",
+                      }}
+                    />
+                    <ListItem.Content>
+                      <ListItem.Title style={{ fontWeight: "bold" }}>
+                        {item.title != null ? item.title : "Guest"}
+                      </ListItem.Title>
+                      <View style={styles.subtitleView}>
+                        <Text style={styles.ratingText}>
+                          {item.text}
+                          {/* {renderName(item.text)} */}
+                        </Text>
+                      </View>
+                    </ListItem.Content>
+                  </ListItem>
+                );
+              })}
           </View>
 
           <View style={styles.footer}>

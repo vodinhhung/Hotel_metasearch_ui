@@ -33,7 +33,13 @@ if (__DEV__) {
     )
   );
 } else {
-  store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+  store = createStore(
+    persistedReducer,
+    applyMiddleware(
+      sagaMiddleware
+      //  createLogger()
+    )
+  );
 }
 
 let persistor = persistStore(store);
