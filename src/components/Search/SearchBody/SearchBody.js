@@ -77,7 +77,7 @@ const SearchBody = ({
           }}
         />
       }
-      ListFooterComponent={hotelLists.items.length < hotelLists.total_item && <ActivityIndicator size="large" />}
+      ListFooterComponent={hotelLists?.items.length < hotelLists?.total_item && <ActivityIndicator size="large" />}
     ></FlatList>
   );
 };
