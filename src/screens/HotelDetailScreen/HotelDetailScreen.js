@@ -31,6 +31,7 @@ import { convertCurrency, statusHotelLike } from "@lib/utils/hotel";
 import StatusBar from "@components/Common/StatusBar";
 
 const HEADER_MAX_HEIGHT = Dimensions.get("window").height;
+const MAX_WIDTH = Dimensions.get("window").width;
 const HEADER_MIN_HEIGHT = Platform.OS === "ios" ? 80 : 93;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const HotelDetailScreen = ({
@@ -75,12 +76,13 @@ const HotelDetailScreen = ({
             </View>
             {hotelDetail.linking?.map((item, index) => {
               return (
-                <ListItem key={index} bottomDivider >
-                     <HotelPlatform 
-                     key={index} 
-                     type={item.type} 
-                     url={item.url}
-                     price={hotelDetail.prices} />
+                <ListItem key={index} bottomDivider>
+                  <HotelPlatform
+                    key={index}
+                    type={item.type}
+                    url={item.url}
+                    price={hotelDetail.prices}
+                  />
                 </ListItem>
               );
             })}
@@ -108,7 +110,7 @@ const HotelDetailScreen = ({
               }
               stylesheet={stylesDes}
             />
-            {console.log(hotelDetail.description)}
+            {/* {console.log(hotelDetail.description)} */}
           </View>
 
           <View
@@ -189,22 +191,24 @@ const HotelDetailScreen = ({
           </View>
 
           <View style={styles.footer}>
-            <Text style={styles.headerStyle}>Related Post</Text>
+            <Text style={styles.headerStyle}>Related Hotel</Text>
             <FlatList
               showsHorizontalScrollIndicator={false}
               horizontal={true}
-              keyExtractor={(item, index) => index.toString()}
+              keyExtractor={(item, index) => item.id.toString()}
               data={hotelLists?.items}
               renderItem={({ item }) => {
                 return (
                   <View
-                    style={{ paddingVertical: 20, paddingLeft: 16, width: 300 }}
+                    style={{
+                      paddingRight: 5,
+                      paddingBottom: 16,
+                      width: MAX_WIDTH / 1.25,
+                    }}
                   >
-                    <TouchableOpacity>
-                      <View style={styles.cardWrapper}>
-                        <HotelGrid hotel={item} />
-                      </View>
-                    </TouchableOpacity>
+                    <View style={styles.cardWrapper}>
+                      <HotelGrid hotel={item} />
+                    </View>
                   </View>
                 );
               }}
@@ -604,7 +608,7 @@ const stylesDes = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     hotelDetail: state.hotelDetail.hotelDetail,
-    hotelLikeList: state?.hotelLike?.hotelLike?.items ?? [],
+    hotelLikeList: state?.hotelLike?.hotelLike?.items,
     hotelLists: state?.hotelSearchingByFilter?.searchHotels,
   };
 }
