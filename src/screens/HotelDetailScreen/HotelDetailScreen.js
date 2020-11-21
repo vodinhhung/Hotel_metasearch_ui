@@ -31,7 +31,6 @@ import { convertCurrency, statusHotelLike } from "@lib/utils/hotel";
 import StatusBar from "@components/Common/StatusBar";
 
 const HEADER_MAX_HEIGHT = Dimensions.get("window").height;
-const MAX_WIDTH = Dimensions.get("window").width;
 const HEADER_MIN_HEIGHT = Platform.OS === "ios" ? 80 : 93;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const HotelDetailScreen = ({
@@ -66,11 +65,13 @@ const HotelDetailScreen = ({
           </View>
           {/* Domain */}
 
-          <View style={{ flexDirection: "column", marginTop: 22 }}>
+          <View style={{ flexDirection: "column", marginBottom: 22 }}>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
-              <View>
+              <View
+                style={styles.headerBorder}
+              >
                 <Text style={styles.headerStyle}>Prices</Text>
               </View>
             </View>
@@ -88,12 +89,12 @@ const HotelDetailScreen = ({
             })}
           </View>
 
-          <View>
+          <View style={styles.headerBorder}>
             <Text style={styles.headerStyle}>About</Text>
           </View>
           <View
             style={{
-              marginVertical: 0,
+              margin: 8,
               fontFamily: "OpenSans-Regular",
               opacity: 0.6,
             }}
@@ -110,7 +111,7 @@ const HotelDetailScreen = ({
               }
               stylesheet={stylesDes}
             />
-            {/* {console.log(hotelDetail.description)} */}
+            {console.log(hotelDetail.description)}
           </View>
 
           <View
@@ -122,7 +123,7 @@ const HotelDetailScreen = ({
               marginTop: 50,
             }}
           >
-            <View>
+            <View style={styles.headerBorder}>
               <Text style={styles.headerStyle}>Location</Text>
             </View>
             {/* google map in here */}
@@ -155,7 +156,7 @@ const HotelDetailScreen = ({
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
-              <View>
+              <View style={styles.headerBorder}>
                 <Text style={styles.headerStyle}>Reviews</Text>
               </View>
             </View>
@@ -173,7 +174,7 @@ const HotelDetailScreen = ({
                   <ListItem.Content>
                     <ListItem.Title
                       style={{
-                        fontWeight: "bold",
+                        // fontWeight: "bold",
                         fontFamily: "OpenSans-Regular",
                       }}
                     >
@@ -191,24 +192,24 @@ const HotelDetailScreen = ({
           </View>
 
           <View style={styles.footer}>
-            <Text style={styles.headerStyle}>Related Hotel</Text>
+            <View style={styles.headerBorder}>
+            <Text style={styles.headerStyle}>Related Post</Text>
+            </View>
             <FlatList
               showsHorizontalScrollIndicator={false}
               horizontal={true}
-              keyExtractor={(item, index) => item.id.toString()}
+              keyExtractor={(item, index) => index.toString()}
               data={hotelLists?.items}
               renderItem={({ item }) => {
                 return (
                   <View
-                    style={{
-                      paddingRight: 5,
-                      paddingBottom: 16,
-                      width: MAX_WIDTH / 1.25,
-                    }}
+                    style={{ paddingVertical: 20, paddingLeft: 16, width: 300 }}
                   >
-                    <View style={styles.cardWrapper}>
-                      <HotelGrid hotel={item} />
-                    </View>
+                    <TouchableOpacity>
+                      <View style={styles.cardWrapper}>
+                        <HotelGrid hotel={item} />
+                      </View>
+                    </TouchableOpacity>
                   </View>
                 );
               }}
@@ -238,7 +239,7 @@ const HotelDetailScreen = ({
   });
   const imageOpacity = scrollY.interpolate({
     inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-    outputRange: [0.6, 0, 0],
+    outputRange: [0.6, 0.4, 0],
     extrapolate: "clamp",
   });
   const imageTranslate = scrollY.interpolate({
@@ -248,17 +249,17 @@ const HotelDetailScreen = ({
   });
   const titleScale = scrollY.interpolate({
     inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-    outputRange: [1, 1, 1],
+    outputRange: [1, 0.6, 0], 
     extrapolate: "clamp",
   });
   const titleTranslate = scrollY.interpolate({
     inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-    outputRange: [0, -50, -120],
+    outputRange: [0, -50, -100],
     extrapolate: "clamp",
   });
   const logoTranslate = scrollY.interpolate({
     inputRange: [0, 0, HEADER_SCROLL_DISTANCE],
-    outputRange: [0, -10, -600],
+    outputRange: [0, 0, -700],
     extrapolate: "clamp",
   });
   if (!hotelDetail) return <ActivityIndicator size="large" color="#0000ff" />;
@@ -278,7 +279,7 @@ const HotelDetailScreen = ({
                 <MaterialIcons
                   name="arrow-back"
                   size={25}
-                  style={styles.backIcon}
+                  
                   color="#007BFF"
                 />
               </TouchableOpacity>
@@ -297,7 +298,7 @@ const HotelDetailScreen = ({
                 statusHotelLike(hotelDetail, hotelLikeList) ? "heart" : "hearto"
               }
               size={25}
-              color="#666"
+              color="red"
               onPress={() => {
                 hotelLikeAction();
               }}
@@ -464,7 +465,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: "white",
+    // backgroundColor: "white",
     overflow: "hidden",
     height: HEADER_MAX_HEIGHT,
   },
@@ -495,7 +496,7 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     // iOS uses content inset, which acts like padding.
     marginTop: -70,
-    paddingHorizontal: 12,
+    paddingHorizontal: 4,
     paddingTop: Platform.OS !== "ios" ? HEADER_MAX_HEIGHT : 0,
     backgroundColor: "white",
   },
@@ -516,6 +517,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
     height: 80,
     flexDirection: "row",
+    backgroundColor: colors.divider,
+    opacity:0.4
   },
   wrapper: {
     paddingHorizontal: 20,
@@ -526,23 +529,26 @@ const styles = StyleSheet.create({
   serviceWrapper: {
     width: 65,
     height: 65,
-    padding: 1,
-    margin: 1,
+    padding: 0,
+    margin:1
   },
   pricesWrapper: {
     width: "70%",
-    height: 70,
+    height: 90,
     padding: 2,
     margin: 29,
+    
   },
 
   servicesWrapper: {
-    marginBottom: 4,
-    flexGrow: 5,
+
+    width: "100%",
+    // flexGrow: 5,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
+    
   },
   mapStyle: {
     width: "100%",
@@ -570,13 +576,22 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   IconColor: {
-    color: "#9EA6D1",
+    color: "red",
   },
   headerStyle: {
     fontSize: 20,
     // fontWeight: "700",
-    margin: 20,
+
     fontFamily: "Baloo-Regular",
+  },
+  headerBorder: {
+    backgroundColor: colors.divider,
+    opacity: 0.4,
+    marginBottom: 8,
+    width: "100%",
+    padding: 4,
+    borderRadius: 2,
+    justifyContent: "space-around",
   },
   subtitleView: {
     flexDirection: "row",
@@ -588,7 +603,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: "column",
-    marginVertical: 20,
+    marginBottom: "20%",
   },
 });
 const stylesDes = StyleSheet.create({
