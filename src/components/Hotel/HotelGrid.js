@@ -44,7 +44,7 @@ const HotelGrid = ({ hotel }) => {
           }}
           underlayColor="#ffffff00"
           onPress={() => {
-            navigation.navigate("HotelDetailPage", { hotel: hotel });
+            navigation.push("HotelDetailPage", { hotel: hotel });
           }}
         >
           <View style={styles.cardBody}>
