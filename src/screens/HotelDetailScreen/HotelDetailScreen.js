@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   Animated,
 } from "react-native";
-import { Avatar, ListItem } from "react-native-elements";
+import { Avatar, colors, ListItem } from "react-native-elements";
 import { connect } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
@@ -30,7 +30,7 @@ import { setHotelLike } from "@redux/actions/userAction";
 import { convertCurrency, statusHotelLike } from "@lib/utils/hotel";
 import StatusBar from "@components/Common/StatusBar";
 
-const HEADER_MAX_HEIGHT = Dimensions.get("window").height - 32;
+const HEADER_MAX_HEIGHT = Dimensions.get("window").height;
 const HEADER_MIN_HEIGHT = Platform.OS === "ios" ? 80 : 93;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const HotelDetailScreen = ({
@@ -63,31 +63,57 @@ const HotelDetailScreen = ({
               );
             })}
           </View>
+          {/* Domain */}
 
-          <View style={styles.descriptionStyle}>
-            <View>
-              <Text style={[colors.text, styles.headerStyle]}>About</Text>
+          <View style={{ flexDirection: "column", marginTop: 22 }}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <View>
+                <Text style={styles.headerStyle}>Prices</Text>
+              </View>
             </View>
-            {hotelDetail.description
-              .split("\\n")
-              .join("\\t")
-              .split("\\t")
-              .map((item, index) => {
-                return (
-                  <HTMLView value={item} stylesheet={styles} key={index} />
-                );
-              })}
-          </View>
-
-          <View style={{ flex: 1 }}>
             {hotelDetail.linking?.map((item, index) => {
               return (
-                <HotelPlatform key={index} type={item.type} url={item.url} />
+                <ListItem key={index} bottomDivider >
+                     <HotelPlatform 
+                     key={index} 
+                     type={item.type} 
+                     url={item.url}
+                     price={hotelDetail.prices} />
+                </ListItem>
               );
             })}
           </View>
+
+          <View>
+            <Text style={styles.headerStyle}>About</Text>
+          </View>
           <View
             style={{
+              marginVertical: 0,
+              fontFamily: "OpenSans-Regular",
+              opacity: 0.6,
+            }}
+          >
+            <HTMLView
+              value={
+                hotelDetail.description != null
+                  ? hotelDetail.description
+                      .split("\\n")
+                      .join("\\t")
+                      .split("\\t")
+                      .join("")
+                  : "No Description"
+              }
+              stylesheet={stylesDes}
+            />
+            {console.log(hotelDetail.description)}
+          </View>
+
+          <View
+            style={{
+              fontFamily: "OpenSans-Regular",
               flex: 1,
               flexDirection: "column",
               justifyContent: "flex-end",
@@ -95,7 +121,7 @@ const HotelDetailScreen = ({
             }}
           >
             <View>
-              <Text style={[colors.text, styles.headerStyle]}>Location</Text>
+              <Text style={styles.headerStyle}>Location</Text>
             </View>
             {/* google map in here */}
             {hotelDetail.position ? (
@@ -128,36 +154,38 @@ const HotelDetailScreen = ({
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <View>
-                <Text style={[colors.text, styles.headerStyle]}>Reviews</Text>
+                <Text style={styles.headerStyle}>Reviews</Text>
               </View>
             </View>
 
-            {hotelDetail.review?.length
-              ? hotelDetail?.review?.slice(0, 5)?.map((item, i) => {
-                  return (
-                    <ListItem key={i} bottomDivider>
-                      <Avatar
-                        rounded
-                        source={{
-                          uri:
-                            "https://lh3.googleusercontent.com/proxy/HkkxgN0VuqcuUX9KWPBnzkTgg7fIAdt-tKP7PtYlGZqGdfnrpo86bTH4pk2qUKpazMZ3xEhgAePQeSoJmkfWkGzc-676PX0igznzkQ_zCQ",
-                        }}
-                      />
-                      <ListItem.Content>
-                        <ListItem.Title style={{ fontWeight: "bold" }}>
-                          {item.title != null ? item.title : "Guest"}
-                        </ListItem.Title>
-                        <View style={styles.subtitleView}>
-                          <Text style={styles.ratingText}>
-                            {item.text}
-                            {/* {renderName(item.text)} */}
-                          </Text>
-                        </View>
-                      </ListItem.Content>
-                    </ListItem>
-                  );
-                })
-              : null}
+            {hotelDetail?.review?.slice(0, 5)?.map((item, i) => {
+              return (
+                <ListItem key={i} bottomDivider>
+                  <Avatar
+                    rounded
+                    source={{
+                      uri:
+                        "https://lh3.googleusercontent.com/proxy/HkkxgN0VuqcuUX9KWPBnzkTgg7fIAdt-tKP7PtYlGZqGdfnrpo86bTH4pk2qUKpazMZ3xEhgAePQeSoJmkfWkGzc-676PX0igznzkQ_zCQ",
+                    }}
+                  />
+                  <ListItem.Content>
+                    <ListItem.Title
+                      style={{
+                        fontWeight: "bold",
+                        fontFamily: "OpenSans-Regular",
+                      }}
+                    >
+                      {item.title != null ? item.title : "Guest"}
+                    </ListItem.Title>
+                    <View style={styles.subtitleView}>
+                      <Text style={styles.ratingText}>
+                        {item.text != null ? item.text : "No comment"}
+                      </Text>
+                    </View>
+                  </ListItem.Content>
+                </ListItem>
+              );
+            })}
           </View>
 
           <View style={styles.footer}>
@@ -187,9 +215,9 @@ const HotelDetailScreen = ({
     );
   };
 
-  const renderName = (hotelName) => {
-    return hotelName.replace(/^(.{40}[^\s]*).*/, "$1");
-  };
+  // const renderName = (hotelName) => {
+  //   return hotelName.replace(/^(.{40}[^\s]*).*/, "$1");
+  // };
   const [scrollYState, setScrollY] = useState(
     new Animated.Value(Platform.OS === "ios" ? -HEADER_MAX_HEIGHT : 0)
   );
@@ -331,8 +359,8 @@ const HotelDetailScreen = ({
               {
                 backgroundColor: "white",
                 width: "90%",
-                height: 200,
-                top: 520,
+                height: 240,
+                top: HEADER_MAX_HEIGHT - 200,
                 opacity: 0.8,
                 position: "relative",
                 marginHorizontal: 18,
@@ -350,7 +378,12 @@ const HotelDetailScreen = ({
             >
               <Text
                 numberOfLines={2}
-                style={{ fontSize: 24, fontWeight: "900", color: "black" }}
+                style={{
+                  fontFamily: "Baloo-Regular",
+                  fontSize: 24,
+                  fontWeight: "900",
+                  color: "black",
+                }}
               >
                 {hotelDetail.name}
               </Text>
@@ -364,6 +397,7 @@ const HotelDetailScreen = ({
                   flexDirection: "row",
                   height: 50,
                   marginTop: 16,
+                  marginEnd: 7,
                 }}
               >
                 <Fontisto
@@ -372,7 +406,13 @@ const HotelDetailScreen = ({
                   size={14}
                   color="#666"
                 />
-                <Animated.Text style={styles.secondaryColor}>
+                <Animated.Text
+                  style={{
+                    fontFamily: "OpenSans-Regular",
+                    color: colors.secondaryColor,
+                    marginBottom: -10,
+                  }}
+                >
                   {hotelDetail.address}
                 </Animated.Text>
               </Animated.View>
@@ -386,7 +426,7 @@ const HotelDetailScreen = ({
                   <Text
                     style={{
                       fontSize: 24,
-                      fontWeight: "bold",
+                      // fontWeight: "bold",
                       color: colors.primary,
                     }}
                   >{`${convertCurrency(
@@ -480,17 +520,21 @@ const styles = StyleSheet.create({
     color: "#3b4044",
   },
   serviceWrapper: {
-    width: 80,
-    height: 80,
-    padding: 4,
+    width: 65,
+    height: 65,
+    padding: 1,
     margin: 1,
   },
-  descriptionStyle: {
-    marginVertical: 20,
+  pricesWrapper: {
+    width: "70%",
+    height: 70,
+    padding: 2,
+    margin: 29,
   },
+
   servicesWrapper: {
     marginBottom: 4,
-    flex: 1,
+    flexGrow: 5,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
@@ -526,16 +570,16 @@ const styles = StyleSheet.create({
   },
   headerStyle: {
     fontSize: 20,
-    fontWeight: "700",
-    marginBottom: 20,
+    // fontWeight: "700",
+    margin: 20,
+    fontFamily: "Baloo-Regular",
   },
   subtitleView: {
     flexDirection: "row",
-    paddingLeft: 10,
     paddingTop: 5,
   },
   ratingText: {
-    paddingLeft: 10,
+    fontFamily: "OpenSans-Regular",
     color: "grey",
   },
   footer: {
@@ -543,7 +587,20 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
 });
-
+const stylesDes = StyleSheet.create({
+  p: {
+    fontFamily: "OpenSans-Regular",
+  },
+  li: {
+    fontFamily: "OpenSans-Regular",
+  },
+  ul: {
+    fontFamily: "OpenSans-Regular",
+  },
+  li: {
+    fontFamily: "OpenSans-Regular",
+  },
+});
 function mapStateToProps(state) {
   return {
     hotelDetail: state.hotelDetail.hotelDetail,

@@ -14,7 +14,7 @@ const HomePage = () => {
       <Stack.Screen name="HomePage" component={HomePageScreen} />
       <Stack.Screen name="SearchDes" component={SearchDesScreen} />
       <Stack.Screen name="SearchPage" component={SearchPage} />
-      <Stack.Screen name="HotelDetailPage" component={HotelDetailPage} />
+      {/* <Stack.Screen name="HotelDetailPage" component={HotelDetailPage} /> */}
     </Stack.Navigator>
   );
 };

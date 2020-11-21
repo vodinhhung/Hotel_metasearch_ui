@@ -15,7 +15,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <AntDesign
             style={styles.iconStyle}
             name="wifi"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -24,7 +24,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <FontAwesome
             style={styles.iconStyle}
             name="car"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -33,8 +33,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <FontAwesome5
             name="money-check-alt"
             style={styles.iconStyle}
-            name="local-airport"
-            size={24}
+            size={20}
             color="white"
           />
         );
@@ -43,7 +42,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <MaterialIcons
             style={styles.iconStyle}
             name="local-airport"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -52,7 +51,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <Ionicons
             style={styles.iconStyle}
             name="md-restaurant"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -61,7 +60,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <FontAwesome5
             style={styles.iconStyle}
             name="baby-carriage"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -70,7 +69,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <MaterialIcons
             style={styles.iconStyle}
             name="local-bar"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -79,7 +78,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <MaterialIcons
             style={styles.iconStyle}
             name="local-laundry-service"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -88,7 +87,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <MaterialIcons
             style={styles.iconStyle}
             name="card-travel"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -97,7 +96,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <MaterialIcons
             style={styles.iconStyle}
             name="spa"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -106,7 +105,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <MaterialIcons
             style={styles.iconStyle}
             name="pool"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -116,7 +115,7 @@ const HotelService = ({ type, color = "#666" }) => {
           <FontAwesome
             style={styles.iconStyle}
             name="group"
-            size={24}
+            size={22}
             color="white"
           />
         );
@@ -174,15 +173,7 @@ const HotelService = ({ type, color = "#666" }) => {
       <View style={[{ backgroundColor: colors.primary }, styles.ServiceStyle]}>
         {renderIcon()}
       </View>
-      <View
-        style={{
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {renderTitle()}
-      </View>
+      <View style={styles.titleStyle}>{renderTitle()}</View>
     </View>
   );
 };
@@ -193,12 +184,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   ServiceStyle: {
+    opacity:0.7,
     borderRadius: 360,
-    width: 40,
-    height: 40,
+    width: 36,
+    height: 36,
     alignItems: "center",
     justifyContent: "center",
   },
-  titleStyle: {},
+  titleStyle: {
+    opacity:0.7,
+    fontFamily: "OpenSans-Regular",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize:12,
+  },
 });
 export default HotelService;
