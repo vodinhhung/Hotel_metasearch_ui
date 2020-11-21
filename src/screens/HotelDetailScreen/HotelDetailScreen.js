@@ -96,7 +96,7 @@ const HotelDetailScreen = ({
             style={{
               margin: 8,
               fontFamily: "OpenSans-Regular",
-              opacity: 0.,
+              opacity: 0.6,
             }}
           >
             <HTMLView
