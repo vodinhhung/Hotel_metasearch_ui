@@ -119,7 +119,8 @@ const HotelPlatform = ({ type, color = "black", url, price }) => {
     }
     return (
       <View style={styles.priceS}>
-        <Text style={styles.priceStyle}>{`${
+        <Text numberOfLines= {1}
+        style={styles.priceStyle}>{`${
           text != 0 ? convertCurrency(text) : "Updating"
         }`}</Text>
       </View>
@@ -143,18 +144,19 @@ const styles = StyleSheet.create({
   },
 
   title: {
+    
     padding: 5,
     fontWeight: "800",
     color: colors.success,
   },
   titleStyle: {
-    width: 80,
+    width: 90,
     borderRadius: 50,
     borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
     color: colors.success,
-    opacity: 0.2,
+    opacity: 0.6,
   },
   priceStyle: {
     color: colors.error,
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   priceS: {
-    opacity: 0.5,
+    opacity: 0.8,
     marginRight: 8,
     marginLeft: 8,
     justifyContent: "center",

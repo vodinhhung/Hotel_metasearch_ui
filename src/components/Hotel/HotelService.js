@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   ServiceStyle: {
-    opacity:0.7,
+    opacity:1,
     borderRadius: 360,
     width: 36,
     height: 36,

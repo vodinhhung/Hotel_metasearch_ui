@@ -517,8 +517,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
     height: 80,
     flexDirection: "row",
-    backgroundColor: colors.divider,
-    opacity:0.4
+    // backgroundColor: colors.divider,
+    opacity:0.6
   },
   wrapper: {
     paddingHorizontal: 20,
@@ -586,7 +586,7 @@ const styles = StyleSheet.create({
   },
   headerBorder: {
     backgroundColor: colors.divider,
-    opacity: 0.4,
+    opacity: 0.8,
     marginBottom: 8,
     width: "100%",
     padding: 4,
