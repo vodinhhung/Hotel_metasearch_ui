@@ -85,7 +85,7 @@ const MainHomePage = ({
           uri:
             "https://images.unsplash.com/photo-1482982425600-04078062c865?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
         },
-        title: "Sa Pa",
+        title: "Lào Cai",
         key: "5",
       },
       {
@@ -93,23 +93,23 @@ const MainHomePage = ({
           uri:
             "https://images.unsplash.com/photo-1585155683190-0e92394ac1ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1232&q=80",
         },
-        title: "Phú Quốc",
+        title: "Kiên Giang",
         key: "6",
       },
-      // {
-      //   image: {
-      //     uri:
-      //       "https://images.unsplash.com/photo-1569133362252-0b8d3efc964f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      //   },
-      //   title: "Thừa Thiên - Huế",
-      //   key: "7",
-      // },
+      {
+        image: {
+          uri:
+            "https://images.unsplash.com/photo-1569133362252-0b8d3efc964f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+        },
+        title: "Thừa Thiên - Huế",
+        key: "7",
+      },
       {
         image: {
           uri:
             "https://images.unsplash.com/photo-1579068225051-cb7f11a44cbd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80",
         },
-        title: "Nha Trang",
+        title: "Khánh Hòa",
         key: "8",
       },
       {
@@ -514,6 +514,8 @@ const styles = StyleSheet.create({
     width: "30%",
   },
   ImageOverlay: {
+    flexDirection: "row",
+    alignItems: "center",
     width: 150,
     height: 250,
     marginRight: 8,
@@ -539,9 +541,9 @@ const styles = StyleSheet.create({
     opacity: 0.3,
   },
   imageText: {
+    textAlign: "center",
     position: "absolute",
     color: "white",
-    marginTop: "5%",
     fontSize: 14,
     left: "20%",
     bottom: "5%",

@@ -20,6 +20,7 @@ import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { logoutRequest } from "@redux/actions/userAction";
 import { useTheme } from "react-native-paper";
+import { TouchableOpacity } from "react-native-gesture-handler";
 // import {  } from "react-native-gesture-handler";
 const AccountPageScreen = ({ userInfo, logoutRequest }) => {
   const { colors } = useTheme();
@@ -122,7 +123,7 @@ const AccountPageScreen = ({ userInfo, logoutRequest }) => {
               <Text>Thông tin</Text>
             </View>
             <View style={styles.segmentBody}>
-              <View style={styles.segmentContainer}>
+              {/* <View style={styles.segmentContainer}>
                 <MaterialCommunityIcons
                   name="account-question-outline"
                   style={styles.iconStyle}
@@ -130,16 +131,40 @@ const AccountPageScreen = ({ userInfo, logoutRequest }) => {
                   color="grey"
                 />
                 <Text>Trung tâm trợ giúp</Text>
-              </View>
+              </View> */}
               <View style={styles.segmentContainer}>
+                <MaterialCommunityIcons
+                  name="account-question-outline"
+                  style={styles.iconStyle}
+                  size={24}
+                  color="grey"
+                />
+
+                <Text>Về chúng tôi</Text>
+              </View>
+              <TouchableOpacity
+                onPress={async () => {
+                  try {
+                    const update = await Updates.checkForUpdateAsync();
+                    if (update.isAvailable) {
+                      await Updates.fetchUpdateAsync();
+                      // ... notify user of update ...
+                      Updates.reloadAsync();
+                    }
+                  } catch (e) {
+                    // handle or log error
+                  }
+                }}
+                style={styles.segmentContainer}
+              >
                 <SimpleLineIcons
                   name="info"
                   style={styles.iconStyle}
                   size={24}
                   color="grey"
                 />
-                <Text>Về chúng tôi</Text>
-              </View>
+                <Text>Cập nhật phiên bản mới</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
