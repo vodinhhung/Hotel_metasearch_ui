@@ -18,17 +18,35 @@ const HotelPlatform = ({ type, color = "black", url, price }) => {
   const renderIcon = () => {
     switch (type) {
       case "Luxstay":
-        return <View style={styles.iconStyle}><Image style={styles.luxStayStyle} source={images.luxstay} /> </View>;
+        return (
+          <View style={styles.iconStyle}>
+            <Image style={styles.luxStayStyle} source={images.luxstay} />
+          </View>
+        );
       case "Agoda":
-        return <View style={styles.iconStyle}><Image style={styles.agodaStyle} source={images.agoda} /></View>;
+        return (
+          <View style={styles.iconStyle}>
+            <Image style={styles.agodaStyle} source={images.agoda} />
+          </View>
+        );
       case "Booking":
-        return <View style={styles.iconStyle}><Image style={styles.bookingStyle} source={images.booking} /></View>;
+        return (
+          <View style={styles.iconStyle}>
+            <Image style={styles.bookingStyle} source={images.booking} />
+          </View>
+        );
       case "Traveloka":
         return (
-          <View style={styles.iconStyle}><Image style={styles.travelokaStyle} source={images.traveloka} /></View>
+          <View style={styles.iconStyle}>
+            <Image style={styles.travelokaStyle} source={images.traveloka} />
+          </View>
         );
       case "Expedia":
-        return <View style={styles.iconStyle}><Image style={styles.expediaStyle} source={images.expedia} /></View>;
+        return (
+          <View style={styles.iconStyle}>
+            <Image style={styles.expediaStyle} source={images.expedia} />
+          </View>
+        );
       default:
         return null;
     }
@@ -47,14 +65,18 @@ const HotelPlatform = ({ type, color = "black", url, price }) => {
         break;
       case "Traveloka":
         text = "Traveloka";
+        break;
       case "Expedia":
         text = "Expedia";
+        break;
       default:
         break;
     }
     return (
       <OpenURL title={type} url={url}>
-        <Text style={styles.titleStyle}>{text}</Text>
+        <View style={styles.titleStyle}>
+          <Text style={styles.title}>{text}</Text>
+        </View>
       </OpenURL>
     );
   };
@@ -96,9 +118,11 @@ const HotelPlatform = ({ type, color = "black", url, price }) => {
         break;
     }
     return (
-      <Text style={styles.priceStyle}>{`${
-        text != 0 ? convertCurrency(text) : "Updating"
-      }`}</Text>
+      <View style={styles.priceS}>
+        <Text style={styles.priceStyle}>{`${
+          text != 0 ? convertCurrency(text) : "Updating"
+        }`}</Text>
+      </View>
     );
   };
 
@@ -116,42 +140,38 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flex: 1,
-   
   },
 
+  title: {
+    padding: 5,
+    fontWeight: "800",
+    color: colors.success,
+  },
   titleStyle: {
-    borderRadius:50,
-    borderWidth:1,
+    width: 80,
+    borderRadius: 50,
+    borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
     color: colors.success,
-    padding: 5,
-    fontWeight: "800",
-    opacity:0.2,
-    marginRight:8,
-    marginLeft:8,
-   
+    opacity: 0.2,
   },
   priceStyle: {
-    marginRight:8,
-    marginLeft:8,
     color: colors.error,
-    justifyContent:"space-between",
     fontWeight: "800",
-    opacity:0.5,
-    fontSize: 16
-  
+    fontSize: 16,
   },
-  iconStyle:{
-    justifyContent:"center",
-    marginRight:8,
-    marginLeft:8,
-  }
-  ,
+  priceS: {
+    opacity: 0.5,
+    marginRight: 8,
+    marginLeft: 8,
+    justifyContent: "center",
+  },
+
   agodaStyle: {
     ...getScaleSizeOfImage(images.agoda, 60),
     alignItems: "center",
-    justifyContent: "center", 
+    justifyContent: "center",
   },
   bookingStyle: {
     ...getScaleSizeOfImage(images.booking, 90),
