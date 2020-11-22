@@ -39,7 +39,7 @@ const SortMenu = ({ setSearchParams, sort }) => {
               closeMenu();
               setSearchParams({ sort: null });
             }}
-            title={<Text>Recommended</Text>}
+            title={<Text>Default</Text>}
           ></Menu.Item>
           <Divider />
           <Menu.Item

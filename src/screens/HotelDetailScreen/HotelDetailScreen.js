@@ -125,12 +125,11 @@ const HotelDetailScreen = ({
             {/* google map in here */}
             {hotelDetail.position ? (
               <MapView
-                coordinate={{
-                  // ...hotel,
+                region={{
                   latitude: hotelDetail?.position?.lat,
                   longitude: hotelDetail?.position?.long,
-                  latitudeDelta: 600,
-                  longitudeDelta: 600,
+                  latitudeDelta: 0.015,
+                  longitudeDelta: 0.021,
                 }}
                 provider="google"
                 style={styles.mapStyle}
@@ -141,8 +140,8 @@ const HotelDetailScreen = ({
                     // ...hotel,
                     latitude: hotelDetail?.position?.lat,
                     longitude: hotelDetail?.position?.long,
-                    latitudeDelta: 600,
-                    longitudeDelta: 600,
+                    latitudeDelta: 0.015,
+                    longitudeDelta: 0.021,
                   }}
                 />
               </MapView>
@@ -160,28 +159,34 @@ const HotelDetailScreen = ({
             {hotelDetail?.review?.slice(0, 5)?.map((item, i) => {
               return (
                 <ListItem key={i} bottomDivider>
-                  <Avatar
-                    rounded
-                    source={{
-                      uri:
-                        "https://lh3.googleusercontent.com/proxy/HkkxgN0VuqcuUX9KWPBnzkTgg7fIAdt-tKP7PtYlGZqGdfnrpo86bTH4pk2qUKpazMZ3xEhgAePQeSoJmkfWkGzc-676PX0igznzkQ_zCQ",
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
                     }}
-                  />
-                  <ListItem.Content>
-                    <ListItem.Title
-                      style={{
-                        // fontWeight: "bold",
-                        fontFamily: "OpenSans-Regular",
-                      }}
-                    >
-                      {item.title != null ? item.title : "Guest"}
-                    </ListItem.Title>
-                    <View style={styles.subtitleView}>
-                      <Text style={styles.ratingText}>
-                        {item.text != null ? item.text : "No comment"}
-                      </Text>
+                  >
+                    <View style={{ paddingRight: 10 }}>
+                      <Avatar
+                        rounded
+                        source={require("@assets/icons/user.png")}
+                      />
                     </View>
-                  </ListItem.Content>
+                    <ListItem.Content>
+                      <ListItem.Title
+                        style={{
+                          // fontWeight: "bold",
+                          fontFamily: "OpenSans-Regular",
+                        }}
+                      >
+                        {item.title != null ? item.title : "Guest"}
+                      </ListItem.Title>
+                      <View style={styles.subtitleView}>
+                        <Text style={styles.ratingText}>
+                          {item.text != null ? item.text : "No comment"}
+                        </Text>
+                      </View>
+                    </ListItem.Content>
+                  </View>
                 </ListItem>
               );
             })}
@@ -189,7 +194,7 @@ const HotelDetailScreen = ({
 
           <View style={styles.footer}>
             <View style={styles.headerBorder}>
-              <Text style={styles.headerStyle}>Related Post</Text>
+              <Text style={styles.headerStyle}>Related Hotel</Text>
             </View>
             <FlatList
               showsHorizontalScrollIndicator={false}
@@ -199,7 +204,7 @@ const HotelDetailScreen = ({
               renderItem={({ item }) => {
                 return (
                   <View
-                    style={{ paddingVertical: 20, paddingLeft: 16, width: 300 }}
+                    style={{ paddingVertical: 20, paddingLeft: 16, width: 350 }}
                   >
                     <TouchableOpacity>
                       <View style={styles.cardWrapper}>
@@ -541,11 +546,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   mapStyle: {
-    width: "100%",
     minHeight: 200,
-    height: "100%",
-    overflow: "hidden",
-    borderRadius: 8,
+    borderRadius: 2,
   },
   headerLeft: {
     justifyContent: "center",

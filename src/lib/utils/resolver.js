@@ -9,7 +9,7 @@ export const renderSortName = (type) => {
     case null:
     case undefined:
     case "":
-      return "Recommended";
+      return "Default";
     case "asc":
       return "Increment";
     case "desc":
@@ -23,7 +23,7 @@ export const renderTypeName = (type) => {
     case null:
     case undefined:
     case "":
-      return "Recommended";
+      return "Hotel";
     case "homestay":
       return "Homestay";
     case "hostel":

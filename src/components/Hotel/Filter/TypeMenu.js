@@ -39,7 +39,7 @@ const TypeMenu = ({ setSearchParams, type }) => {
               closeMenu();
               setSearchParams({ type: null });
             }}
-            title={<Text>Recommended</Text>}
+            title={<Text>Hotel</Text>}
           ></Menu.Item>
           <Divider />
           <Menu.Item
@@ -48,13 +48,6 @@ const TypeMenu = ({ setSearchParams, type }) => {
               setSearchParams({ type: "homestay" });
             }}
             title={<Text>Homestay</Text>}
-          />
-          <Menu.Item
-            onPress={() => {
-              closeMenu();
-              setSearchParams({ type: "hotel" });
-            }}
-            title={<Text>Hotel</Text>}
           />
           <Menu.Item
             onPress={() => {

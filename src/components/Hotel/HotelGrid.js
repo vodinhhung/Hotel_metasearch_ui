@@ -79,13 +79,14 @@ const HotelGrid = ({ hotel }) => {
                       alignItems: "flex-start",
                       justifyContent: "flex-start",
                     }}
+                    pointerEvents="none"
                   >
                     <AirbnbRating
                       showRating={false}
-                      readonly={true}
                       count={5}
                       defaultRating={hotel.star}
                       size={15}
+                      readonly={true}
                     />
                   </View>
                   <View style={styles.priceContent}>
