@@ -59,14 +59,6 @@ const MainHomePage = ({
       {
         image: {
           uri:
-            "https://images.unsplash.com/photo-1504457047772-27faf1c00561?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1117&q=80",
-        },
-        title: "Ninh Bình",
-        key: "2",
-      },
-      {
-        image: {
-          uri:
             "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80",
         },
         title: "Đà Nẵng",
@@ -80,6 +72,15 @@ const MainHomePage = ({
         title: "Hồ Chí Minh",
         key: "4",
       },
+      {
+        image: {
+          uri:
+            "https://images.unsplash.com/photo-1504457047772-27faf1c00561?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1117&q=80",
+        },
+        title: "Ninh Bình",
+        key: "2",
+      },
+
       {
         image: {
           uri:
@@ -119,14 +120,6 @@ const MainHomePage = ({
         },
         title: "Quảng Ninh",
         key: "9",
-      },
-      {
-        image: {
-          uri:
-            "https://images.unsplash.com/photo-1562852223-4876db657248?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1055&q=80",
-        },
-        title: "Long An",
-        key: "10",
       },
     ];
 
@@ -222,10 +215,10 @@ const MainHomePage = ({
                         position: "absolute",
                         bottom: 0,
                         padding: 16,
-                        width: "100%"
+                        width: "100%",
                       }}
                     >
-                      <View style={{flex: 1, flexDirection: "row" }}>
+                      <View style={{ flex: 1, flexDirection: "row" }}>
                         <Feather
                           name="map-pin"
                           color="white"

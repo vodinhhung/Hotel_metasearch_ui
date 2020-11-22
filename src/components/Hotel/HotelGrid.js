@@ -22,6 +22,7 @@ import Rating from "../Common/TalkBubble";
 import { convertCurrency } from "@lib/utils/hotel";
 import { Title } from "react-native-paper";
 import Hearting from "@components/Common/Hearting";
+import HotelDomain from "./HotelDomain";
 
 const HotelGrid = ({ hotel }) => {
   const navigation = useNavigation();
@@ -99,9 +100,9 @@ const HotelGrid = ({ hotel }) => {
                       <Text style={styles.priceStyle}>
                         {convertCurrency(hotel.price.value)}
                       </Text>
-                      <Text style={{ textAlign: "right", fontWeight: "800" }}>
-                        {hotel.price.domain}
-                      </Text>
+                      <View>
+                        <HotelDomain type={hotel.price.domain} />
+                      </View>
                     </View>
                   </View>
                 </View>
