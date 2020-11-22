@@ -18,6 +18,9 @@
     "android": {
       "package": "host.cff.exponent",
       "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBmGbX-9pUz7vPjWG8UE5XUxVU24O3VeN4"
+        },
         "googleSignIn": {
           "apiKey": "AIzaSyBmGbX-9pUz7vPjWG8UE5XUxVU24O3VeN4",
           "certificateHash": "07BD3C3E0E2E07E7B7429CBD5BF0301CA6BA7A92"
