@@ -16,6 +16,7 @@ import {
   Chip,
   Title,
   Button,
+  Menu,
   Card,
 } from "react-native-paper";
 import {
@@ -37,7 +38,8 @@ import StarHotel from "@components/Hotel/Filter/StarHotel";
 import Facilities from "@components/Hotel/Filter/Facilities";
 import FilterSelected from "@components/Hotel/Filter/FilterSelected";
 import moment from "moment";
-
+import SortMenu from "@components/Hotel/Filter/SortMenu";
+import TypeMenu from "@components/Hotel/Filter/TypeMenu";
 
 const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
   const [visible, setVisible] = useState(false);
@@ -86,6 +88,8 @@ const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
                 dateTo: moment().add(1, "days"),
                 facility: null,
                 page: 1,
+                type: null,
+                sort: null,
               });
             }}
           >
@@ -106,6 +110,23 @@ const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
           </View>
         </View>
 
+        <View style={{ paddingVertical: 5, flexDirection: "row" }}>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 14 }}>SORT BY</Text>
+            <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
+              {/* <DatePicker setVisible={setVisible} /> */}
+              <SortMenu />
+            </View>
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 14 }}>TYPE</Text>
+            <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
+              {/* <DatePicker setVisible={setVisible} /> */}
+              <TypeMenu />
+            </View>
+          </View>
+        </View>
+
         <View style={{ paddingVertical: 5 }}>
           <Text style={{ fontSize: 14 }}>PRICE /DAY</Text>
           <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
@@ -121,9 +142,7 @@ const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
         </View>
 
         <View style={{ paddingVertical: 5 }}>
-          <Paragraph style={{ fontSize: 14, fontWeight: "bold" }}>
-            FACILITIES
-          </Paragraph>
+          <Text style={{ fontSize: 14 }}>FACILITIES</Text>
         </View>
         <Facilities />
       </ScrollView>

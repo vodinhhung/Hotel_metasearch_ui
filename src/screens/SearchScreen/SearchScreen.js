@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Constants from "expo-constants";
 import { StyleSheet, View, TextInput, Text } from "react-native";
 import SearchHeader from "@components/Search/SearchHeader/SearchHeader";
+import SearchCondition from "@components/Search/SearchHeader/SearchCondition";
 import SearchBody from "@components/Search/SearchBody/SearchBody";
 import {
   TouchableHighlight,
@@ -18,6 +19,7 @@ import {
   getSearchHotelByFilter,
   setSearchParams,
 } from "@redux/actions/hotelAction";
+
 import { connect } from "react-redux";
 import moment from "moment";
 
@@ -36,6 +38,8 @@ const SearchPage = ({
       dateTo: moment().add(1, "days"),
       facility: null,
       page: 1,
+      type: null,
+      sort: null
     });
     getSearchHotelByFilter();
     // setSearchParams;
@@ -80,6 +84,9 @@ const SearchPage = ({
           </TouchableOpacity>
         </View>
       </SafeAreaView>
+      <View style={styles.searchCondition}>
+          <SearchCondition />
+        </View>
       <View style={styles.searchBody}>
         <SearchBody route={route} />
       </View>
@@ -124,6 +131,10 @@ const styles = StyleSheet.create({
   },
   searchHeader: {
     height: 80,
+  },
+  searchCondition: {
+    bottom: 10,
+    height: 45,
   },
   searchBody: {
     flex: 1,

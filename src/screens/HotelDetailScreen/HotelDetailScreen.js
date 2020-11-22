@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
-  Image,
   Dimensions,
   Text,
   Platform,
@@ -22,7 +21,6 @@ import { useNavigation } from "@react-navigation/native";
 import HotelService from "@components/Hotel/HotelService";
 import HTMLView from "react-native-htmlview";
 import { useTheme } from "react-native-paper";
-import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
 import HotelPlatform from "@components/Hotel/HotelPlatform";
 import HotelGrid from "@components/Hotel/HotelGrid";
 import { getHotelDetailAction } from "@redux/actions/hotelAction";
@@ -69,9 +67,7 @@ const HotelDetailScreen = ({
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
-              <View
-                style={styles.headerBorder}
-              >
+              <View style={styles.headerBorder}>
                 <Text style={styles.headerStyle}>Prices</Text>
               </View>
             </View>
@@ -111,7 +107,7 @@ const HotelDetailScreen = ({
               }
               stylesheet={stylesDes}
             />
-            {console.log(hotelDetail.description)}
+            {/* {console.log(hotelDetail.description)} */}
           </View>
 
           <View
@@ -193,7 +189,7 @@ const HotelDetailScreen = ({
 
           <View style={styles.footer}>
             <View style={styles.headerBorder}>
-            <Text style={styles.headerStyle}>Related Post</Text>
+              <Text style={styles.headerStyle}>Related Post</Text>
             </View>
             <FlatList
               showsHorizontalScrollIndicator={false}
@@ -249,7 +245,7 @@ const HotelDetailScreen = ({
   });
   const titleScale = scrollY.interpolate({
     inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-    outputRange: [1, 0.6, 0], 
+    outputRange: [1, 0.6, 0],
     extrapolate: "clamp",
   });
   const titleTranslate = scrollY.interpolate({
@@ -276,12 +272,7 @@ const HotelDetailScreen = ({
                 }}
                 style={{ opacity: 1 }}
               >
-                <MaterialIcons
-                  name="arrow-back"
-                  size={25}
-                  
-                  color="#007BFF"
-                />
+                <MaterialIcons name="arrow-back" size={25} color="#007BFF" />
               </TouchableOpacity>
             </View>
           </View>
@@ -336,16 +327,18 @@ const HotelDetailScreen = ({
             { transform: [{ translateY: headerTranslate }] },
           ]}
         >
-          <Animated.Image
-            style={[
-              styles.backgroundImage,
-              {
-                opacity: imageOpacity,
-                transform: [{ translateY: imageTranslate }],
-              },
-            ]}
-            source={{ uri: hotelDetail?.assets[0] }}
-          />
+          {hotelDetail?.assets[0] && (
+            <Animated.Image
+              style={[
+                styles.backgroundImage,
+                {
+                  opacity: imageOpacity,
+                  transform: [{ translateY: imageTranslate }],
+                },
+              ]}
+              source={{ uri: hotelDetail?.assets[0] }}
+            />
+          )}
         </Animated.View>
 
         <Animated.View
@@ -518,7 +511,7 @@ const styles = StyleSheet.create({
     height: 80,
     flexDirection: "row",
     // backgroundColor: colors.divider,
-    opacity:0.6
+    opacity: 0.6,
   },
   wrapper: {
     paddingHorizontal: 20,
@@ -530,25 +523,22 @@ const styles = StyleSheet.create({
     width: 65,
     height: 65,
     padding: 0,
-    margin:1
+    margin: 1,
   },
   pricesWrapper: {
     width: "70%",
     height: 90,
     padding: 2,
     margin: 29,
-    
   },
 
   servicesWrapper: {
-
     width: "100%",
     // flexGrow: 5,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    
   },
   mapStyle: {
     width: "100%",
