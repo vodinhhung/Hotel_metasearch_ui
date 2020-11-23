@@ -85,30 +85,6 @@ const HotelDetailScreen = ({
             })}
           </View>
 
-          <View style={styles.headerBorder}>
-            <Text style={styles.headerStyle}>About</Text>
-          </View>
-          <View
-            style={{
-              margin: 8,
-              fontFamily: "OpenSans-Regular",
-              opacity: 0.6,
-            }}
-          >
-            <HTMLView
-              value={
-                hotelDetail.description != null
-                  ? hotelDetail.description
-                      .split("\\n")
-                      .join("\\t")
-                      .split("\\t")
-                      .join("")
-                  : "No Description"
-              }
-              stylesheet={stylesDes}
-            />
-            {/* {console.log(hotelDetail.description)} */}
-          </View>
 
           <View
             style={{
@@ -147,6 +123,33 @@ const HotelDetailScreen = ({
               </MapView>
             ) : null}
           </View>
+
+          
+          <View style={styles.headerBorder}>
+            <Text style={styles.headerStyle}>About</Text>
+          </View>
+          <View
+            style={{
+              margin: 8,
+              fontFamily: "OpenSans-Regular",
+              opacity: 0.6,
+            }}
+          >
+            <HTMLView
+              value={
+                hotelDetail.description != null
+                  ? hotelDetail.description
+                      .split("\\n")
+                      .join("\\t")
+                      .split("\\t")
+                      .join("")
+                  : "No Description"
+              }
+              stylesheet={stylesDes}
+            />
+            {/* {console.log(hotelDetail.description)} */}
+          </View>
+
           <View style={{ flexDirection: "column", marginTop: 22 }}>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
