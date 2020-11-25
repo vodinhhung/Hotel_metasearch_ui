@@ -27,6 +27,7 @@ import { getHotelDetailAction } from "@redux/actions/hotelAction";
 import { setHotelLike } from "@redux/actions/userAction";
 import { convertCurrency, statusHotelLike } from "@lib/utils/hotel";
 import StatusBar from "@components/Common/StatusBar";
+import Hearting from "@components/Common/Hearting";
 
 const HEADER_MAX_HEIGHT = Dimensions.get("window").height;
 const HEADER_MIN_HEIGHT = Platform.OS === "ios" ? 80 : 93;
@@ -85,14 +86,13 @@ const HotelDetailScreen = ({
             })}
           </View>
 
-
           <View
             style={{
               fontFamily: "OpenSans-Regular",
               flex: 1,
               flexDirection: "column",
               justifyContent: "flex-end",
-              marginTop: 50,
+              marginBottom: 5,
             }}
           >
             <View style={styles.headerBorder}>
@@ -124,7 +124,6 @@ const HotelDetailScreen = ({
             ) : null}
           </View>
 
-          
           <View style={styles.headerBorder}>
             <Text style={styles.headerStyle}>About</Text>
           </View>
@@ -243,7 +242,7 @@ const HotelDetailScreen = ({
   });
   const imageOpacity = scrollY.interpolate({
     inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-    outputRange: [0.6, 0.4, 0],
+    outputRange: [0.95, 0.4, 0],
     extrapolate: "clamp",
   });
   const imageTranslate = scrollY.interpolate({
@@ -278,20 +277,23 @@ const HotelDetailScreen = ({
                 onPress={() => {
                   navigation.goBack();
                 }}
-                style={{ opacity: 1 }}
+                style={{
+                  opacity: 1,
+                  borderWidth: 1,
+                  borderColor: "#EEE",
+                  borderRadius: "50%",
+                  padding: 2,
+                  backgroundColor: "#DDD"
+                }}
               >
                 <MaterialIcons name="arrow-back" size={25} color="#007BFF" />
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.headerTitle}>
-            {/* <Text style={ { alignSelf: "center" }}>
-            Text
-          </Text> */}
-            {/* <TripIcon color="black" style={{ alignSelf: "center" }} /> */}
-          </View>
+          <View style={styles.headerTitle}></View>
           <View style={styles.headerRight}>
-            <AntDesign
+            <Hearting faded={true} hotel={hotelDetail} />
+            {/* <AntDesign
               style={[{ paddingRight: 10 }, styles.IconColor]}
               name={
                 statusHotelLike(hotelDetail, hotelLikeList) ? "heart" : "hearto"
@@ -301,7 +303,7 @@ const HotelDetailScreen = ({
               onPress={() => {
                 hotelLikeAction();
               }}
-            />
+            /> */}
           </View>
         </SafeAreaView>
         <StatusBar
@@ -395,9 +397,6 @@ const HotelDetailScreen = ({
               </Text>
             </Animated.View>
             <Animated.View style={{ flexDirection: "column" }}>
-              {/* <View>
-                <Text>{hotelDetail.star}</Text>
-              </View> */}
               <Animated.View
                 style={{
                   flexDirection: "row",
@@ -580,8 +579,8 @@ const styles = StyleSheet.create({
     fontFamily: "Baloo-Regular",
   },
   headerBorder: {
-    backgroundColor: colors.divider,
-    opacity: 0.8,
+    backgroundColor: "#EEE",
+    // opacity: 0.5,
     marginBottom: 8,
     width: "100%",
     padding: 4,

@@ -11,8 +11,7 @@ import { statusHotelLike } from "@lib/utils/hotel";
 import { connect } from "react-redux";
 import { setHotelLike } from "@redux/actions/userAction";
 import { ActivityIndicator } from "react-native-paper";
-
-const Hearting = ({ hotel, hotelLikeList, setHotelLike, isPending }) => {
+const Hearting = ({ hotel, hotelLikeList, setHotelLike, isPending, faded }) => {
   LayoutAnimation.easeInEaseOut();
   const hotelLikeAction = () => {
     setHotelLike(hotel.id);
@@ -41,7 +40,7 @@ const Hearting = ({ hotel, hotelLikeList, setHotelLike, isPending }) => {
               setPending(!isPending);
               hotelLikeAction();
             }}
-            size={24}
+            size={20}
             color="#DC3645"
           />
         </View>
@@ -57,7 +56,7 @@ const Hearting = ({ hotel, hotelLikeList, setHotelLike, isPending }) => {
             hotelLikeAction();
           }}
           name="hearto"
-          size={24}
+          size={20}
           color="white"
         />
       </View>
@@ -73,18 +72,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    width: 40,
-    height: 40,
+    width: 34,
+    height: 34,
     backgroundColor: "#6665",
-    borderRadius: 20,
+    borderRadius: 17,
   },
   talkBubbleSquareWhite: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     backgroundColor: "#fff8",
     borderRadius: 20,
     borderColor: "#6665",

@@ -20,16 +20,16 @@ import { useNavigation } from "@react-navigation/native";
 import HotelService from "./HotelService";
 import Rating from "../Common/TalkBubble";
 import { convertCurrency } from "@lib/utils/hotel";
-import { Title } from "react-native-paper";
 import Hearting from "@components/Common/Hearting";
 import HotelDomain from "./HotelDomain";
+import ReviewScore from "@components/Common/ReviewScore";
 
 const HotelGrid = ({ hotel }) => {
   const navigation = useNavigation();
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [item, setItem] = useState({
     image: {
-      uri: hotel?.logo,
+      uri: hotel?.logo ?? "https://tripleplay.tv/wp-content/uploads/2020/09/Corporate-Icon.png",
     },
   });
   return (
@@ -76,19 +76,32 @@ const HotelGrid = ({ hotel }) => {
                   <View
                     style={{
                       flex: 1,
-                      flexDirection: "row",
+                      flexDirection: "column",
                       alignItems: "flex-start",
-                      justifyContent: "flex-start",
+                      // justifyContent: "flex-between",
                     }}
                     pointerEvents="none"
                   >
-                    <AirbnbRating
-                      showRating={false}
-                      count={5}
-                      defaultRating={hotel.star}
-                      size={15}
-                      readonly={true}
-                    />
+                    <View>
+                      <AirbnbRating
+                        showRating={false}
+                        count={5}
+                        defaultRating={hotel.star}
+                        size={15}
+                        readonly={true}
+                      />
+                    </View>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center", paddingTop: 10 }}
+                    >
+                      <ReviewScore rating={hotel.review_score} />
+                      {hotel.num_review && hotel.num_review !== -1 && (
+                        <Text numberOfLines={1} style={styles.secondaryColor}>
+                          {" "}
+                          {hotel.num_review} reviews
+                        </Text>
+                      )}
+                    </View>
                   </View>
                   <View style={styles.priceContent}>
                     <View
