@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "PI_Travel",
-    "slug": "PI_Travel",
+    "name": "CFF Travel",
+    "slug": "CFF_Travel",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/icon.png",
