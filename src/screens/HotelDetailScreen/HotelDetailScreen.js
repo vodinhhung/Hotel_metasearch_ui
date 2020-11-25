@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   Animated,
 } from "react-native";
-import { Avatar, colors, ListItem } from "react-native-elements";
+import { Avatar, ListItem } from "react-native-elements";
 import { connect } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
@@ -292,8 +292,7 @@ const HotelDetailScreen = ({
           </View>
           <View style={styles.headerTitle}></View>
           <View style={styles.headerRight}>
-            <Hearting faded={true} hotel={hotelDetail} />
-            {/* <AntDesign
+            <AntDesign
               style={[{ paddingRight: 10 }, styles.IconColor]}
               name={
                 statusHotelLike(hotelDetail, hotelLikeList) ? "heart" : "hearto"
@@ -303,7 +302,7 @@ const HotelDetailScreen = ({
               onPress={() => {
                 hotelLikeAction();
               }}
-            /> */}
+            />
           </View>
         </SafeAreaView>
         <StatusBar

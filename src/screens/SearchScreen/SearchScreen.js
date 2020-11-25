@@ -39,7 +39,7 @@ const SearchPage = ({
       facility: null,
       page: 1,
       type: null,
-      sort: null
+      sort: null,
     });
     getSearchHotelByFilter();
     // setSearchParams;
@@ -85,8 +85,8 @@ const SearchPage = ({
         </View>
       </SafeAreaView>
       <View style={styles.searchCondition}>
-          <SearchCondition />
-        </View>
+        <SearchCondition />
+      </View>
       <View style={styles.searchBody}>
         <SearchBody route={route} />
       </View>
