@@ -14,10 +14,8 @@ import {
   TouchableHighlight,
   Text,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import HotelService from "./HotelService";
 import Rating from "../Common/TalkBubble";
 import { convertCurrency } from "@lib/utils/hotel";
 import Hearting from "@components/Common/Hearting";
