@@ -283,7 +283,7 @@ const HotelDetailScreen = ({
                   borderColor: "#EEE",
                   borderRadius: "50%",
                   padding: 2,
-                  backgroundColor: "#DDD"
+                  backgroundColor: "#DDD",
                 }}
               >
                 <MaterialIcons name="arrow-back" size={25} color="#007BFF" />
@@ -336,18 +336,20 @@ const HotelDetailScreen = ({
             { transform: [{ translateY: headerTranslate }] },
           ]}
         >
-          {hotelDetail?.assets[0] && (
-            <Animated.Image
-              style={[
-                styles.backgroundImage,
-                {
-                  opacity: imageOpacity,
-                  transform: [{ translateY: imageTranslate }],
-                },
-              ]}
-              source={{ uri: hotelDetail?.assets[0] }}
-            />
-          )}
+          <Animated.Image
+            style={[
+              styles.backgroundImage,
+              {
+                opacity: imageOpacity,
+                transform: [{ translateY: imageTranslate }],
+              },
+            ]}
+            source={{
+              uri:
+                hotelDetail?.assets[0] ??
+                "https://tripleplay.tv/wp-content/uploads/2020/09/Corporate-Icon.png",
+            }}
+          />
         </Animated.View>
 
         <Animated.View
