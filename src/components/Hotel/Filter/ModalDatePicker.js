@@ -27,13 +27,7 @@ const ModalDatePicker = ({
           onDismiss={hideModal}
           contentContainerStyle={containerStyle}
         >
-          <View style={{ minHeight: 400 }}>
-            <DatePicker2
-              dateFrom={dateFrom}
-              dateTo={dateTo}
-              setDate={setDate}
-            />
-          </View>
+          <DatePicker2 dateFrom={dateFrom} dateTo={dateTo} setDate={setDate} />
         </Modal>
       </Portal>
     </Provider>

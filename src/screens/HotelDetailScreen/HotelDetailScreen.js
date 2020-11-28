@@ -291,17 +291,30 @@ const HotelDetailScreen = ({
           </View>
           <View style={styles.headerTitle}></View>
           <View style={styles.headerRight}>
-            <AntDesign
-              style={[{ paddingRight: 10 }, styles.IconColor]}
-              name={
-                statusHotelLike(hotelDetail, hotelLikeList) ? "heart" : "hearto"
-              }
-              size={25}
-              color="red"
+            <TouchableOpacity
+              underlayColor="#DDDDDD"
               onPress={() => {
                 hotelLikeAction();
               }}
-            />
+              style={{
+                opacity: 1,
+                borderWidth: 1,
+                borderColor: "#EEE",
+                borderRadius: 18,
+                padding: 4,
+                backgroundColor: "#DDD",
+              }}
+            >
+              <AntDesign
+                name={
+                  statusHotelLike(hotelDetail, hotelLikeList)
+                    ? "heart"
+                    : "hearto"
+                }
+                size={24}
+                color="red"
+              />
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
         <StatusBar

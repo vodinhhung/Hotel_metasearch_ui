@@ -58,7 +58,7 @@ export default class App extends Component {
         />
 
         <View
-          style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end" }}
+          style={{flex:1, flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-end" }}
         >
           <View>
             <Button
@@ -84,8 +84,8 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
+    minHeight: 400,
+    backgroundColor: "#FFF",
     padding: 20,
   },
 });

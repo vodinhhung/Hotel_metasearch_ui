@@ -114,14 +114,12 @@ const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 14 }}>SORT BY</Text>
             <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
-              {/* <DatePicker setVisible={setVisible} /> */}
               <SortMenu />
             </View>
           </View>
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 14 }}>TYPE</Text>
             <View style={{ flex: 1, flexDirection: "column", padding: 10 }}>
-              {/* <DatePicker setVisible={setVisible} /> */}
               <TypeMenu />
             </View>
           </View>
@@ -171,7 +169,6 @@ const SearchFilter = ({ setSearchParams, getSearchHotelByFilter }) => {
           </View>
         </Card.Content>
       </Card>
-
       <ModalDatePicker visible={visible} setVisible={setVisible} />
     </View>
   );
