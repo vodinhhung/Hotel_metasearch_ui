@@ -27,7 +27,6 @@ import { getHotelDetailAction } from "@redux/actions/hotelAction";
 import { setHotelLike } from "@redux/actions/userAction";
 import { convertCurrency, statusHotelLike } from "@lib/utils/hotel";
 import StatusBar from "@components/Common/StatusBar";
-import Hearting from "@components/Common/Hearting";
 
 const HEADER_MAX_HEIGHT = Dimensions.get("window").height;
 const HEADER_MIN_HEIGHT = Platform.OS === "ios" ? 80 : 93;
@@ -281,7 +280,7 @@ const HotelDetailScreen = ({
                   opacity: 1,
                   borderWidth: 1,
                   borderColor: "#EEE",
-                  borderRadius: "50%",
+                  borderRadius: 15,
                   padding: 2,
                   backgroundColor: "#DDD",
                 }}
