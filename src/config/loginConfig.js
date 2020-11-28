@@ -1,10 +1,10 @@
 export const googleLoginConfig = {
-  iosClientId: `942559879619-8ok9ub6r8fldfh8vahtndrm270gia59q.apps.googleusercontent.com`,
-  androidClientId: `942559879619-ptdpaujllfc8aqcns2p19l5s8rkge9cq.apps.googleusercontent.com`,
-  iosStandaloneAppClientId: `942559879619-8ok9ub6r8fldfh8vahtndrm270gia59q.apps.googleusercontent.com`,
-  androidStandaloneAppClientId: `942559879619-ptdpaujllfc8aqcns2p19l5s8rkge9cq.apps.googleusercontent.com`,
+  iosClientId: `942559879619-hu6rhku5tcmojgrqeenabk8j77ogrbae.apps.googleusercontent.com`,
+  androidClientId: `942559879619-qnno9obia6s4j9aqs4k1404h45dea3s1.apps.googleusercontent.com`,
+  iosStandaloneAppClientId: `942559879619-hu6rhku5tcmojgrqeenabk8j77ogrbae.apps.googleusercontent.com`,
+  androidStandaloneAppClientId: `942559879619-qnno9obia6s4j9aqs4k1404h45dea3s1.apps.googleusercontent.com`,
   scopes: ['profile', 'email'],
-  redirectUrl: "host.cff.exponent:/oauth2redirect/google"
+  redirectUrl: "host.cff.travel:/oauth2redirect/google"
 };
 export const facebookLoginConfig = {
   appId: "414760369539393"

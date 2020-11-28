@@ -16,24 +16,24 @@
     "assetBundlePatterns": ["**/*"],
     "platforms": ["ios", "android", "web"],
     "android": {
-      "package": "host.cff.exponent",
+      "package": "host.cff.travel",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBmGbX-9pUz7vPjWG8UE5XUxVU24O3VeN4"
         },
         "googleSignIn": {
           "apiKey": "AIzaSyBmGbX-9pUz7vPjWG8UE5XUxVU24O3VeN4",
-          "certificateHash": "07BD3C3E0E2E07E7B7429CBD5BF0301CA6BA7A92"
+          "certificateHash": "0DD2D7F0BEFA4D7496C9254383190106D3EC369F"
         }
       }
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "host.cff.exponent",
+      "bundleIdentifier": "host.cff.travel",
       "config": {
         "googleMapsApiKey": "AIzaSyBX8pMvvse8N23iJwL6BgARnxDTebZQmFA",
         "googleSignIn": {
-          "reservedClientId": "942559879619-8ok9ub6r8fldfh8vahtndrm270gia59q.apps.googleusercontent.com"
+          "reservedClientId": "942559879619-hu6rhku5tcmojgrqeenabk8j77ogrbae.apps.googleusercontent.com"
         }
       }
     }
